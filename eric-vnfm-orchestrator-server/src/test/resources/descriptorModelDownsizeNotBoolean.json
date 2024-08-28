@@ -1,0 +1,698 @@
+{
+    "node_types": {
+      "Ericsson.SGSN-MME.1_20_CXS101289_R81E08.cxp9025898_4r81e08": {
+        "interfaces": {
+          "Vnflcm": {
+            "type": "tosca.interfaces.nfv.Vnflcm",
+            "instantiate": {
+              "inputs": {
+                "additional_parameters": {
+                  "type": "ericsson.datatypes.nfv.InstantiateVnfOperationAdditionalParameters",
+                  "required": false
+                }
+              }
+            },
+            "change_package": {
+              "inputs": {
+                "additional_parameters": {
+                  "type": "ericsson.datatypes.nfv.ChangePackageVnfOperationAdditionalParameters",
+                  "required": false
+                }
+              }
+            }
+          }
+        },
+        "derived_from": "tosca.nodes.nfv.VNF",
+        "properties": {
+          "descriptor_id": {
+            "default": "d3def1ce-4cf4-477c-aab3-21cb04e6a379",
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "d3def1ce-4cf4-477c-aab3-21cb04e6a379"
+                ]
+              }
+            ]
+          },
+          "provider": {
+            "default": "Ericsson",
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "Ericsson"
+                ]
+              }
+            ]
+          },
+          "descriptor_version": {
+            "default": "cxp9025898_4r81e08",
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "cxp9025898_4r81e08"
+                ]
+              }
+            ]
+          },
+          "vnfm_info": {
+            "default": [
+              "3881:E-VNFM"
+            ],
+            "entry_schema": {
+              "type": "string",
+              "constraints": [
+                {
+                  "valid_values": [
+                    "3881:E-VNFM"
+                  ]
+                }
+              ]
+            },
+            "type": "list"
+          },
+          "flavour_id": {
+            "default": "default",
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "default"
+                ]
+              }
+            ]
+          },
+          "software_version": {
+            "default": "1.20 (CXS101289_R81E08)",
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "1.20 (CXS101289_R81E08)"
+                ]
+              }
+            ]
+          },
+          "flavour_description": {
+            "default": "",
+            "type": "string"
+          },
+          "product_name": {
+            "default": "SGSN-MME",
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "SGSN-MME"
+                ]
+              }
+            ]
+          }
+        },
+        "artifacts": {
+          "helm_package": {
+            "file": "Definitions/OtherTemplates/sampledescriptor-0.0.1-223.tgz",
+            "description": "Helm package associated with this descriptor",
+            "type": "tosca.artifacts.File"
+          },
+          "software_images": {
+            "file": "Files/images/docker.tar",
+            "description": "Location of the software images being used in this package",
+            "type": "tosca.artifacts.nfv.SwImage"
+          }
+        }
+      }
+    },
+    "imports": [
+      "etsi_nfv_sol001_vnfd_2_5_1_types.yaml"
+    ],
+    "tosca_definitions_version": "tosca_simple_yaml_1_2",
+    "description": "VNF Descriptor for Ericsson SGSN-MME",
+    "data_types": {
+      "ericsson.datatypes.nfv.InstantiateVnfOperationAdditionalParameters": {
+        "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters",
+        "properties": {
+          "serviceAccountName": {
+            "metadata": {
+              "chart_param": "server.serviceAccountName"
+            },
+            "description": "sample description for clusterIp",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.networkElementPassword": {
+            "description": "Password to access the the VNF.",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.snmpVersion": {
+            "description": "SNMP Version. Not applicable for AXE based nodes. In ENM for SNMP V3, it is mandatory to provide as \"SNMP_V3\".",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.networkElementVersion": {
+            "description": "The Version of the Network Element. Becomes mandatory depending on the \"networkElementType\".",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.snmpPort": {
+            "description": "SNMP port. Not applicable for AXE based nodes. If port is not provided, then the default port 161 will be set.",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.ftpPortNo": {
+            "description": "FTP Port Number. If not provided, default should be used.",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.networkElementType": {
+            "description": "The Network element type.",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.disableLdapUser": {
+            "description": "Whether to enable or disable node remote authentication with ENM COM-AA. If the parameter is not provided, the default is enable.",
+            "type": "boolean",
+            "required": false
+          },
+          "ossTopology.netConfPort": {
+            "description": "NetConf port number.Not applicable for AXE based nodes.",
+            "type": "string",
+            "required": true
+          },
+          "etf_name": {
+            "metadata": {
+              "chart_param": "global.images.etf.name"
+            },
+            "description": "sample description for etf_name",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.snmpSecurityLevel": {
+            "description": "applicable in case of SNMP V3",
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "AUTH_PRIV",
+                  "AUTH_NO_PRIV",
+                  "NO_AUTH_NO_PRIV"
+                ]
+              }
+            ],
+            "required": false
+          },
+          "ossTopology.transportProtocol": {
+            "default": "SSH",
+            "description": "If transportProtocol is not provided, then the default value SSH will be set",
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "SSH",
+                  "TLS"
+                ]
+              }
+            ],
+            "required": false
+          },
+          "backup_mountPath": {
+            "mountPath": {
+              "chart_param": "persistence.backup.mountPath"
+            },
+            "description": "sample description for mountPath",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.pmFunction": {
+            "default": false,
+            "description": "PmFunction is used to switch on and off PMIC Mediation flows for each Network Element. If PmFunction is on, all file collection, subscription activation, subscription deactivation, scanner polling and scanner master functionality is available for the Network Element. Default value is false.",
+            "type": "boolean",
+            "constraints": [
+              {
+                "valid_values": [
+                  true,
+                  false
+                ]
+              }
+            ],
+            "required": false
+          },
+          "ossTopology.ossServerHostname": {
+            "description": "hostname for scripting cluster VM in ENM.",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.snmpSecurityName": {
+            "description": "applicable in case of SNMP V3",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.nodeIpAddress": {
+            "description": "The O&M IP Address of the Network Element. Not applicable for AXE compact nodes.",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.snmpPrivacyPassword": {
+            "description": "Applicable only for ENM when SNMP V3 is used and the security level is AUTH_NO_PRIV or AUTH_PRIV. Password set for authentication with the provided Authentication Protocol for secure authorization.",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.cmNodeHeartbeatSupervision": {
+            "default": true,
+            "description": "Used only in case of ENM. Enabling CM Supervision will copy the current status of the configuration data of the node into ENM and enable CM Notifications. Enabling CM Notifications ensures that the node will notify ENM of any configuration data changes. Default value is true.",
+            "type": "boolean",
+            "constraints": [
+              {
+                "valid_values": [
+                  true,
+                  false
+                ]
+              }
+            ],
+            "required": false
+          },
+          "ossTopology.fmAlarmSupervision": {
+            "default": true,
+            "description": "FmAlarmSupervision is used to enable or disable alarms in case of any failures. Default value is true.",
+            "type": "boolean",
+            "constraints": [
+              {
+                "valid_values": [
+                  true,
+                  false
+                ]
+              }
+            ],
+            "required": false
+          },
+          "ossTopology.timeZone": {
+            "description": "Applicable only for AXE based nodes in ENM. If timeZone is not provided, then the timeZone of the system will be set.",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.snmpPrivProtocol": {
+            "default": "AES128",
+            "description": "Authentication protocol used to authorize the identity of user. Not applicable for AXE based nodes.Applicable if SNMP V3 is used and the security level is either AUTH_NO_PRIV or AUTH_PRIV",
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "AES128",
+                  "DES"
+                ]
+              }
+            ],
+            "required": false
+          },
+          "ossTopology.networkElementUsername": {
+            "description": "Username to access the the VNF.",
+            "type": "string",
+            "required": true
+          },
+          "server.service.loadBalancerIP": {
+            "description": "sample description for loadBalancerIP",
+            "type": "string",
+            "constraints": [
+              {
+                "pattern": "[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+"
+              }
+            ],
+            "required": true
+          },
+          "ossTopology.axeNodeClusterIP": {
+            "description": "Mandatory for AXE-based nodes. The Cluster IP Address of the Network Element.",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.isManagerIpAddress": {
+            "description": "Mandatory for IS-based AXE nodes. IP address for the SIS interface manager.",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.snmpAuthProtocol": {
+            "default": "MD5",
+            "description": "Authentication protocol used to authorize the identity of user. Not applicable for AXE based nodes.Applicable if SNMP V3 is used and the security level is either AUTH_NO_PRIV or AUTH_PRIV",
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "SHA1",
+                  "MD5"
+                ]
+              }
+            ],
+            "required": false
+          },
+          "ossTopology.communityString": {
+            "description": "Community string for SNMP. If not provided,default string \"enm-public\" would be taken. Not applicable for AXE based nodes.",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.subNetworks": {
+            "description": "SubNetwork is used for logical grouping of nodes within ENM.",
+            "type": "string",
+            "required": false
+          },
+          "global.internalServiceEndpoint.port": {
+            "default": 25161,
+            "description": "sample description for internal_service_port",
+            "type": "integer",
+            "constraints": [
+              {
+                "valid_values": [
+                  161,
+                  25161
+                ]
+              }
+            ],
+            "required": false
+          },
+          "ossTopology.snmpAuthPassword": {
+            "description": "Applicable only for ENM when SNMP V3 is used and the security level is AUTH_NO_PRIV or AUTH_PRIV. Password set for authentication with the provided Authentication Protocol for secure authorization.",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.sshPortNo": {
+            "description": "SSH Port Number. If not provided, default should be used.",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.sftpPort": {
+            "description": "SFTP port.  If port is not provided, then the default port 22 will be set.",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.axeNodeInterfaceBIp": {
+            "description": "Mandatory for AXE-based nodes. IP address for the active side B of the Network Element.",
+            "type": "string",
+            "required": false
+          },
+          "clusterIp": {
+            "metadata": {
+              "chart_param": "server.service.clusterIP"
+            },
+            "description": "sample description for clusterIp",
+            "type": "string",
+            "constraints": [
+              {
+                "pattern": "[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+"
+              }
+            ],
+            "required": true
+          },
+          "ossTopology.axeNodeInterfaceAIp": {
+            "description": "Mandatory for AXE-based nodes. IP address for the active side A of the Network Element.",
+            "type": "string",
+            "required": false
+          }
+        }
+      },
+      "ericsson.datatypes.nfv.ChangePackageVnfOperationAdditionalParameters": {
+        "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters",
+        "properties": {
+          "upgrade.downsize.allowed": {
+            "type": "boolean",
+            "required": false,
+            "default": "WRONG_TYPE"
+          },
+          "serviceAccountName": {
+            "metadata": {
+              "chart_param": "server.serviceAccountName"
+            },
+            "description": "sample description for clusterIp",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.networkElementPassword": {
+            "description": "Password to access the the VNF.",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.snmpVersion": {
+            "description": "SNMP Version. Not applicable for AXE based nodes. In ENM for SNMP V3, it is mandatory to provide as \"SNMP_V3\".",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.networkElementVersion": {
+            "description": "The Version of the Network Element. Becomes mandatory depending on the \"networkElementType\".",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.snmpPort": {
+            "description": "SNMP port. Not applicable for AXE based nodes. If port is not provided, then the default port 161 will be set.",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.ftpPortNo": {
+            "description": "FTP Port Number. If not provided, default should be used.",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.networkElementType": {
+            "description": "The Network element type.",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.disableLdapUser": {
+            "description": "Whether to enable or disable node remote authentication with ENM COM-AA. If the parameter is not provided, the default is enable.",
+            "type": "boolean",
+            "required": false
+          },
+          "ossTopology.netConfPort": {
+            "description": "NetConf port number.Not applicable for AXE based nodes.",
+            "type": "string",
+            "required": true
+          },
+          "etf_name": {
+            "metadata": {
+              "chart_param": "global.images.etf.name"
+            },
+            "description": "sample description for etf_name",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.snmpSecurityLevel": {
+            "description": "applicable in case of SNMP V3",
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "AUTH_PRIV",
+                  "AUTH_NO_PRIV",
+                  "NO_AUTH_NO_PRIV"
+                ]
+              }
+            ],
+            "required": false
+          },
+          "ossTopology.transportProtocol": {
+            "default": "SSH",
+            "description": "If transportProtocol is not provided, then the default value SSH will be set",
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "SSH",
+                  "TLS"
+                ]
+              }
+            ],
+            "required": false
+          },
+          "backup_mountPath": {
+            "mountPath": {
+              "chart_param": "persistence.backup.mountPath"
+            },
+            "description": "sample description for mountPath",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.pmFunction": {
+            "default": false,
+            "description": "PmFunction is used to switch on and off PMIC Mediation flows for each Network Element. If PmFunction is on, all file collection, subscription activation, subscription deactivation, scanner polling and scanner master functionality is available for the Network Element. Default value is false.",
+            "type": "boolean",
+            "constraints": [
+              {
+                "valid_values": [
+                  true,
+                  false
+                ]
+              }
+            ],
+            "required": false
+          },
+          "ossTopology.ossServerHostname": {
+            "description": "hostname for scripting cluster VM in ENM.",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.snmpSecurityName": {
+            "description": "applicable in case of SNMP V3",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.nodeIpAddress": {
+            "description": "The O&M IP Address of the Network Element. Not applicable for AXE compact nodes.",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.snmpPrivacyPassword": {
+            "description": "Applicable only for ENM when SNMP V3 is used and the security level is AUTH_NO_PRIV or AUTH_PRIV. Password set for authentication with the provided Authentication Protocol for secure authorization.",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.cmNodeHeartbeatSupervision": {
+            "default": true,
+            "description": "Used only in case of ENM. Enabling CM Supervision will copy the current status of the configuration data of the node into ENM and enable CM Notifications. Enabling CM Notifications ensures that the node will notify ENM of any configuration data changes. Default value is true.",
+            "type": "boolean",
+            "constraints": [
+              {
+                "valid_values": [
+                  true,
+                  false
+                ]
+              }
+            ],
+            "required": false
+          },
+          "ossTopology.fmAlarmSupervision": {
+            "default": true,
+            "description": "FmAlarmSupervision is used to enable or disable alarms in case of any failures. Default value is true.",
+            "type": "boolean",
+            "constraints": [
+              {
+                "valid_values": [
+                  true,
+                  false
+                ]
+              }
+            ],
+            "required": false
+          },
+          "ossTopology.timeZone": {
+            "description": "Applicable only for AXE based nodes in ENM. If timeZone is not provided, then the timeZone of the system will be set.",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.snmpPrivProtocol": {
+            "default": "AES128",
+            "description": "Authentication protocol used to authorize the identity of user. Not applicable for AXE based nodes.Applicable if SNMP V3 is used and the security level is either AUTH_NO_PRIV or AUTH_PRIV",
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "AES128",
+                  "DES"
+                ]
+              }
+            ],
+            "required": false
+          },
+          "ossTopology.networkElementUsername": {
+            "description": "Username to access the the VNF.",
+            "type": "string",
+            "required": true
+          },
+          "server.service.loadBalancerIP": {
+            "description": "sample description for loadBalancerIP",
+            "type": "string",
+            "constraints": [
+              {
+                "pattern": "[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+"
+              }
+            ],
+            "required": true
+          },
+          "ossTopology.axeNodeClusterIP": {
+            "description": "Mandatory for AXE-based nodes. The Cluster IP Address of the Network Element.",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.isManagerIpAddress": {
+            "description": "Mandatory for IS-based AXE nodes. IP address for the SIS interface manager.",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.snmpAuthProtocol": {
+            "default": "MD5",
+            "description": "Authentication protocol used to authorize the identity of user. Not applicable for AXE based nodes.Applicable if SNMP V3 is used and the security level is either AUTH_NO_PRIV or AUTH_PRIV",
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "SHA1",
+                  "MD5"
+                ]
+              }
+            ],
+            "required": false
+          },
+          "ossTopology.communityString": {
+            "description": "Community string for SNMP. If not provided,default string \"enm-public\" would be taken. Not applicable for AXE based nodes.",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.subNetworks": {
+            "description": "SubNetwork is used for logical grouping of nodes within ENM.",
+            "type": "string",
+            "required": false
+          },
+          "global.internalServiceEndpoint.port": {
+            "default": 25161,
+            "description": "sample description for internal_service_port",
+            "type": "integer",
+            "constraints": [
+              {
+                "valid_values": [
+                  161,
+                  25161
+                ]
+              }
+            ],
+            "required": false
+          },
+          "ossTopology.snmpAuthPassword": {
+            "description": "Applicable only for ENM when SNMP V3 is used and the security level is AUTH_NO_PRIV or AUTH_PRIV. Password set for authentication with the provided Authentication Protocol for secure authorization.",
+            "type": "string",
+            "required": true
+          },
+          "ossTopology.sshPortNo": {
+            "description": "SSH Port Number. If not provided, default should be used.",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.sftpPort": {
+            "description": "SFTP port.  If port is not provided, then the default port 22 will be set.",
+            "type": "string",
+            "required": false
+          },
+          "ossTopology.axeNodeInterfaceBIp": {
+            "description": "Mandatory for AXE-based nodes. IP address for the active side B of the Network Element.",
+            "type": "string",
+            "required": false
+          },
+          "clusterIp": {
+            "metadata": {
+              "chart_param": "server.service.clusterIP"
+            },
+            "description": "sample description for clusterIp",
+            "type": "string",
+            "constraints": [
+              {
+                "pattern": "[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+"
+              }
+            ],
+            "required": true
+          },
+          "ossTopology.axeNodeInterfaceAIp": {
+            "description": "Mandatory for AXE-based nodes. IP address for the active side A of the Network Element.",
+            "type": "string",
+            "required": false
+          }
+        }
+      }
+    }
+}

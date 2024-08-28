@@ -1,0 +1,30 @@
+[
+  {
+    "id": "b08fcbc8-474f-4673-91ee-761fd83991e2",
+    "operationState": "STARTING",
+    "stateEnteredTime": "2012-09-17T18:47:52.690+0000",
+    "startTime": "2012-09-17T18:47:52.690+0000",
+    "vnfInstanceId": "d3def1ce-4cf4-477c-aab3-21c454e6a372",
+    "grantId": null,
+    "operation": "INSTANTIATE",
+    "isAutomaticInvocation": false,
+    "operationParams": null,
+    "isCancelPending": false,
+    "cancelMode": null,
+    "error": null,
+    "_links": {
+      "self": {
+        "href": "http://localhost:8080/vnflcm/v1/vnf_lcm_op_occs/b08fcbc8-474f-4673-91ee-761fd83991e2"
+      },
+      "vnfInstance": {
+        "href": "http://localhost:8080/vnflcm/v1/vnf_instances/d3def1ce-4cf4-477c-aab3-21c454e6a372"
+      },
+      "grant": null,
+      "cancel": null,
+      "retry": null,
+      "rollback": null,
+      "fail": null
+    },
+    "changedInfo": null
+  }
+]

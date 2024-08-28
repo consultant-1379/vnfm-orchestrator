@@ -1,0 +1,145 @@
+{{- $global := fromJson (include "eric-cloud-native-kvdb-rd-operand.global" .) -}}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "eric-cloud-native-kvdb-rd-operand.name" . }}
+  labels:
+    {{- include "eric-cloud-native-kvdb-rd-operand.labels" . | nindent 4 }}
+  annotations:
+    {{- include "eric-cloud-native-kvdb-rd-operand.annotations" . | nindent 4 }}
+data:
+  redis.conf: |
+    # Key Value Database RD Redis-Server configuration.
+    #
+    # The parameters in this file are the ones we have tuned (or which are
+    # so important to us that we do not want to risk that we miss a change
+    # in the defaults).
+    #
+    # At upgrade of redis 3PP:
+    # - check <redis>/src/config.c for changed default values
+    #  (look at create<Type>Config config)
+    #
+    # See also <redis>/redis.conf for verbose explanations of all
+    # parameters.
+
+    # Basic cluster setup:
+    port 6379
+    dir "/redis-data"
+    cluster-enabled yes
+    cluster-config-file /redis-data/node.conf
+
+    {{- if $global.security.tls.enabled }}
+    tls-port 6380
+    cluster-announce-port 6380
+    cluster-announce-bus-port {{ add 6380 10000 }}
+    {{- else }}
+    cluster-announce-port 6379
+    cluster-announce-bus-port 16379
+    {{- end }}
+
+    loglevel {{ toYaml .Values.log.server.level }}
+    slowlog-log-slower-than 1000
+    latency-monitor-threshold 100
+
+    # Turn off protected mode
+    protected-mode no
+
+    # Setting a maxmemory avoids redis crash in case of OOM
+    maxmemory {{ toYaml .Values.server.maxMemory }}
+    maxmemory-policy {{ toYaml .Values.server.maxMemoryPolicy }}
+
+    # Support very high transaction rates:
+    tcp-backlog 65536
+
+    # Do not use persistency (on disk):
+    appendonly no
+    aof-use-rdb-preamble no
+    save ""
+    logfile ""
+
+    # Replica sync parameters:
+    repl-diskless-sync yes
+    repl-diskless-sync-delay 0
+    repl-timeout 300
+    repl-disable-tcp-nodelay yes
+    repl-backlog-size 1mb
+    repl-ping-replica-period 1
+    # This is vital to avoid disconnects during fullsyncs:
+    client-output-buffer-limit replica 0 0 0
+
+    # Replica load parameters (values:disabled, on-empty-db, swapdb):
+    # "swapdb" - Keep a copy of the current db contents in RAM while parsing
+    #             the data directly from the socket. note that this requires
+    #             sufficient memory, if you don't have it, you risk an OOM kill.
+    repl-diskless-load swapdb
+
+    # Do not disconnect slow pubsub clients:
+    client-output-buffer-limit pubsub 0 0 0
+
+    # Add TairHash module.
+    {{- if .Values.server.modules.tairHash.enabled }}
+    loadmodule /usr/local/lib/tairhash_module.so
+    {{- end }}
+
+    # Encode hashes more memory efficiently:
+    hash-max-ziplist-entries 256
+    hash-max-ziplist-value 1024
+
+    # Avoid file descriptor limit problems:
+    maxclients {{ toYaml .Values.server.maxClients }}
+
+    # Release memory in a non-blocking way:
+    lazyfree-lazy-eviction yes
+    lazyfree-lazy-expire yes
+    lazyfree-lazy-server-del yes
+    replica-lazy-flush yes
+
+    # Avoid failing the entire cluster if one instance dies:
+    cluster-require-full-coverage {{ .Values.server.clusterRequireFullCoverage | quote }}
+
+    # Disconnecting idle clients is currently not in use.
+    # Uncomment the next line to re-enable disconnecting idling clients, and set the
+    # number of seconds appropriately.
+    # timeout 3000
+
+    # Make sure we get auto failover even if replica was disconnected from
+    # master for some time:
+    cluster-node-timeout {{ .Values.server.clusterNodeTimeoutMs }}
+    cluster-replica-validity-factor 0
+
+    # Support automatic migration of a slave to another master.
+    # - this is only relevant when we start to do scaling,
+    # - maybe cluster should not take such a migration decision itself, it
+    #   is maybe better done by redis operator?
+    cluster-migration-barrier 1
+
+    # Redis can notify Pub/Sub clients about events happening in the key space.
+    #  By default all notifications are disabled because most users don't need
+    #  this feature and the feature has some overhead. Note that if you don't
+    #  specify at least one of K or E, no events will be delivered.
+    notify-keyspace-events {{ .Values.server.notifyKeySpaceEvents | quote }}
+
+    {{- if .Values.security.acl.enabled }}
+    masteruser {{ template "eric-cloud-native-kvdb-rd-operand.internalUserName" . }}
+    aclfile /etc/acl/users.acl
+    {{/* masterauth (password) is set during startup */}}
+    {{- end }}
+
+    {{- if $global.security.tls.enabled }}
+    tls-cert-file {{ template "eric-cloud-native-kvdb-rd-operand.serverCertificateMountPath" . }}/cert.pem
+    tls-key-file {{ template "eric-cloud-native-kvdb-rd-operand.serverCertificateMountPath" . }}/privkey.pem
+    tls-ca-cert-file {{ template "eric-cloud-native-kvdb-rd-operand.combinedCAMountPath" . }}/cacertbundle.pem
+    tls-replication yes
+    tls-cluster yes
+    {{- if (eq .Values.service.endpoints.kvdbClients.tls.verifyClientCertificate "required") }}
+    tls-auth-clients yes
+    {{- else }}
+    tls-auth-clients no
+    {{- end }}
+    # Accepted TLS protocols. Supported values are (specify one or many): TLSv1.2, TLSv1.3.
+    # If both values are specified, TLSv1.3 will be preferred as it is faster and more secure.
+    tls-protocols "TLSv1.2 TLSv1.3"
+    {{- if (eq .Values.service.endpoints.kvdbClients.tls.enforced "required") }}
+    port 0
+    {{- end }}
+    {{- end }}

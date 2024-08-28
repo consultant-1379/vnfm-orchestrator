@@ -1,0 +1,449 @@
+{
+  "description": "VNF Descriptor for Ericsson SGSN-MME",
+  "node_types": {
+    "Ericsson.SAMPLE-VNF.1_25_CXS101289_R81E08.cxp9025898_4r81e08": {
+      "derived_from": "tosca.nodes.nfv.VNF",
+      "interfaces": {
+        "Vnflcm": {
+          "heal": {
+            "inputs": {
+              "additional_parameters": {
+                "type": "ericsson.datatypes.nfv.HealVnfOperationAdditionalParameters",
+                "required": false
+              }
+            }
+          },
+          "scale": {},
+          "change_package": {
+            "inputs": {
+              "additional_parameters": {
+                "type": "ericsson.datatypes.nfv.ChangePackageVnfOperationAdditionalParameters",
+                "required": false
+              }
+            }
+          },
+          "type": "tosca.interfaces.nfv.Vnflcm",
+          "instantiate": {
+            "inputs": {
+              "additional_parameters": {
+                "type": "ericsson.datatypes.nfv.InstantiateVnfOperationAdditionalParameters",
+                "required": false
+              }
+            }
+          }
+        }
+      },
+      "properties": {
+        "descriptor_id": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "UPDATED-SCALING"
+              ]
+            }
+          ],
+          "default": "UPDATED-SCALING"
+        },
+        "modifiable_attributes": {
+          "type": "tosca.datatypes.nfv.VnfInfoModifiableAttributes"
+        },
+        "provider": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "Ericsson"
+              ]
+            }
+          ],
+          "default": "Ericsson"
+        },
+        "descriptor_version": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "cxp9025898_4r81e08"
+              ]
+            }
+          ],
+          "default": "cxp9025898_4r81e08"
+        },
+        "vnfm_info": {
+          "type": "list",
+          "entry_schema": {
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "3881:E-VNFM"
+                ]
+              }
+            ]
+          },
+          "default": [
+            "3881:E-VNFM"
+          ]
+        },
+        "flavour_id": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "default"
+              ]
+            }
+          ],
+          "default": "default"
+        },
+        "software_version": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "1.25 (CXS101289_R81E08)"
+              ]
+            }
+          ],
+          "default": "1.25 (CXS101289_R81E08)"
+        },
+        "lcm_operations_configuration": {
+          "type": "tosca.datatypes.nfv.VnfLcmOperationsConfiguration",
+          "default": {
+            "heal": {
+              "causes": [
+                "Full Restore"
+              ]
+            }
+          }
+        },
+        "flavour_description": {
+          "type": "string",
+          "default": ""
+        },
+        "product_name": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "SAMPLE-VNF"
+              ]
+            }
+          ],
+          "default": "SAMPLE-VNF"
+        }
+      },
+      "artifacts": {
+        "scaling_mapping": {
+          "type": "tosca.artifacts.File",
+          "description": "Scaling Mapping file associated with this descriptor",
+          "file": "Definitions/OtherTemplates/scaling_mapping.yaml"
+        },
+        "helm_package_1": {
+          "type": "tosca.artifacts.File",
+          "description": "Helm package associated with this descriptor",
+          "file": "Definitions/OtherTemplates/spider-app-label-verification-2.193.100.tgz"
+        },
+        "software_images": {
+          "type": "tosca.artifacts.nfv.SwImage",
+          "description": "Location of the software images being used in this package",
+          "file": "Files/images/docker.tar"
+        },
+        "helm_package_2": {
+          "type": "tosca.artifacts.File",
+          "description": "Helm package associated with this descriptor",
+          "file": "Definitions/OtherTemplates/spider-app-label-verification-3.193.100.tgz"
+        }
+      }
+    }
+  },
+  "topology_template": {
+    "policies": [
+      {
+        "InstantiationLevels": {
+          "type": "tosca.policies.nfv.InstantiationLevels",
+          "properties": {
+            "default_level": "instantiation_level_1",
+            "levels": {
+              "instantiation_level_2": {
+                "description": "This level would add 4 instance of eric-pm-bulk-reporter VNFC",
+                "scale_info": {
+                  "Payload_2": {
+                    "scale_level": 3
+                  }
+                }
+              },
+              "instantiation_level_1": {
+                "description": "This level would add 1 instance of eric-pm-bulk-reporter VNFC",
+                "scale_info": {
+                  "Payload": {
+                    "scale_level": 4
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      {
+        "fsb1_InstantiationLevels": {
+          "type": "tosca.policies.nfv.VduInstantiationLevels",
+          "targets": [
+            "TL_scaled_vm"
+          ],
+          "properties": {
+            "levels": {
+              "instantiation_level_1": {
+                "number_of_instances": 3
+              }
+            }
+          }
+        }
+      },
+      {
+        "ScalingAspects": {
+          "type": "tosca.policies.nfv.ScalingAspects",
+          "properties": {
+            "aspects": {
+              "Payload": {
+                "name": "Payload",
+                "description": "Scale level 0-29 maps to 1-30 Payload VNFC instances (1 instance per scale step)\n",
+                "step_deltas": [
+                  "delta_1"
+                ],
+                "max_scale_level": 10
+              },
+              "Payload_2": {
+                "name": "Payload_2",
+                "description": "Scale level 0-29 maps to 1-30 Payload VNFC instances (1 instance per scale step)\n",
+                "step_deltas": [
+                  "delta_2"
+                ],
+                "max_scale_level": 5
+              }
+            }
+          }
+        }
+      },
+      {
+        "Payload_InitialDelta": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "targets": [
+            "CL_scaled_vm"
+          ],
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 3
+            }
+          }
+        }
+      },
+      {
+        "Payload_InitialDelta_1": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "targets": [
+            "PL__scaled_vm",
+            "TL_scaled_vm"
+          ],
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 1
+            }
+          }
+        }
+      },
+      {
+        "Payload_ScalingAspectDeltas": {
+          "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+          "targets": [
+            "PL__scaled_vm",
+            "CL_scaled_vm"
+          ],
+          "properties": {
+            "deltas": {
+              "delta_1": {
+                "number_of_instances": 4
+              }
+            },
+            "aspect": "Payload"
+          }
+        }
+      },
+      {
+        "Payload_ScalingAspectDeltas_1": {
+          "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+          "targets": [
+            "PL__scaled_vm",
+            "TL_scaled_vm"
+          ],
+          "properties": {
+            "deltas": {
+              "delta_2": {
+                "number_of_instances": 4
+              }
+            },
+            "aspect": "Payload_2"
+          }
+        }
+      }
+    ],
+    "inputs": {
+      "modifiable_attributes": {
+        "type": "ericsson.datatypes.nfv.VnfInfoModifiableAttributes"
+      }
+    },
+    "node_templates": {
+      "CL_scaled_vm": {
+        "type": "tosca.nodes.nfv.Vdu.Compute",
+        "properties": {
+          "name": "CL_scaled_vm",
+          "description": "example",
+          "vdu_profile": {
+            "min_number_of_instances": 4,
+            "max_number_of_instances": 10
+          }
+        }
+      },
+      "SAMPLE-VNF": {
+        "type": "Ericsson.SGSN-MME.1_2_CXS101289_R81E08.cxp9025898_4r81e08",
+        "properties": {
+          "modifiable_attributes": {
+            "get_input": "modifiable_attributes"
+          }
+        },
+        "interfaces": {
+          "Vnflcm": {
+            "instantiate": {
+              "inputs": {
+                "helm_packages": [
+                  {
+                    "get_artifact": [
+                      "SELF",
+                      "helm_package"
+                    ]
+                  }
+                ]
+              }
+            },
+            "scale": {},
+            "terminate": {}
+          }
+        }
+      },
+      "TL_scaled_vm": {
+        "type": "tosca.nodes.nfv.Vdu.Compute",
+        "properties": {
+          "name": "TL_scaled_vm",
+          "description": "example",
+          "vdu_profile": {
+            "min_number_of_instances": 4,
+            "max_number_of_instances": 10
+          }
+        }
+      },
+      "PL__scaled_vm": {
+        "type": "tosca.nodes.nfv.Vdu.Compute",
+        "properties": {
+          "name": "PL__scaled_vm",
+          "description": "example",
+          "vdu_profile": {
+            "min_number_of_instances": 4,
+            "max_number_of_instances": 10
+          }
+        }
+      }
+    }
+  },
+  "imports": [
+    "etsi_nfv_sol001_vnfd_2_5_1_types.yaml"
+  ],
+  "data_types": {
+    "ericsson.datatypes.nfv.InstantiateVnfOperationAdditionalParameters": {
+      "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters",
+      "properties": {
+        "clusterIp": {
+          "description": "sample description for clusterIp",
+          "metadata": {
+            "chart_param": "server.service.clusterIP"
+          },
+          "type": "string",
+          "constraints": [
+            {
+              "pattern": "[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+"
+            }
+          ],
+          "required": true
+        }
+      }
+    },
+    "ericsson.datatypes.nfv.HealVnfOperationAdditionalParameters": {
+      "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters",
+      "properties": {
+        "restore.backupFileReference": {
+          "type": "string",
+          "description": "Input for restore backupFileReference can be Latest or URI",
+          "required": false
+        }
+      }
+    },
+    "ericsson.datatypes.nfv.VnfInfoModifiableAttributes": {
+      "derived_from": "tosca.datatypes.nfv.VnfInfoModifiableAttributes",
+      "properties": {
+        "extensions": {
+          "type": "ericsson.datatypes.nfv.VnfInfoModifiableAttributesExtensions"
+        }
+      }
+    },
+    "ericsson.datatypes.nfv.VnfInfoModifiableAttributesExtensions": {
+      "derived_from": "tosca.datatypes.nfv.VnfInfoModifiableAttributesExtensions",
+      "properties": {
+        "vnfControlledScaling": {
+          "description": "Represents for each aspect the controlled scaling method, either Manual or CISM",
+          "default": {
+            "Payload": "ManualControlled",
+            "Payload_2": "CISMControlled"
+          },
+          "type": "map",
+          "entry_schema": {
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "ManualControlled",
+                  "CISMControlled"
+                ]
+              }
+            ]
+          },
+          "required": false
+        }
+      }
+    },
+    "ericsson.datatypes.nfv.ChangePackageVnfOperationAdditionalParameters": {
+      "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters",
+      "properties": {
+        "upgrade.downsize.allowed": {
+          "description": "It will enable efficient use of compute and memory resources but certainly result in downtime during upgrade.",
+          "default": false,
+          "type": "boolean",
+          "required": false
+        },
+        "clusterIp": {
+          "description": "sample description for clusterIp",
+          "metadata": {
+            "chart_param": "server.service.clusterIP"
+          },
+          "type": "string",
+          "constraints": [
+            {
+              "pattern": "[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+"
+            }
+          ],
+          "required": true
+        }
+      }
+    }
+  },
+  "tosca_definitions_version": "tosca_simple_yaml_1_2"
+}

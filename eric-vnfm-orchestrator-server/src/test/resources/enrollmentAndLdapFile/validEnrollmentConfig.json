@@ -1,0 +1,44 @@
+{
+  "enrollments": [
+    {
+      "name": "oamNodeCredential",
+      "algorithm": "rsa2048",
+      "subject": "CN=test-inst-oam,C=IE,O=Ericsson,OU=Athlone",
+      "password": "test",
+      "certificate-name": "oamNodeCredential",
+      "cmp-server-group": "enm-cmp-group-1",
+      "trusted-certs": "oamTrustCategory"
+    }
+  ],
+  "ca-certs": [
+    {
+      "name": "oamCmpCaTrustCategory",
+      "pem": "-----BEGIN  CERTIFICATE-----\nMIIDXDCCAkSgAwIBAgIIL2NPPQfaB3EwDQYJKoZIhvcNAQELBQAwTDEYMBYGA1UE\nAwwPRU5NX1BLSV9Sb290X0NBMQswCQYDVQQGEwJJRTERMA8GA1UECgwIRXJpY3Nz\nb24xEDAOBgNVBAsMB0F0aGxvbmUwHhcNMjMwODAxMDgwNzI5WhcNMzMwODAxMDgw\nNzI5WjBMMRgwFgYDVQQDDA9FTk1fUEtJX1Jvb3RfQ0ExCzAJBgNVBAYTAklFMREw\nDwYDVQQKDAhFcmljc3NvbjEQMA4GA1UECwwHQXRobG9uZTCCASIwDQYJKoZIhvcN\nAQEBBQADggEPADCCAQoCggEBAL/4W/KcUAc45uXR7NRFgkJtroWW27bJs2RXBAwb\n4y8fMzPaBvlGLfDWyf/s1T6nZ837y7QXZcq6ZNq0DgwoAonY1BsVQQ5Sbd9+O7EJ\n3eXU049vvvpbEvf9CWXy93j86ifBSKv4aTWGV/vdFUfuocfd4LcRmi91aJFRSffk\nm/6vW1cIPosvZ8/NhR6fEsz1a/EX4WvG9exyzTpzLGMM/B+tBG+2RHXIlN/HbMcs\nqB4rLvkx6h9J1JlqjJOhw23Q8TncXIDzvJvCMdAWicY8dDjnQJHyucPf9Tz7ZT/u\nFRp1IK0QZJqchjTba1MS0jJqWp/Xew+A2dtsk0MgWkyniNsCAwEAAaNCMEAwHQYD\nVR0OBBYEFF6ptvXNHPA9G3oZCjkzftjBb/ihMA8GA1UdEwEB/wQFMAMBAf8wDgYD\nVR0PAQH/BAQDAgEGMA0GCSqGSIb3DQEBCwUAA4IBAQCPXq+J/ONRHMGfVo52rLzF\n5zaGYJQeR+qv80H2V6qxyw0XwjrEzX2AVpgeKFogAlniV3cPqrVg2EyANsWIbxJL\nadYpPAMgtjGnBDJro3oB1YBD7Gybz8Jgz19IoFkXImYT+XMLrdZTCLaclO6daIBx\nOjbAL13tXm1h8J+yTxlT7hCGioau/CiQYwxq7EhRVlfS8w2z6/8cTWW8Hh32iJ0D\nic9D4fjwGNs1VimMTRcG+lRhjnJQuk6K5a6sKOMiyENDBi/NzB8KrteEtA8JiDMQ\nJkgfF2+8Zpnv8P3mGeaxoFzdes+oBfJ3qdnkXnKoFuytwxD5wwp1R+S6ESeRa4kb\n-----END  CERTIFICATE-----\n"
+    }
+  ],
+  "certificate-authorities": {
+    "certificate-authority": [
+      {
+        "name": "OU=Athlone,O=Ericsson,C=IE,CN=NE_OAM_CA"
+      }
+    ]
+  },
+  "cmp-server-groups": {
+    "cmp-server-group": [
+      {
+        "name": "enm-cmp-group-1",
+        "cmp-server": [
+          {
+            "name": "enm-cmp-server-1",
+            "uri": "http://127.0.0.1:8091/pkira-cmp/NE_OAM_CA/synch",
+            "priority": 1,
+            "ca-certs": "oamCmpCaTrustCategory",
+            "certificate-authority": "OU=Athlone,O=Ericsson,C=IE,CN=NE_OAM_CA",
+            "ra-mode-enabled": false
+          }
+        ]
+      }
+    ]
+  },
+  "enrollment-retry-timeout": 5
+}

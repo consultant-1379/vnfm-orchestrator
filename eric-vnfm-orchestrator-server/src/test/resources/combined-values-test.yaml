@@ -1,0 +1,4 @@
+eric-pc-up-data-plane.networkInstances[3].link.ipv6: 2a01:04c8:f401:0010::ff/87
+eric-pc-up-data-plane.networkInstances[3].link.ipv4: 10.251.0.101/30
+eric-pc-up-data-plane.networkInstances[2].interfaces[0]: if-cp
+eric-pc-up-data-plane.applications[18].name: ff_ee_freeratedsrv_sightcall

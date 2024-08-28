@@ -1,0 +1,16 @@
+eric-adp-5g-udm:
+  eric-fh-snmp-alarm-provider:
+    oamVIP:
+      destIp: 10.217.88.230
+      vip: 172.29.143.152
+      enabled: false
+    sourceIdentifierType: 1
+    sourceIdentifier: ''
+    service:
+      secretName: snmp-alarm-provider-config
+      loadBalancerIP: ''
+      annotations:
+        addressPoolName: ccrc-oam
+        sharedVIPLabel: ccrc-oam
+    nodeSelector:
+      snmp-sender: eric-ccrc

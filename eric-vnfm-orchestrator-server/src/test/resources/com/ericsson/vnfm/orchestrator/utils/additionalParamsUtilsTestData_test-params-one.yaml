@@ -1,0 +1,8 @@
+host: localhost
+version: version-one
+spring.data.test: value
+spring:
+  data:
+    login: login-value
+    password: password-value
+skipVerification: false

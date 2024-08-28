@@ -1,0 +1,51 @@
+[
+  {
+    "id": "543211",
+    "vnfInstanceName": "my-instance-name-1",
+    "vnfInstanceDescription": "testVnfDescription",
+    "vnfdId": "12345671",
+    "vnfProvider": "Ericsson",
+    "vnfProductName": "SGSN-MME",
+    "vnfSoftwareVersion": "1.20",
+    "vnfdVersion": "1.20",
+    "vnfPkgId": "1234567",
+    "clusterName": "my-cluster",
+    "instantiationState": "INSTANTIATED",
+    "extensions": {
+      "vnfControlledScaling":{
+        "Aspect1": "CISMControlled",
+        "Aspect2": "ManualControlled"
+      },
+      "deployableModules": {
+        "deployable_module_1": "enabled",
+        "deployable_module_2": "disabled"
+      }
+    },
+    "metadata": {
+      "tenantName": "ecm"
+    },
+    "instantiatedVnfInfo": {
+      "flavourId": "flavourId-not-supported",
+      "vnfState": "STOPPED",
+      "vnfcResourceInfo": [],
+      "scaleStatus": null
+    },
+    "_links": {
+      "self": {
+        "href": "http://localhost/vnflcm/v1/vnf_instances/543211/my-vnfinstance"
+      },
+      "instantiate": {
+        "href": "http://localhost/vnflcm/v1/vnf_instances/543211/instantiate"
+      },
+      "terminate": {
+        "href": "http://localhost/vnflcm/v1/vnf_instances/543211/terminate"
+      },
+      "scale": {
+        "href": "http://localhost/vnflcm/v1/vnf_instances/543211/scale"
+      },
+      "change_vnfpkg": {
+        "href": "http://localhost/vnflcm/v1/vnf_instances/543211/change_vnfpkg"
+      }
+    }
+  }
+]

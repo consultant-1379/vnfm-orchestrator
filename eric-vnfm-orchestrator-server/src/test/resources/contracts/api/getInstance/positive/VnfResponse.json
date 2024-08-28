@@ -1,0 +1,122 @@
+{
+  "id": "ID_TEMP",
+  "vnfInstanceName": "my-instance-name-1",
+  "vnfInstanceDescription": "testVnfDescription",
+  "vnfdId": "12345671",
+  "vnfProvider": "Ericsson",
+  "vnfProductName": "SGSN-MME",
+  "vnfSoftwareVersion": "1.20",
+  "vnfdVersion": "1.20",
+  "vnfPkgId": "1234567",
+  "clusterName": "my-cluster",
+  "instantiationState": "INSTANTIATED",
+  "extensions": {
+    "vnfControlledScaling":{
+      "Aspect1": "CISMControlled",
+      "Aspect2": "ManualControlled"
+    },
+    "deployableModules": {
+      "deployable_module_1": "enabled",
+      "deployable_module_2": "disabled"
+    }
+  },
+  "metadata": {
+    "tenantName": "ecm"
+  },
+  "instantiatedVnfInfo": {
+    "flavourId":"flavourId-not-supported",
+    "vnfState":"STARTED",
+    "vnfcResourceInfo":[
+      {
+        "id":"7230dc3a-dd27-4d9c-9527-88405803ee99",
+        "vduId":"e5fcee16-ad66-4aa7-8534-ba83cbb0b111",
+        "computeResource":{
+          "vimConnectionId":null,
+          "resourceProviderId":null,
+          "resourceId":"eric-am-common-wfs-ui-57f8ff6886-25r7m",
+          "vimLevelResourceType":"Pod",
+          "vimLevelAdditionalResourceInfo":{
+            "uid":"7230dc3a-dd27-4d9c-9527-88405803ee99",
+            "name":"eric-am-common-wfs-ui-57f8ff6886-25r7m",
+            "status":"Running",
+            "namespace":"evnfm-deployment",
+            "labels":{
+              "ericsson.com/product-name":"AM Common WFS UI",
+              "ericsson.com/product-revision":"R1A"
+            },
+            "annotations":{
+              "app":"eric-am-common-wfs-ui",
+              "app.kubernetes.io/instance":"optimus-prime"
+            },
+            "ownerReferences": [{
+              "apiVersion": "apps/v1",
+              "kind": "ReplicaSet",
+              "name": "eric-am-common-wfs-ui-57f8ff6886",
+              "uid": "e5fcee16-ad66-4aa7-8534-ba83cbb0b111"
+            }]
+          }
+        },
+        "storageResourceIds": null,
+        "reservationId": null,
+        "metadata": {}
+      },
+      {
+        "id":"f04b05e0-1a8d-4097-8cad-c879c4d45c24",
+        "vduId":"62a065fd-c953-4c1d-89bd-b8c14814c58d",
+        "computeResource":{
+          "vimConnectionId":null,
+          "resourceProviderId":null,
+          "resourceId":"application-manager-postgres-0",
+          "vimLevelResourceType":"Pod",
+          "vimLevelAdditionalResourceInfo":{
+            "uid":"f04b05e0-1a8d-4097-8cad-c879c4d45c24",
+            "name":"application-manager-postgres-0",
+            "status":"Running",
+            "namespace":"evnfm-deployment",
+            "labels":{
+              "app": "application-manager-postgres",
+              "app.kubernetes.io/instance": "evnfm-deployment",
+              "app.kubernetes.io/name": "application-manager-postgres",
+              "app.kubernetes.io/version": "4.0.0_35",
+              "cluster-name": "application-manager-postgres",
+              "controller-revision-hash": "application-manager-postgres-fc7c4b554",
+              "role": "master",
+              "statefulset.kubernetes.io/pod-name": "application-manager-postgres-0"
+            },
+            "annotations":{
+              "cni.projectcalico.org/podIP": "192.168.78.165/32",
+              "cni.projectcalico.org/podIPs": "192.168.78.165/32"
+            },
+            "ownerReferences": [{
+              "apiVersion": "apps/v1",
+              "kind": "StatefulSet",
+              "name": "application-manager-postgres",
+              "uid": "62a065fd-c953-4c1d-89bd-b8c14814c58d"
+            }]
+          }
+        },
+        "storageResourceIds": null,
+        "reservationId": null,
+        "metadata": {}
+      }
+    ],
+    "scaleStatus":null
+  },
+  "_links": {
+    "self": {
+      "href": "http://localhost/vnflcm/v1/vnf_instances/ID_TEMP"
+    },
+    "instantiate": {
+      "href": "http://localhost/vnflcm/v1/vnf_instances/ID_TEMP/instantiate"
+    },
+    "terminate": {
+      "href": "http://localhost/vnflcm/v1/vnf_instances/ID_TEMP/terminate"
+    },
+    "scale": {
+      "href": "http://localhost/vnflcm/v1/vnf_instances/ID_TEMP/scale"
+    },
+    "change_vnfpkg": {
+      "href": "http://localhost/vnflcm/v1/vnf_instances/ID_TEMP/change_vnfpkg"
+    }
+  }
+}

@@ -1,0 +1,3 @@
+eric-pm-bulk-reporter:
+  Scaling-Parameter-Name: "eric-pm-bulk-reporter.replicaCount"
+  Mciop-Name: "helm_package1"

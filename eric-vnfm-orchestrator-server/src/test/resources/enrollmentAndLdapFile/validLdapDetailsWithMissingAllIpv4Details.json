@@ -1,0 +1,9 @@
+{
+  "tlsPort": "1389",
+  "ldapsPort": "1636",
+  "ldapIpv6Address": "2001:1b70:6207:0029:0000:0878:1010:0029",
+  "fallbackLdapIpv6Address": "2001:1b70:6207:0029:0000:0878:1010:002b",
+  "bindPassword": "cff60fua",
+  "bindDn": "cn=ProxyAccount_4,ou=proxyagent,ou=com,dc=ieatenmc4a10-39,dc=com",
+  "baseDn": "dc=ieatenmc4a10-39,dc=com"
+}

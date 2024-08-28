@@ -1,0 +1,19 @@
+{
+    "snmpVersion": {
+        "type": "string",
+        "required": "false"
+    },
+    "snmpPrivacyPassword": {
+        "type": "string",
+        "required": "true"
+    },
+    "ftpPortNo": {
+        "type": "string",
+        "required": "false"
+    },
+    "networkElementUsername": {
+        "type": "string",
+        "defaultValue": "my-user",
+        "required": "true"
+    }
+}

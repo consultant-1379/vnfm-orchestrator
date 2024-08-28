@@ -1,0 +1,258 @@
+{
+  "instanceId" : "34353",
+  "vnfInstanceName" : "test-instance",
+  "vnfInstanceDescription": "a new vnf",
+  "vnfdId": "34353",
+  "vnfProvider": "Ericsson",
+  "vnfProductName": "vEPG",
+  "vnfSoftwareVersion": "1.23,1",
+  "vnfdVersion": "2.3",
+  "vnfPkgId": "74746",
+  "clusterName": "dummy",
+  "namespace": "default",
+  "addedToOss": false,
+  "instantiateOssTopology": {
+    "snmpSecurityLevel": {
+      "defaultValue": "AUTH_PRIV",
+      "type": "string",
+      "required": "false"
+    },
+    "subNetworks": {
+      "defaultValue": "SubNetwork=CL,SubNetwork=COMS",
+      "type": "string",
+      "required": "false"
+    },
+    "networkElementPassword": {
+      "defaultValue": "my-password",
+      "type": "string",
+      "required": "true"
+    },
+    "fmAlarmSupervision": {
+      "defaultValue": "true",
+      "type": "boolean",
+      "required": "false"
+    },
+    "snmpSecurityName": {
+      "defaultValue": "sec-name",
+      "type": "string",
+      "required": "false"
+    },
+    "networkElementVersion": {
+      "defaultValue": "2",
+      "type": "string",
+      "required": "false"
+    },
+    "nodeIpAddress": {
+      "defaultValue": "10.210.174.58",
+      "type": "string",
+      "required": "true"
+    },
+    "snmpAuthProtocol": {
+      "defaultValue": "MD5",
+      "type": "string",
+      "required": "false"
+    },
+    "transportProtocol": {
+      "defaultValue": "SSH",
+      "type": "string",
+      "required": "false"
+    },
+    "pmFunction": {
+      "defaultValue": "false",
+      "type": "boolean",
+      "required": "false"
+    },
+    "cmNodeHeartbeatSupervision": {
+      "defaultValue": "true",
+      "type": "boolean",
+      "required": "false"
+    },
+    "snmpVersion": {
+      "defaultValue": "2",
+      "type": "string",
+      "required": "false"
+    },
+    "snmpAuthPassword": {
+      "defaultValue": "my-pass",
+      "type": "string",
+      "required": "true"
+    },
+    "networkElementUsername": {
+      "defaultValue": "my-user",
+      "type": "string",
+      "required": "true"
+    },
+    "networkElementType": {
+      "defaultValue": "UDM-AUSF",
+      "type": "string",
+      "required": "true"
+    },
+    "communityString": {
+      "defaultValue": "enm-public",
+      "type": "string",
+      "required": "true"
+    },
+    "snmpPrivacyPassword": {
+      "defaultValue": "my-pass",
+      "type": "string",
+      "required": "true"
+    },
+    "netConfPort": {
+      "defaultValue": "830",
+      "type": "string",
+      "required": "true"
+    },
+    "snmpPort": {
+      "defaultValue": "161",
+      "type": "string",
+      "required": "false"
+    },
+    "snmpPrivProtocol": {
+      "defaultValue": "AES128",
+      "type": "string",
+      "required": "false"
+    }
+  },
+  "instantiatedVnfInfo": {
+    "flavourId":"flavourId-not-supported",
+    "vnfState":"STARTED",
+    "vnfcResourceInfo":[
+      {
+        "id":"7230dc3a-dd27-4d9c-9527-88405803ee99",
+        "vduId":"e5fcee16-ad66-4aa7-8534-ba83cbb0b111",
+        "computeResource":{
+          "vimConnectionId":null,
+          "resourceProviderId":null,
+          "resourceId":"eric-am-common-wfs-ui-57f8ff6886-25r7m",
+          "vimLevelResourceType":"Pod",
+          "vimLevelAdditionalResourceInfo":{
+            "uid":"7230dc3a-dd27-4d9c-9527-88405803ee99",
+            "name":"eric-am-common-wfs-ui-57f8ff6886-25r7m",
+            "status":"Running",
+            "namespace":"evnfm-deployment",
+            "labels":{
+              "ericsson.com/product-name":"AM Common WFS UI",
+              "ericsson.com/product-revision":"R1A"
+            },
+            "annotations":{
+              "app":"eric-am-common-wfs-ui",
+              "app.kubernetes.io/instance":"optimus-prime"
+            },
+            "ownerReferences": [{
+              "apiVersion": "apps/v1",
+              "kind": "ReplicaSet",
+              "name": "eric-am-common-wfs-ui-57f8ff6886",
+              "uid": "e5fcee16-ad66-4aa7-8534-ba83cbb0b111"
+            }]
+          }
+        },
+        "storageResourceIds": null,
+        "reservationId": null,
+        "metadata": null
+      },
+      {
+        "id":"f04b05e0-1a8d-4097-8cad-c879c4d45c24",
+        "vduId":"62a065fd-c953-4c1d-89bd-b8c14814c58d",
+        "computeResource":{
+          "vimConnectionId":null,
+          "resourceProviderId":null,
+          "resourceId":"application-manager-postgres-0",
+          "vimLevelResourceType":"Pod",
+          "vimLevelAdditionalResourceInfo":{
+            "uid":"f04b05e0-1a8d-4097-8cad-c879c4d45c24",
+            "name":"application-manager-postgres-0",
+            "status":"Running",
+            "namespace":"evnfm-deployment",
+            "labels":{
+              "app": "application-manager-postgres",
+              "app.kubernetes.io/instance": "evnfm-deployment",
+              "app.kubernetes.io/name": "application-manager-postgres",
+              "app.kubernetes.io/version": "4.0.0_35",
+              "cluster-name": "application-manager-postgres",
+              "controller-revision-hash": "application-manager-postgres-fc7c4b554",
+              "role": "master",
+              "statefulset.kubernetes.io/pod-name": "application-manager-postgres-0"
+            },
+            "annotations":{
+              "cni.projectcalico.org/podIP": "192.168.78.165/32",
+              "cni.projectcalico.org/podIPs": "192.168.78.165/32"
+            },
+            "ownerReferences": [{
+              "apiVersion": "apps/v1",
+              "kind": "StatefulSet",
+              "name": "application-manager-postgres",
+              "uid": "62a065fd-c953-4c1d-89bd-b8c14814c58d"
+            }]
+          }
+        },
+        "storageResourceIds": null,
+        "reservationId": null,
+        "metadata": null
+      }
+    ],
+    "scaleStatus": [
+      {
+        "aspectId": "running",
+        "scaleLevel": 3
+      },
+      {
+        "aspectId": "processing",
+        "scaleLevel": 4
+      },
+      {
+        "aspectId": "database",
+        "scaleLevel": 1
+      }
+
+    ]
+  },
+  "scalingInfo": {
+    "database": {
+      "name": "database",
+      "description": "Scale level 0-29 maps to 1-30 Payload VNFC instances (1 instance per scale step)\n",
+      "max_scale_level": 5,
+      "step_deltas": [
+        "delta_2"
+      ]
+    },
+    "running": {
+      "name": "running",
+      "description": "Scale level 0-29 maps to 1-30 Payload VNFC instances (1 instance per scale step)\n",
+      "max_scale_level": 10,
+      "step_deltas": null
+    },
+    "processing": {
+      "name": "processing",
+      "description": "Scale level 0-29 maps to 1-30 Payload VNFC instances (1 instance per scale step)\n",
+      "max_scale_level": 10,
+      "step_deltas": null
+    }
+  },
+  "lcmOperationDetails": [
+    {
+      "currentLifecycleOperation": true,
+      "operationOccurrenceId": "234124",
+      "operationState": "COMPLETED",
+      "stateEnteredTime": "2012-09-17 18:47:52.69",
+      "startTime": "2012-09-17 18:47:52.69",
+      "grantId": null,
+      "lifecycleOperationType": "INSTANTIATE",
+      "automaticInvocation": false,
+      "operationParams": null,
+      "cancelPending": false,
+      "cancelMode": null,
+      "error": {
+        "type": "someType",
+        "title": "someTitle",
+        "status": 404,
+        "detail": "some error happened",
+        "instance": ""
+      },
+      "vnfProductName": "vEPG",
+      "vnfSoftwareVersion": "1.23,1",
+      "username": "Kale67"
+    }
+  ],
+  "downgradeSupported": false,
+  "healSupported": false
+}

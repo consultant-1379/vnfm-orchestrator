@@ -1,0 +1,10 @@
+{
+  "chartName": "adp-am/my-chart",
+  "releaseName": "my-release",
+  "lifecycleOperationId": "my-id",
+  "state": "starting",
+  "additionalParams": {
+    "namespace": "test-multipart-ns-with-values",
+    "values.yaml": "{\"keyA\":\"valueA\",\"keyB\":\"valueB\"}"
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "helmPackageUrls": [
+    {
+      "chartArtifactKey": "helm_package1",
+      "chartName": "sample-helm1",
+      "chartType": "CNF",
+      "chartUrl": "sample-helm1.tgz",
+      "chartVersion": "1.0.0",
+      "priority": 1
+    },
+    {
+      "chartArtifactKey": "helm_package2",
+      "chartName": "sample-helm2",
+      "chartType": "CNF",
+      "chartUrl": "sample-helm2.tgz",
+      "chartVersion": "1.0.0",
+      "priority": 2
+    },
+    {
+      "chartArtifactKey": "helm_package3",
+      "chartName": "sample-helm3",
+      "chartType": "CNF",
+      "chartUrl": "sample-helm3.tgz",
+      "chartVersion": "1.0.0",
+      "priority": 3
+    },
+    {
+      "chartArtifactKey": "helm_test_scale_chart",
+      "chartName": "test_scale_chart",
+      "chartType": "CNF",
+      "chartUrl": "test-scale-chart-1.1.0.tgz",
+      "chartVersion": "1.1.0",
+      "priority": 4
+    }
+  ],
+  "id": "UPDATED-DEPLOYABLE_MODULES",
+  "vnfProductName": "SGSN-MME",
+  "vnfProvider": "Ericsson",
+  "vnfSoftwareVersion": "1.20 (CXS101289_R81E08)",
+  "vnfdId": "UPDATED-DEPLOYABLE_MODULES",
+  "vnfdVersion": "cxp9025898_4r81e08"
+}

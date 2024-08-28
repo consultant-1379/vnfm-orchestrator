@@ -1,0 +1,16 @@
+{
+  "roles": [
+    {
+      "name": "role-containing-shared-type-1",
+      "nodeTypes": [
+        "shared-type"
+      ]
+    },
+    {
+      "name": "role-containing-shared-type-2",
+      "nodeTypes": [
+        "shared-type"
+      ]
+    }
+  ]
+}

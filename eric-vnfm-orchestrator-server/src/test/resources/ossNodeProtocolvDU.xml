@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hello xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <capabilities>
+        <capability>urn:ietf:params:netconf:base:1.0</capability>
+        <capability>urn:ietf:params:netconf:capability:writable-running:1.0</capability>
+        <capability>urn:ietf:params:netconf:capability:rollback-on-error:1.0</capability>
+    </capabilities>
+</hello>
+]]>]]>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="OAM CMP Server Trust Store" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<edit-config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+        <running/>
+    </target>
+    <config xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0">
+        <truststore xmlns="urn:ietf:params:xml:ns:yang:ietf-truststore">
+            <certificates xc:operation="merge">
+                <name>oamCmpCaTrustCategory</name>
+                <description>The OAM CMP server CA trust category.</description>
+            </certificates>
+        </truststore>
+    </config>
+</edit-config>
+</rpc>
+]]>]]>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Close Session" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <close-session />
+</rpc>
+]]>]]>
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Install OAM CMP Trusted certificates" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<action xmlns="urn:ietf:params:xml:ns:yang:1">
+    <truststore xmlns="urn:ietf:params:xml:ns:yang:ietf-truststore">
+        <certificates>
+            <name>oamCmpCaTrustCategory</name>
+            <install-certificate-pem xmlns="urn:rdns:com:ericsson:oammodel:ericsson-truststore-ext">
+                <name>ENM_PKI_Root_CA-1</name>
+                <pem>LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURTakNDQWpLZ0F3SUJBZ0lJZmRwRU95N0J1NjB3RFFZSktvWklodmNOQVFFTEJRQXdRekVZTUJZR0ExVUUKQXd3UFJVNU5YMUJMU1Y5U2IyOTBYME5CTVFzd0NRWURWUVFHRXdKVFJURUxNQWtHQTFVRUNnd0NTMGt4RFRBTApCZ05WQkFzTUJGSkJUa2t3SGhjTk1qQXdOek13TVRFek56VTFXaGNOTXpBd056TXdNVEV6TnpVMVdqQkRNUmd3CkZnWURWUVFEREE5RlRrMWZVRXRKWDFKdmIzUmZRMEV4Q3pBSkJnTlZCQVlUQWxORk1Rc3dDUVlEVlFRS0RBSkwKU1RFTk1Bc0dBMVVFQ3d3RVVrRk9TVENDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQgpBSXdOKzhOTElFY2E4N3ljcG4xSzB0Snozakg3ald5dDVYNjhPRzU3d0szRDNZN2t5N1YzUm14ZCtQMGFETWp4CkFNK3F4S1lqQ0NoVGRCMm0vaENWcFJCQVNhcXhRbXVzRGpQWjl2bjhCa2F6dzBGOEZ5dlpoV1FEcVRtbFl6TTEKZ3cvQTY2bjl4TVI3VS9lN0V1dVZobGRiZ1djUFNWSDFUYzdRakIzZ0puN0RLcTU2cm9vZjBpc2ZOOXdGZ1p6cQpsQkNXSm9YS0RhVHRIUVp4NmI3M0RIZzEwSkk2KytRdjRNMkwzZXRnQzRGdzlJU25RSWNsdTZQM3J3MEk4bEhmCmFadlFvUEttWTUrR3hQQkJpWndCeEhVbWVtVzVvSXY3aEh1M0VPWHAxYVFVWVJ0cmYxb1Q1aDAzNTMvT2RjS0oKRlcrVFBTWFI1MkhQOG4yd0luY3ZaQlVDQXdFQUFhTkNNRUF3SFFZRFZSME9CQllFRkxNTHVNMS9vRkk3NlN3QQo3REl5VmFmZzF6UUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdEZ1lEVlIwUEFRSC9CQVFEQWdFR01BMEdDU3FHClNJYjNEUUVCQ3dVQUE0SUJBUUI0NmVUMXprSmdXTlFyaUpSZ0JuUUI3a0JKeU90R085bkErSFRIV3lLakNOUzYKZW0xYzBGMWtCTmNITmpPT01Ba1ZFbUEwTkQ3S0pUMXIvUkMwdHRlQVJKblIwK2lqSm0yKzdsS2F4R2ZpZ0VaSQpGRkg2K01jRU5YTDYvRHpuL0FHQXp2T0N5c0VTenVab0FUdWI3QWNLS0l1aXp3amlYdzB1ajdzWTlaem9JdUNRCmlGeU9OTkZRdTF5clBvdDY4dDkraDFUb2RuMmhDbUc5ZExUZGJrOGU0MXo4SkJxRGFDYVBxdTJ5WkFWWXJLWHgKNXZDKzhQbGo2dzhuN3NBZ0Fmc3dla1RFby9qNjJSdDlkclR5U0FQVFRSTHljdjFBamhsbk0yLzFMOFZPMG85QQo0MlorTFZ5RkFIbkYyaE5zWXUxdk9tbHdoRDArQStyN0dMTjNJRnhYCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K</pem>
+            </install-certificate-pem>
+        </certificates>
+    </truststore>
+</action>
+</rpc>
+]]>]]>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Close Session" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <close-session />
+</rpc>
+]]>]]>
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="OAM Trust Store" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<edit-config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+        <running/>
+    </target>
+    <config xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0">
+        <truststore xmlns="urn:ietf:params:xml:ns:yang:ietf-truststore">
+            <certificates xc:operation="merge">
+                <name>oamTrustCategory</name>
+                <description>The OAM trust category.</description>
+            </certificates>
+        </truststore>
+    </config>
+</edit-config>
+</rpc>
+]]>]]>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Close Session" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <close-session />
+</rpc>
+]]>]]>
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Intsall OAM Trusted Certificate-1" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<action xmlns="urn:ietf:params:xml:ns:yang:1">
+    <truststore xmlns="urn:ietf:params:xml:ns:yang:ietf-truststore">
+        <certificates>
+            <name>oamTrustCategory</name>
+            <install-certificate-pem xmlns="urn:rdns:com:ericsson:oammodel:ericsson-truststore-ext">
+                <name>ENM_OAM_CA-1</name>
+                <pem>LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURiRENDQWxTZ0F3SUJBZ0lJSk5LSWVhNDF6dTB3RFFZSktvWklodmNOQVFFTEJRQXdTVEVlTUJ3R0ExVUUKQXd3VlJVNU5YMGx1Wm5KaGMzUnlkV04wZFhKbFgwTkJNUXN3Q1FZRFZRUUdFd0pUUlRFTE1Ba0dBMVVFQ2d3QwpTMGt4RFRBTEJnTlZCQXNNQkZKQlRra3dIaGNOTWpBd056TXdNVEUwTVRRMFdoY05Namd3TnpNd01URXdPVFEwCldqQStNUk13RVFZRFZRUUREQXBGVGsxZlQwRk5YME5CTVFzd0NRWURWUVFHRXdKVFJURUxNQWtHQTFVRUNnd0MKUzBreERUQUxCZ05WQkFzTUJGSkJUa2t3Z2dFaU1BMEdDU3FHU0liM0RRRUJBUVVBQTRJQkR3QXdnZ0VLQW9JQgpBUUNCSkhPUG4xU3VTT3BlbUZjdDEyVStteU4xT3pXZFBPWXBZMWlGLzNnTWE0YzA4dEZVWVJhRnhDVlRXMnNKCkxXU2hHS25PcC9Rd28zZVc3RDAwOFE1L1FqVlZmTFI4M0UxK1FnaUR6a1hCU3FuY1JDdUpFR3NydENWc0pvVU0KMmJzRGQxUnA3NnprYzNzRFR4WElPWUhpNk1nVGtDdHJnLytrY0dESUIwTHZSNFVJTDk4SlRhelByVGVMMWpqbgovQ0V0SUpHWmZXMFhEODRCRUxlTEVDVHE2N1duT0lzcHhHRWthNUIxY29YdkpYYVNqQ2ExWXYwdmhjeFZnc2RvClpYS3hzRnpYNGtRbU90V1VwZ3daNkVxVlY4SGJ1a25ZNVhjODRtbXNrUGN5K3A2RDY0OTVJTFRlem5WQUpIWGEKVTh4dUg5UmZ0TkgwRi9jN3p5RWRPeVdyQWdNQkFBR2pZekJoTUIwR0ExVWREZ1FXQkJSYTRrU3lIc0l1MHNzWgp2NFpDaUtNTXRFTHBWekFQQmdOVkhSTUJBZjhFQlRBREFRSC9NQjhHQTFVZEl3UVlNQmFBRk0vWkhDdlRRckFqCnl1UkZIVEFtYzl4alkrSWtNQTRHQTFVZER3RUIvd1FFQXdJQkJqQU5CZ2txaGtpRzl3MEJBUXNGQUFPQ0FRRUEKU1FtNGExWDgxK0FROWVibzVHa0pGa3VTTEptQkVYVXJZWjh2QWphN1lweWZPZDU0dng5Qjc2L3U5dG1XSG1jdwpZWDZCZjRrNEpxcnhIOVQ3S1MydGVBVENTYmJPMmRucWc2bjlUZ1RUdjZhdnY5a3JLdWFNN0Z4SVhUNk5NTWgwCjdoRGxqUnhVcWwzcHpTUE1BZ244aGgyWGQ3czdhYWU5bFdTQnFxMmoxM0U1ejdHTU9UYmRGa29SWWxCQ3BxY0wKSHJxZkdyNkROZ25OMU03QzN0TmpFQmpmNmI1TkJYd2pGa0E3RzVBNmxFQlJnVlJ4K2RmUnk4MFB4T01CVGZvUApyRWVkVlpoMFY4SEk4YnVQMll3cFMvN2VEOUZQcEZSd0dPemRjY0hWNmlCd21SbVg2RFFhclVIdVZzeWZpNmVwCmhvcUsxeVRlRTFIeUx6WGZQeU1NQ0E9PQotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==</pem>
+            </install-certificate-pem>
+        </certificates>
+    </truststore>
+</action>
+</rpc>
+]]>]]>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Close Session" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <close-session />
+</rpc>
+]]>]]>
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Intsall OAM Trusted Certificate-2" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<action xmlns="urn:ietf:params:xml:ns:yang:1">
+    <truststore xmlns="urn:ietf:params:xml:ns:yang:ietf-truststore">
+        <certificates>
+            <name>oamTrustCategory</name>
+            <install-certificate-pem xmlns="urn:rdns:com:ericsson:oammodel:ericsson-truststore-ext">
+                <name>NE_OAM_CA-1</name>
+                <pem>LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURaVENDQWsyZ0F3SUJBZ0lJSzMwZDVoTjZmc0l3RFFZSktvWklodmNOQVFFTEJRQXdRekVZTUJZR0ExVUUKQXd3UFJVNU5YMUJMU1Y5U2IyOTBYME5CTVFzd0NRWURWUVFHRXdKVFJURUxNQWtHQTFVRUNnd0NTMGt4RFRBTApCZ05WQkFzTUJGSkJUa2t3SGhjTk1qQXdOek13TVRFME5qSXdXaGNOTWpnd056TXdNVEUwTmpJd1dqQTlNUkl3CkVBWURWUVFEREFsT1JWOVBRVTFmUTBFeEN6QUpCZ05WQkFZVEFsTkZNUXN3Q1FZRFZRUUtEQUpMU1RFTk1Bc0cKQTFVRUN3d0VVa0ZPU1RDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBSUd0dnZMSwp5WGtZbmt3V2NkeVN0emtBNnFqOFZKUGdSRmMvRmVxdTZGeTR1Y0dzVTFmU2QrTXNXUWRuam5wRkd3Tkk1SGVGCnN3R2lQMUxkeWtCeG9MNDBGaXYyWFNDQy95NzlvdGhIclN2Yk1BdHlXc0xNdi96MHhrdTlKYmN1Y2x0VCtORFoKK3BvRHdSQmlNb2dFQTBSQmttT200MnpqUExyZUJyVTJSaW5OclkzeEhOSHk2ZzVMd3JwQnRZV0Zkd3oyalMxeAowbUNZWW15Skh3RnUrU3RSbjJHUklUeWRWL2xoTEtRVElkYlF3dk1kZ2tacCtCLzF0WmZxczlNL1dhakVWMW5WCm85TWU4SEc2cHArNCtFREJ3bDMycDNhcnJtRmY0MUp0NXJqL3krZy9tQ25kRkFGMXlFTml5UVoyUGtBc1cwbjIKVFpQMzJ0RCtCRmpHN0dVQ0F3RUFBYU5qTUdFd0hRWURWUjBPQkJZRUZCaGU2aDBoSTVFQm9zNkJpK3NoeEQ1YwowQ3NCTUE4R0ExVWRFd0VCL3dRRk1BTUJBZjh3SHdZRFZSMGpCQmd3Rm9BVXN3dTR6WCtnVWp2cExBRHNNakpWCnArRFhOQUl3RGdZRFZSMFBBUUgvQkFRREFnRUdNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUJDZ2NHMVRUaVAKc2xsL1IwYkxOeTlQNUoxTEVjcFRKU1NGUnpZNm5STDBlZXpIU3I4NVEvNU1ESmhnOTNmWHhnaWF0T2kwUkhmawo2MjhxdXg4M240cXJUNTIrMFh6eW1SaVdnVUJNZVlINStQOHBQTmpiUlhxMGVWOEszajJIbWtFZU1YdFJjQkE5CkxtL3Y3WlBUbkZvbVZCT0pGNkJhK0R0SG11WEZWc2ljQko3NTgrVCtZRFBQbGRVMGR5aFhCa3lzK1hKY25CU0EKeE5DTmtWTEJkZkhtK0NMeld2QnFjdy90Ky9tSTZFajJoMGw2bzJjdVBVNGNPS2o3aGUvaGlnOVljbzFpbHpaRwpGTFh2UXI1N2VJbk1Welh0SnF3amJvZktNRDE1enpUQlZjR0RkcmhTelZFODBnbE9qUHNGSS94Tkw0K25rNXpGCjd3SHhvTHJ0V0gyVgotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==</pem>
+            </install-certificate-pem>
+        </certificates>
+    </truststore>
+</action>
+</rpc>
+]]>]]>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Close Session" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <close-session />
+</rpc>
+]]>]]>
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Intsall OAM Trusted Certificate-3" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<action xmlns="urn:ietf:params:xml:ns:yang:1">
+    <truststore xmlns="urn:ietf:params:xml:ns:yang:ietf-truststore">
+        <certificates>
+            <name>oamTrustCategory</name>
+            <install-certificate-pem xmlns="urn:rdns:com:ericsson:oammodel:ericsson-truststore-ext">
+                <name>ENM_Infrastructure_CA-1</name>
+                <pem>LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURjVENDQWxtZ0F3SUJBZ0lJQU5iek5kSzV2RlF3RFFZSktvWklodmNOQVFFTEJRQXdRekVZTUJZR0ExVUUKQXd3UFJVNU5YMUJMU1Y5U2IyOTBYME5CTVFzd0NRWURWUVFHRXdKVFJURUxNQWtHQTFVRUNnd0NTMGt4RFRBTApCZ05WQkFzTUJGSkJUa2t3SGhjTk1qQXdOek13TVRFME1ESTVXaGNOTWpnd056TXdNVEUwTURJNVdqQkpNUjR3CkhBWURWUVFEREJWRlRrMWZTVzVtY21GemRISjFZM1IxY21WZlEwRXhDekFKQmdOVkJBWVRBbE5GTVFzd0NRWUQKVlFRS0RBSkxTVEVOTUFzR0ExVUVDd3dFVWtGT1NUQ0NBU0l3RFFZSktvWklodmNOQVFFQkJRQURnZ0VQQURDQwpBUW9DZ2dFQkFJSGhTejl4WVFYeXBVRDRqOGJ3ZnFWZExUcG12OHd3S2xWRUc4ZEZVQisvQlgrc3h0VjBNY0xRCnZvNUVMbUExY1hxQVM4Ri9MMGZ6cFZrQUV4Ty9zRFdXbTh6NFlKZC9sR1JRa2dKSE5WOTRCNm1SNWNRTTY0cEkKSi9YM1BVUzlBWHhUK0JOVEhGMzA1cjBCWEpJWVhrZ09vSk52ZUlqRlcySDBjcjNPMndRQlMrTlVWbzNleW83YQpsRTd1UEdzQmRGblBYazFaS1BRTWh5dWdRZExHcyt5aElXaEsvcURHeUp0cFFyU1pxdG5uK0FMZm9PcEF6YjNnCmIxWkVHcUIxT2hoblQyREE3YXE2VnVvaWc3Wk0rOEs1TjZndFZpSlZrcTNwa1l3clU0R2xXTXY2d3BOLzlGSTgKcTE2VnBadm9NTmw3SU1yckhYSkhQSnFwTllBZG1xTUNBd0VBQWFOak1HRXdIUVlEVlIwT0JCWUVGTS9aSEN2VApRckFqeXVSRkhUQW1jOXhqWStJa01BOEdBMVVkRXdFQi93UUZNQU1CQWY4d0h3WURWUjBqQkJnd0ZvQVVzd3U0CnpYK2dVanZwTEFEc01qSlZwK0RYTkFJd0RnWURWUjBQQVFIL0JBUURBZ0VHTUEwR0NTcUdTSWIzRFFFQkN3VUEKQTRJQkFRQXFXSXA3SmVMcEx1akpGMDB4NEd4bFNjYlAxY3BocURqZ3Rvalp0bDZYY1Z1NjFJL0FCSDAyMkFCNgpWTUpIdkk1dm9ubmx3Y3BVN3QwRERQZ3JQa3hKVWh5ZW9jWWlTdlE4a2dsZWxzays0Zko1VlVOT2dyeC80SVVVCjkxbG9qWUxqTlFRVG93bkFyaEQ5dHJjWWpKd2dYSmtTeDBZSk1zQ0FNeExQODV0WElZTG56ZkJ3UGxJc1U5NTQKaFVVaFgvNXlmOHh5dXFtUFlJNEVZVC94K09WcTNZdktJaHZ2S25xd01iNUo3eWhQRW5zN2NmZHpVM3FHNnZhaQpoeWgyZTA5SjgyQzlFRXBSYnBZMDYxaDRjM3FKQUlPdnBvZkQ3V0t2YUJRUklNL1dzUHNWNDJQYWJvd0hQNE5KCmFEd0dTQ2V4V1FIRlY2amg0djVRc280M014Uk0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=</pem>
+            </install-certificate-pem>
+        </certificates>
+    </truststore>
+</action>
+</rpc>
+]]>]]>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Close Session" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <close-session />
+</rpc>
+]]>]]>
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Intsall OAM Trusted Certificate-4" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<action xmlns="urn:ietf:params:xml:ns:yang:1">
+    <truststore xmlns="urn:ietf:params:xml:ns:yang:ietf-truststore">
+        <certificates>
+            <name>oamTrustCategory</name>
+            <install-certificate-pem xmlns="urn:rdns:com:ericsson:oammodel:ericsson-truststore-ext">
+                <name>ENM_PKI_Root_CA-1</name>
+                <pem>LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURTakNDQWpLZ0F3SUJBZ0lJZmRwRU95N0J1NjB3RFFZSktvWklodmNOQVFFTEJRQXdRekVZTUJZR0ExVUUKQXd3UFJVNU5YMUJMU1Y5U2IyOTBYME5CTVFzd0NRWURWUVFHRXdKVFJURUxNQWtHQTFVRUNnd0NTMGt4RFRBTApCZ05WQkFzTUJGSkJUa2t3SGhjTk1qQXdOek13TVRFek56VTFXaGNOTXpBd056TXdNVEV6TnpVMVdqQkRNUmd3CkZnWURWUVFEREE5RlRrMWZVRXRKWDFKdmIzUmZRMEV4Q3pBSkJnTlZCQVlUQWxORk1Rc3dDUVlEVlFRS0RBSkwKU1RFTk1Bc0dBMVVFQ3d3RVVrRk9TVENDQVNJd0RRWUpLb1pJaHZjTkFRRUJCUUFEZ2dFUEFEQ0NBUW9DZ2dFQgpBSXdOKzhOTElFY2E4N3ljcG4xSzB0Snozakg3ald5dDVYNjhPRzU3d0szRDNZN2t5N1YzUm14ZCtQMGFETWp4CkFNK3F4S1lqQ0NoVGRCMm0vaENWcFJCQVNhcXhRbXVzRGpQWjl2bjhCa2F6dzBGOEZ5dlpoV1FEcVRtbFl6TTEKZ3cvQTY2bjl4TVI3VS9lN0V1dVZobGRiZ1djUFNWSDFUYzdRakIzZ0puN0RLcTU2cm9vZjBpc2ZOOXdGZ1p6cQpsQkNXSm9YS0RhVHRIUVp4NmI3M0RIZzEwSkk2KytRdjRNMkwzZXRnQzRGdzlJU25RSWNsdTZQM3J3MEk4bEhmCmFadlFvUEttWTUrR3hQQkJpWndCeEhVbWVtVzVvSXY3aEh1M0VPWHAxYVFVWVJ0cmYxb1Q1aDAzNTMvT2RjS0oKRlcrVFBTWFI1MkhQOG4yd0luY3ZaQlVDQXdFQUFhTkNNRUF3SFFZRFZSME9CQllFRkxNTHVNMS9vRkk3NlN3QQo3REl5VmFmZzF6UUNNQThHQTFVZEV3RUIvd1FGTUFNQkFmOHdEZ1lEVlIwUEFRSC9CQVFEQWdFR01BMEdDU3FHClNJYjNEUUVCQ3dVQUE0SUJBUUI0NmVUMXprSmdXTlFyaUpSZ0JuUUI3a0JKeU90R085bkErSFRIV3lLakNOUzYKZW0xYzBGMWtCTmNITmpPT01Ba1ZFbUEwTkQ3S0pUMXIvUkMwdHRlQVJKblIwK2lqSm0yKzdsS2F4R2ZpZ0VaSQpGRkg2K01jRU5YTDYvRHpuL0FHQXp2T0N5c0VTenVab0FUdWI3QWNLS0l1aXp3amlYdzB1ajdzWTlaem9JdUNRCmlGeU9OTkZRdTF5clBvdDY4dDkraDFUb2RuMmhDbUc5ZExUZGJrOGU0MXo4SkJxRGFDYVBxdTJ5WkFWWXJLWHgKNXZDKzhQbGo2dzhuN3NBZ0Fmc3dla1RFby9qNjJSdDlkclR5U0FQVFRSTHljdjFBamhsbk0yLzFMOFZPMG85QQo0MlorTFZ5RkFIbkYyaE5zWXUxdk9tbHdoRDArQStyN0dMTjNJRnhYCi0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K</pem>
+            </install-certificate-pem>
+        </certificates>
+    </truststore>
+</action>
+</rpc>
+]]>]]>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Close Session" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <close-session />
+</rpc>
+]]>]]>
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="OAM CMP Server Configuration" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<edit-config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+        <running/>
+    </target>
+    <config xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0">
+        <keystore xmlns="urn:ietf:params:xml:ns:yang:ietf-keystore">
+            <cmp xmlns="urn:rdns:com:ericsson:oammodel:ericsson-keystore-ext" xc:operation="merge">
+                <certificate-authorities>
+                    <certificate-authority>
+                        <name>CN=NE_OAM_CA,C=SE,O=KI,OU=RANI</name>
+                    </certificate-authority>
+                </certificate-authorities>
+                <cmp-server-groups>
+                    <cmp-server-group>
+                        <name>oamCmpServerGroup</name>
+                        <cmp-server>
+                            <name>oamCmpServer</name>
+                            <uri>http://10.129.10.233:8091/pkira-cmp/NE_OAM_CA/synch</uri>
+                            <ca-certs>oamCmpCaTrustCategory</ca-certs>
+                            <certificate-authority>CN=NE_OAM_CA,C=SE,O=KI,OU=RANI</certificate-authority>
+                            <priority>1</priority>
+                        </cmp-server>
+                    </cmp-server-group>
+                </cmp-server-groups>
+            </cmp>
+        </keystore>
+    </config>
+</edit-config>
+</rpc>
+]]>]]>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Close Session" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <close-session />
+</rpc>
+]]>]]>
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Init OAM CMP Online Enrollment" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<action xmlns="urn:ietf:params:xml:ns:yang:1">
+    <keystore xmlns="urn:ietf:params:xml:ns:yang:ietf-keystore">
+        <asymmetric-keys xmlns="urn:ietf:params:xml:ns:yang:ietf-keystore">
+            <cmp xmlns="urn:rdns:com:ericsson:oammodel:ericsson-keystore-ext">
+                <start-cmp xmlns="urn:rdns:com:ericsson:oammodel:ericsson-keystore-ext">
+                    <name>oamNodeCredential</name>
+                    <certificate-name>oamNodeCredential</certificate-name>
+                    <algorithm>rsa2048</algorithm>
+                    <subject>CN=cloud257-vdu-oam,C=SE,O=KI,OU=RANI</subject>
+                    <password>V3ct0r</password>
+                    <cmp-server-group>oamCmpServerGroup</cmp-server-group>
+                    <trusted-certs></trusted-certs>
+                </start-cmp>
+            </cmp>
+        </asymmetric-keys>
+    </keystore>
+</action>
+</rpc>
+]]>]]>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Close Session" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <close-session />
+</rpc>
+]]>]]>
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Configure LDAP Server Data" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+<edit-config xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <target>
+        <running />
+    </target>
+    <config xmlns:xc="urn:ietf:params:xml:ns:netconf:base:1.0">
+        <system xmlns="urn:ietf:params:xml:ns:yang:ietf-system" xc:operation="merge">
+            <ldap xmlns="urn:rdns:com:ericsson:oammodel:ericsson-system-ext">
+                <server>
+                    <name>external</name>
+                    <tcp>
+                        <address>10.129.10.246</address>
+                        <ldaps>
+                            <port>1636</port>
+                        </ldaps>
+                    </tcp>
+                </server>
+                <security>
+                     <tls />
+                     <simple-authenticated>
+                         <bind-dn>cn=ProxyAccount_3,ou=proxyagent,ou=com,dc=rani-venm-1,dc=com</bind-dn>
+                         <bind-password>zou91ucz</bind-password>
+                     </simple-authenticated>
+                     <user-base-dn>dc=rani-venm-1,dc=com</user-base-dn>
+                </security>
+                <options>
+                    <timeout>5</timeout>
+                    <enable-referrals>false</enable-referrals>
+                </options>
+            </ldap>
+        </system>
+    </config>
+</edit-config>
+</rpc>
+]]>]]>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rpc message-id="Close Session" xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <close-session />
+</rpc>
+]]>]]>

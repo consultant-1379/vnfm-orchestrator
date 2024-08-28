@@ -1,0 +1,407 @@
+{
+  "tosca_definitions_version": "tosca_simple_yaml_1_2",
+  "description": "VNF Descriptor for Ericsson SGSN-MME",
+  "imports": [
+    "etsi_nfv_sol001_vnfd_2_5_1_types.yaml"
+  ],
+  "data_types": {
+    "ericsson.datatypes.nfv.InstantiateVnfOperationAdditionalParameters": {
+      "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters",
+      "properties": {
+        "eric-adp-gs-testapp.tls.dced.enabled": {
+          "type": "boolean",
+          "description": "enable tls for eric-adp-gs-testapp",
+          "required": true,
+          "default": false
+        },
+        "sitebasic.xml": {
+          "type": "string",
+          "required": false
+        },
+        "ossnodeprotocol.xml": {
+          "type": "string",
+          "required": false
+        },
+        "licensekeyfile.xml": {
+          "type": "string",
+          "required": false
+        }
+      }
+    },
+    "ericsson.datatypes.nfv.HealVnfOperationAdditionalParameters": {
+      "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters",
+      "properties": {
+        "restore.backupFileReference": {
+          "type": "string",
+          "description": "Input for restore backupFileReference can be Latest or URI",
+          "required": false
+        }
+      }
+    }
+  },
+  "node_types": {
+    "Ericsson.SAMPLE-VNF.1_57_CXS101289_R81R09.cxp9025898_4r81s10": {
+      "derived_from": "tosca.nodes.nfv.VNF",
+      "properties": {
+        "descriptor_id": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "multi-chart-heal-569d-xyz3-5g15f7h497"
+              ]
+            }
+          ],
+          "default": "multi-chart-heal-569d-xyz3-5g15f7h497"
+        },
+        "descriptor_version": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "cxp9025898_4r81s10"
+              ]
+            }
+          ],
+          "default": "cxp9025898_4r81s10"
+        },
+        "provider": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "Ericsson"
+              ]
+            }
+          ],
+          "default": "Ericsson"
+        },
+        "product_name": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "2CHART-HEAL-VNF"
+              ]
+            }
+          ],
+          "default": "2CHART-HEAL-VNF"
+        },
+        "software_version": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "1.57 (CXS101289_R81R09)"
+              ]
+            }
+          ],
+          "default": "1.57 (CXS101289_R81R09)"
+        },
+        "vnfm_info": {
+          "type": "list",
+          "entry_schema": {
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "3881:E-VNFM"
+                ]
+              }
+            ]
+          },
+          "default": [
+            "3881:E-VNFM"
+          ]
+        },
+        "flavour_id": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "default"
+              ]
+            }
+          ],
+          "default": "default"
+        },
+        "flavour_description": {
+          "type": "string",
+          "default": ""
+        }
+      },
+      "interfaces": {
+        "Vnflcm": {
+          "type": "tosca.interfaces.nfv.Vnflcm",
+          "instantiate": {
+            "inputs": {
+              "helm_packages": {
+                "type": "list",
+                "entry_schema": {
+                  "type": "string"
+                },
+                "required": true,
+                "description": "list of all helm charts"
+              },
+              "additional_parameters": {
+                "type": "ericsson.datatypes.nfv.InstantiateVnfOperationAdditionalParameters",
+                "required": false
+              }
+            }
+          },
+          "terminate": {},
+          "scale": {},
+          "change_package": {},
+          "heal": {
+            "inputs": {
+              "additional_parameters": {
+                "type": "ericsson.datatypes.nfv.HealVnfOperationAdditionalParameters",
+                "required": false
+              }
+            }
+          }
+        }
+      },
+      "artifacts": {
+        "helm_package1": {
+          "description": "Helm package associated with this descriptor",
+          "type": "tosca.artifacts.File",
+          "file": "Definitions/OtherTemplates/test-scale-chart-0.1.1.tgz"
+        },
+        "helm_package2": {
+          "description": "Helm package associated with this descriptor",
+          "type": "tosca.artifacts.File",
+          "file": "Definitions/OtherTemplates/spider-app-2.216.9.tgz"
+        },
+        "software_images": {
+          "description": "Location of the software images being used in this package",
+          "type": "tosca.artifacts.nfv.SwImage",
+          "file": "Files/images/docker.tar"
+        }
+      }
+    }
+  },
+  "topology_template": {
+    "node_templates": {
+      "SAMPLE-VNF": {
+        "type": "Ericsson.SAMPLE-VNF.1_57_CXS101289_R81R09.cxp9025898_4r81s10",
+        "properties": {},
+        "interfaces": {
+          "Vnflcm": {
+            "instantiate": {
+              "inputs": {
+                "helm_packages": [
+                  {
+                    "get_artifact": [
+                      "SELF",
+                      "helm_package1"
+                    ]
+                  },
+                  {
+                    "get_artifact": [
+                      "SELF",
+                      "helm_package2"
+                    ]
+                  }
+                ]
+              }
+            },
+            "terminate": {},
+            "scale": {}
+          }
+        }
+      }
+    },
+    "policies": [
+      {
+        "ScalingAspects1": {
+          "type": "tosca.policies.nfv.ScalingAspects",
+          "properties": {
+            "aspects": {
+              "Aspect1": {
+                "name": "Aspect1",
+                "description": "Scale level 0-10 maps to 1-41 for test-cnf-vnfc3 VNFC instances and also maps to 5-45 for test-cnf-vnfc2 VNFC instances (4 instance per scale step)\n",
+                "max_scale_level": 10,
+                "step_deltas": [
+                  "delta_1"
+                ]
+              },
+              "Aspect2": {
+                "name": "Aspect2",
+                "description": "Scale level 0-7 maps to 6-28 for test-cnf-vnfc4 VNFC instances and maps to 5-27 for test-cnf-vnfc3 VNFC instances (4 instance in first scale level, 1 instance in second scale level, 9 instance in third scale level and 3 instance in all the next scale levels)\n",
+                "max_scale_level": 7,
+                "step_deltas": [
+                  "delta_1",
+                  "delta_2",
+                  "delta_3",
+                  "delta_4"
+                ]
+              },
+              "Aspect3": {
+                "name": "Aspect3",
+                "description": "Scale level 0-12 maps to 4-28 for test-cnf VNFC instances and also maps to 3-27 for test-cnf-vnfc1 VNFC instances (2 instance per scale step)\n",
+                "max_scale_level": 12,
+                "step_deltas": [
+                  "delta_1"
+                ]
+              },
+              "Aspect4": {
+                "name": "Aspect4",
+                "description": "Scale level 0-6 maps to 4-10 for test-cnf VNFC instances, maps to 3-9 for test-cnf-vnfc1 VNFC instances, maps to 5-11 for test-cnf-vnfc2 VNFC instances, maps to 1-7 for test-cnf-vnfc3 VNFC instances and maps to 2-8 for test-cnf-vnfc4 VNFC instances (1 instance per scale step)\n",
+                "max_scale_level": 6,
+                "step_deltas": [
+                  "delta_1"
+                ]
+              }
+            }
+          }
+        }
+      },
+      {
+        "vnfc1.test-cnf": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 1
+            }
+          },
+          "targets": [
+            "test-cnf"
+          ]
+        }
+      },
+      {
+        "vnfc1": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 1
+            }
+          },
+          "targets": [
+            "test-cnf-vnfc1"
+          ]
+        }
+      },
+      {
+        "vnfc2": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 1
+            }
+          },
+          "targets": [
+            "test-cnf-vnfc2"
+          ]
+        }
+      },
+      {
+        "vnfc3": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 1
+            }
+          },
+          "targets": [
+            "test-cnf-vnfc3"
+          ]
+        }
+      },
+      {
+        "vnfc4": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 1
+            }
+          },
+          "targets": [
+            "test-cnf-vnfc4"
+          ]
+        }
+      },
+      {
+        "Payload_ScalingAspectDeltas1": {
+          "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+          "properties": {
+            "aspect": "Aspect2",
+            "deltas": {
+              "delta_1": {
+                "number_of_instances": 4
+              },
+              "delta_2": {
+                "number_of_instances": 1
+              },
+              "delta_3": {
+                "number_of_instances": 9
+              },
+              "delta_4": {
+                "number_of_instances": 3
+              }
+            }
+          },
+          "targets": [
+            "test-cnf-vnfc4",
+            "test-cnf-vnfc3"
+          ]
+        }
+      },
+      {
+        "Payload_ScalingAspectDeltas2": {
+          "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+          "properties": {
+            "aspect": "Aspect1",
+            "deltas": {
+              "delta_1": {
+                "number_of_instances": 4
+              }
+            }
+          },
+          "targets": [
+            "test-cnf-vnfc3",
+            "test-cnf-vnfc2"
+          ]
+        }
+      },
+      {
+        "Payload_ScalingAspectDeltas3": {
+          "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+          "properties": {
+            "aspect": "Aspect3",
+            "deltas": {
+              "delta_1": {
+                "number_of_instances": 2
+              }
+            }
+          },
+          "targets": [
+            "test-cnf",
+            "test-cnf-vnfc1"
+          ]
+        }
+      },
+      {
+        "Payload_ScalingAspectDeltas4": {
+          "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+          "properties": {
+            "aspect": "Aspect4",
+            "deltas": {
+              "delta_1": {
+                "number_of_instances": 1
+              }
+            }
+          },
+          "targets": [
+            "test-cnf",
+            "test-cnf-vnfc1",
+            "test-cnf-vnfc3",
+            "test-cnf-vnfc2",
+            "test-cnf-vnfc4"
+          ]
+        }
+      }
+    ]
+  }
+}

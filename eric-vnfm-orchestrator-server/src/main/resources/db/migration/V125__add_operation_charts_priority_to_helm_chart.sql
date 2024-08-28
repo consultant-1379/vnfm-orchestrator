@@ -1,0 +1,1 @@
+ALTER TABLE helm_chart ADD operation_charts_priority VARCHAR NOT NULL  default '';

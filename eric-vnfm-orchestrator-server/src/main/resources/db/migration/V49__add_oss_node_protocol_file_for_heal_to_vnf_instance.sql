@@ -1,0 +1,1 @@
+ALTER TABLE app_vnf_instance ADD oss_node_protocol_file VARCHAR DEFAULT NULL;

@@ -1,0 +1,1 @@
+ALTER TABLE app_vnf_instance ADD mano_controlled_scaling BOOLEAN default NULL;

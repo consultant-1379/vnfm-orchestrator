@@ -1,0 +1,185 @@
+{
+  "vnfInstanceId": "691ab723-626f-4b93-a7ff-e92a804268ff",
+  "vnfInstanceName": "dd",
+  "vnfInstanceDescription": null,
+  "vnfDescriptorId": "multi-chart-etsi-rel4-b-455379754e37",
+  "vnfProviderName": "Ericsson",
+  "vnfProductName": "spider-app-multi-b-etsi-tosca-rel4",
+  "vnfSoftwareVersion": "1.0.26.2s",
+  "vnfdVersion": "1.0.26.2",
+  "vnfPackageId": "f15089d0-be32-43be-af85-e82ee40d876d",
+  "instantiationState": "NOT_INSTANTIATED",
+  "clusterName": "hart070",
+  "namespace": null,
+  "helmCharts": [
+    {
+      "helmChartUrl": "https://helm-chart-registry.zebsler.hart070-iccr.ews.gic.ericsson.se/onboarded/charts/eric-sec-sip-tls-crd-5.2.1.tgz",
+      "priority": 1,
+      "releaseName": "eric-sec-sip-tls-crd",
+      "revisionNumber": null,
+      "state": null,
+      "retryCount": 0,
+      "deletePvcState": null,
+      "downsizeState": null,
+      "replicaDetails": "{}",
+      "id": "3bb26ba4-9408-4bb1-837a-3cca5bcc0c06",
+      "helmChartName": "eric-sec-sip-tls-crd",
+      "helmChartVersion": "5.2.1",
+      "helmChartType": "CRD",
+      "helmChartArtifactKey": "crd_package1"
+    },
+    {
+      "helmChartUrl": "https://helm-chart-registry.zebsler.hart070-iccr.ews.gic.ericsson.se/onboarded/charts/eric-sec-certm-crd-5.2.1.tgz",
+      "priority": 2,
+      "releaseName": "eric-sec-certm-crd",
+      "revisionNumber": null,
+      "state": null,
+      "retryCount": 0,
+      "deletePvcState": null,
+      "downsizeState": null,
+      "replicaDetails": "{}",
+      "id": "c5e0a3f9-4ab3-47e3-86a8-c0f73fe46957",
+      "helmChartName": "eric-sec-certm-crd",
+      "helmChartVersion": "5.2.1",
+      "helmChartType": "CRD",
+      "helmChartArtifactKey": "crd_package2"
+    },
+    {
+      "helmChartUrl": "https://helm-chart-registry.zebsler.hart070-iccr.ews.gic.ericsson.se/onboarded/charts/scale-crd-1.0.2.tgz",
+      "priority": 3,
+      "releaseName": "scale-crd",
+      "revisionNumber": null,
+      "state": null,
+      "retryCount": 0,
+      "deletePvcState": null,
+      "downsizeState": null,
+      "replicaDetails": "{}",
+      "id": "394123da-ec42-4d4a-ab49-080f799f1fde",
+      "helmChartName": "scale-crd",
+      "helmChartVersion": "1.0.2",
+      "helmChartType": "CRD",
+      "helmChartArtifactKey": "crd_package3"
+    },
+    {
+      "helmChartUrl": "https://helm-chart-registry.zebsler.hart070-iccr.ews.gic.ericsson.se/onboarded/charts/test-scale-chart-0.3.5.tgz",
+      "priority": 4,
+      "releaseName": "dd-1",
+      "revisionNumber": null,
+      "state": null,
+      "retryCount": 0,
+      "deletePvcState": null,
+      "downsizeState": null,
+      "replicaDetails": "{\"test-cnf\":{\"minReplicasParameterName\":null,\"minReplicasCount\":null,\"maxReplicasParameterName\":null,\"maxReplicasCount\":null,\"scalingParameterName\":\"vnfc1.test-cnf.replicaCount\",\"currentReplicaCount\":1,\"autoScalingEnabledParameterName\":null,\"autoScalingEnabledValue\":false},\"test-cnf-vnfc1\":{\"minReplicasParameterName\":\"vnfc1.minReplicas\",\"minReplicasCount\":null,\"maxReplicasParameterName\":\"vnfc1.maxReplicas\",\"maxReplicasCount\":null,\"scalingParameterName\":\"vnfc1.replicaCount\",\"currentReplicaCount\":1,\"autoScalingEnabledParameterName\":\"vnfc1.autoscaling.enabled\",\"autoScalingEnabledValue\":false},\"test-cnf-vnfc2\":{\"minReplicasParameterName\":null,\"minReplicasCount\":null,\"maxReplicasParameterName\":null,\"maxReplicasCount\":null,\"scalingParameterName\":\"vnfc2.replicaCount\",\"currentReplicaCount\":2,\"autoScalingEnabledParameterName\":null,\"autoScalingEnabledValue\":false},\"test-cnf-vnfc3\":{\"minReplicasParameterName\":null,\"minReplicasCount\":null,\"maxReplicasParameterName\":null,\"maxReplicasCount\":null,\"scalingParameterName\":\"vnfc3.replicaCount\",\"currentReplicaCount\":3,\"autoScalingEnabledParameterName\":null,\"autoScalingEnabledValue\":false},\"test-cnf-vnfc4\":{\"minReplicasParameterName\":null,\"minReplicasCount\":null,\"maxReplicasParameterName\":null,\"maxReplicasCount\":null,\"scalingParameterName\":\"vnfc4.replicaCount\",\"currentReplicaCount\":1,\"autoScalingEnabledParameterName\":null,\"autoScalingEnabledValue\":false}}",
+      "id": "4d737d00-62c5-4eab-8332-16751a12dcfe",
+      "helmChartName": "test-scale-chart",
+      "helmChartVersion": "0.3.5",
+      "helmChartType": "CNF",
+      "helmChartArtifactKey": "helm_package1"
+    },
+    {
+      "helmChartUrl": "https://helm-chart-registry.zebsler.hart070-iccr.ews.gic.ericsson.se/onboarded/charts/spider-app-2.219.5.tgz",
+      "priority": 5,
+      "releaseName": "dd-2",
+      "revisionNumber": null,
+      "state": null,
+      "retryCount": 0,
+      "deletePvcState": null,
+      "downsizeState": null,
+      "replicaDetails": "{\"eric-pm-bulk-reporter\":{\"minReplicasParameterName\":null,\"minReplicasCount\":null,\"maxReplicasParameterName\":null,\"maxReplicasCount\":null,\"scalingParameterName\":\"eric-pm-bulk-reporter.replicaCount\",\"currentReplicaCount\":10,\"autoScalingEnabledParameterName\":null,\"autoScalingEnabledValue\":false}}",
+      "id": "b876345b-bae2-466d-aa13-dcdefb75c003",
+      "helmChartName": "spider-app",
+      "helmChartVersion": "2.219.5",
+      "helmChartType": "CNF",
+      "helmChartArtifactKey": "helm_package2"
+    }
+  ],
+  "operationOccurrenceId": "182114ed-a686-4623-883f-6e4ef137aeb7",
+  "allOperations": null,
+  "supportedOperations": [
+    {
+      "operationName": "instantiate",
+      "supported": true,
+      "errorMessage": null
+    },
+    {
+      "operationName": "terminate",
+      "supported": true,
+      "errorMessage": null
+    },
+    {
+      "operationName": "change_package",
+      "supported": true,
+      "errorMessage": null
+    },
+    {
+      "operationName": "heal",
+      "supported": false,
+      "errorMessage": null
+    },
+    {
+      "operationName": "scale",
+      "supported": true,
+      "errorMessage": null
+    },
+    {
+      "operationName": "rollback",
+      "supported": true,
+      "errorMessage": null
+    },
+    {
+      "operationName": "modify_information",
+      "supported": true,
+      "errorMessage": null
+    },
+    {
+      "operationName": "sync",
+      "supported": true,
+      "errorMessage": null
+    }
+  ],
+  "ossTopology": "{}",
+  "instantiateOssTopology": "{}",
+  "addNodeOssTopology": null,
+  "addedToOss": false,
+  "combinedValuesFile": null,
+  "combinedAdditionalParams": null,
+  "policies": "{\"allScalingAspects\":{\"ScalingAspects1\":{\"type\":\"tosca.policies.nfv.ScalingAspects\",\"properties\":{\"aspects\":{\"Aspect4\":{\"name\":\"Aspect4\",\"description\":\"Scalelevel0-6mapsto2-8fortest-cnf,test-cnf-vnfc1,test-cnf-vnfc4VNFCinstances(1instanceperscalestep)\",\"max_scale_level\":6,\"step_deltas\":[\"delta_1\"],\"allScalingAspectDelta\":{\"Payload_ScalingAspectDeltas4\":{\"type\":\"tosca.policies.nfv.VduScalingAspectDeltas\",\"properties\":{\"aspect\":\"Aspect4\",\"deltas\":{\"delta_1\":{\"number_of_instances\":1}}},\"targets\":[\"test-cnf\",\"test-cnf-vnfc1\",\"test-cnf-vnfc4\"],\"allInitialDelta\":{\"vnfc1.test-cnf\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"test-cnf\"]},\"vnfc4\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"test-cnf-vnfc4\"]},\"vnfc1\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"test-cnf-vnfc1\"]}}}}},\"Aspect1\":{\"name\":\"Aspect1\",\"description\":\"Scalelevel0-10mapsto1-11foreric-pm-bulk-reporterinstances.\",\"max_scale_level\":10,\"step_deltas\":[\"delta_1\"],\"allScalingAspectDelta\":{\"Payload_ScalingAspectDeltas1\":{\"type\":\"tosca.policies.nfv.VduScalingAspectDeltas\",\"properties\":{\"aspect\":\"Aspect1\",\"deltas\":{\"delta_1\":{\"number_of_instances\":1}}},\"targets\":[\"eric-pm-bulk-reporter\"],\"allInitialDelta\":{\"eric-pm-bulk-reporter\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"eric-pm-bulk-reporter\"]}}}}},\"Aspect2\":{\"name\":\"Aspect2\",\"description\":\"Scalelevel0-10mapsto5-45fortest-cnf-vnfc2andtest-cnf-vnfc3VNFCinstances(4instanceperscalestep)\",\"max_scale_level\":10,\"step_deltas\":[\"delta_1\"],\"allScalingAspectDelta\":{\"Payload_ScalingAspectDeltas2\":{\"type\":\"tosca.policies.nfv.VduScalingAspectDeltas\",\"properties\":{\"aspect\":\"Aspect2\",\"deltas\":{\"delta_1\":{\"number_of_instances\":4}}},\"targets\":[\"test-cnf-vnfc3\",\"test-cnf-vnfc2\"],\"allInitialDelta\":{\"vnfc3\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"test-cnf-vnfc3\"]},\"vnfc2\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"test-cnf-vnfc2\"]}}}}}}}}},\"allInitialDelta\":{\"eric-pm-bulk-reporter\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"eric-pm-bulk-reporter\"]},\"vnfc3\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"test-cnf-vnfc3\"]},\"vnfc1.test-cnf\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"test-cnf\"]},\"vnfc4\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"test-cnf-vnfc4\"]},\"vnfc1\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"test-cnf-vnfc1\"]},\"vnfc2\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"test-cnf-vnfc2\"]}},\"allScalingAspectDelta\":{\"Payload_ScalingAspectDeltas2\":{\"type\":\"tosca.policies.nfv.VduScalingAspectDeltas\",\"properties\":{\"aspect\":\"Aspect2\",\"deltas\":{\"delta_1\":{\"number_of_instances\":4}}},\"targets\":[\"test-cnf-vnfc3\",\"test-cnf-vnfc2\"],\"allInitialDelta\":{\"vnfc3\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"test-cnf-vnfc3\"]},\"vnfc2\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"test-cnf-vnfc2\"]}}},\"Payload_ScalingAspectDeltas1\":{\"type\":\"tosca.policies.nfv.VduScalingAspectDeltas\",\"properties\":{\"aspect\":\"Aspect1\",\"deltas\":{\"delta_1\":{\"number_of_instances\":1}}},\"targets\":[\"eric-pm-bulk-reporter\"],\"allInitialDelta\":{\"eric-pm-bulk-reporter\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"eric-pm-bulk-reporter\"]}}},\"Payload_ScalingAspectDeltas4\":{\"type\":\"tosca.policies.nfv.VduScalingAspectDeltas\",\"properties\":{\"aspect\":\"Aspect4\",\"deltas\":{\"delta_1\":{\"number_of_instances\":1}}},\"targets\":[\"test-cnf\",\"test-cnf-vnfc1\",\"test-cnf-vnfc4\"],\"allInitialDelta\":{\"vnfc1.test-cnf\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"test-cnf\"]},\"vnfc4\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"test-cnf-vnfc4\"]},\"vnfc1\":{\"type\":\"tosca.policies.nfv.VduInitialDelta\",\"properties\":{\"initial_delta\":{\"number_of_instances\":1}},\"targets\":[\"test-cnf-vnfc1\"]}}}},\"allVnfPackageChangePolicy\":{\"rollback-operation-from-rel4-b-to-legacy-a\":{\"type\":\"tosca.policies.nfv.VnfPackageChange\",\"properties\":{\"vnfPackageChangeSelectors\":[{\"source_descriptor_id\":\"multi-chart-etsi-rel4-b-455379754e37\",\"destination_descriptor_id\":\"multi-chart-477c-aab3-2b04e6a383\",\"source_flavour_id\":\"default\"}],\"modification_qualifier\":\"down\",\"additional_modification_description\":\"..\",\"destination_flavour_id\":\"default\",\"component_mappings\":null},\"triggers\":[{\"rollback-operation-from-rel4-b-to-legacy-a\":{\"action\":\"EricssonChangeCurrentVnfPackage.rollback-operation-from-rel4-b-to-legacy-a\",\"event\":\"tosca.interfaces.nfv.EricssonChangeCurrentVnfPackage\"}}]},\"rollback-operation-from-multi-b-to-multi-a\":{\"type\":\"tosca.policies.nfv.VnfPackageChange\",\"properties\":{\"vnfPackageChangeSelectors\":[{\"source_descriptor_id\":\"multi-chart-etsi-rel4-b-455379754e37\",\"destination_descriptor_id\":\"multi-chart-etsi-rel4-5fcb086597\",\"source_flavour_id\":\"default\"}],\"modification_qualifier\":\"down\",\"additional_modification_description\":\"..\",\"destination_flavour_id\":\"default\",\"component_mappings\":null},\"triggers\":[{\"rollback-operation-from-multi-b-to-multi-a\":{\"action\":\"EricssonChangeCurrentVnfPackage.rollback-operation-from-multi-b-to-multi-a\",\"event\":\"tosca.interfaces.nfv.EricssonChangeCurrentVnfPackage\"}}]}},\"allVduInstantiationLevels\":{\"vdu_1_instantiation_levels\":{\"type\":\"tosca.policies.nfv.VduInstantiationLevels\",\"properties\":{\"instantiationLevels\":{\"instantiation_level_1\":{\"number_of_instances\":1}},\"levels\":{\"instantiation_level_1\":{\"number_of_instances\":1}}},\"targets\":[\"eric-pm-bulk-reporter\"]}},\"allInstantiationLevels\":{\"InstantiationLevels\":{\"type\":\"tosca.policies.nfv.InstantiationLevels\",\"properties\":{\"levels\":{\"instantiation_level_3\":{\"scale_info\":{\"Aspect4\":{\"scale_level\":0}},\"description\":\"test-cnf,test-cnf-vnfc1,test-cnf-vnfc4\"},\"instantiation_level_2\":{\"scale_info\":{\"Aspect2\":{\"scale_level\":1}},\"description\":\"test-cnf-vnfc3,test-cnf-vnfc2\"},\"instantiation_level_1\":{\"scale_info\":{\"Aspect1\":{\"scale_level\":0}},\"description\":\"eric-pm-bulk-reporter\"}}}}}}",
+  "resourceDetails": null,
+  "scaleInfoEntity": [
+    {
+      "scaleInfoId": "e2bcac5a-9da8-4a1e-9ad7-142b21f5d914",
+      "aspectId": "Aspect4",
+      "scaleLevel": 0
+    },
+    {
+      "scaleInfoId": "c462d860-6489-464b-ad6f-02b0eac7e7f6",
+      "aspectId": "Aspect1",
+      "scaleLevel": 0
+    },
+    {
+      "scaleInfoId": "f29d4fd7-3649-45a6-b40f-717fc120f22d",
+      "aspectId": "Aspect2",
+      "scaleLevel": 1
+    }
+  ],
+  "manoControlledScaling": false,
+  "tempInstance": null,
+  "overrideGlobalRegistry": false,
+  "metadata": "{\"tenantName\":\"ECM\"}",
+  "alarmSupervisionStatus": null,
+  "cleanUpResources": false,
+  "sitebasicFile": null,
+  "ossNodeProtocolFile": null,
+  "sensitiveInfo": null,
+  "broEndpointUrl": null,
+  "vnfInfoModifiableAttributesExtensions": "{\"vnfControlledScaling\":{\"Aspect4\":\"ManualControlled\",\"Aspect1\":\"ManualControlled\",\"Aspect2\":\"ManualControlled\"}}",
+  "instantiationLevel": "instantiation_level_2",
+  "crdNamespace": null,
+  "isRel4": false,
+  "healSupported": null,
+  "allStringValuesAsArray": [
+    "691ab723-626f-4b93-a7ff-e92a804268ff",
+    null,
+    null
+  ]
+}

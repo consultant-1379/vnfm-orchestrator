@@ -1,0 +1,1 @@
+ALTER TABLE app_vnf_instance ADD sitebasic_file VARCHAR DEFAULT NULL;

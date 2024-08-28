@@ -1,0 +1,540 @@
+{
+  "allScalingAspects": {
+    "scaling_aspects": {
+      "type": "tosca.policies.nfv.ScalingAspects",
+      "properties": {
+        "aspects": {
+          "nrf_management_mgmt": {
+            "name": "nrf_management_mgmt",
+            "description": "Scale level of nrf-management mgmt service\\n",
+            "max_scale_level": 8,
+            "step_deltas": [
+              "delta_1"
+            ],
+            "allScalingAspectDelta": {
+              "eric_nrf_management_mgmt_scaling_aspect_deltas": {
+                "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+                "properties": {
+                  "aspect": "nrf_management_mgmt",
+                  "deltas": {
+                    "delta_1": {
+                      "number_of_instances": 1
+                    }
+                  }
+                },
+                "targets": [
+                  "eric-nrf.eric-nrf-management.mgmt"
+                ],
+                "allInitialDelta": {
+                  "eric-nrf.eric-nrf-management.mgmt": {
+                    "type": "tosca.policies.nfv.VduInitialDelta",
+                    "properties": {
+                      "initial_delta": {
+                        "number_of_instances": 2
+                      }
+                    },
+                    "targets": [
+                      "eric-nrf.eric-nrf-management.mgmt"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "nrf_notify_agent": {
+            "name": "nrf_notify_agent",
+            "description": "Scale level of nrf-notify-agent service\\n",
+            "max_scale_level": 8,
+            "step_deltas": [
+              "delta_1"
+            ],
+            "allScalingAspectDelta": {
+              "eric_nrf_notify_agent_scaling_aspect_deltas": {
+                "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+                "properties": {
+                  "aspect": "nrf_notify_agent",
+                  "deltas": {
+                    "delta_1": {
+                      "number_of_instances": 1
+                    }
+                  }
+                },
+                "targets": [
+                  "eric-nrfagent.eric-nrf-notify-agent"
+                ],
+                "allInitialDelta": {
+                  "eric-nrfagent.eric-nrf-notify-agent": {
+                    "type": "tosca.policies.nfv.VduInitialDelta",
+                    "properties": {
+                      "initial_delta": {
+                        "number_of_instances": 2
+                      }
+                    },
+                    "targets": [
+                      "eric-nrfagent.eric-nrf-notify-agent"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "nrf_management_notification": {
+            "name": "nrf_management_notification",
+            "description": "Scale level of nrf-management notification service\\n",
+            "max_scale_level": 8,
+            "step_deltas": [
+              "delta_1"
+            ],
+            "allScalingAspectDelta": {
+              "eric_nrf_management_notification_scaling_aspect_deltas": {
+                "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+                "properties": {
+                  "aspect": "nrf_management_notification",
+                  "deltas": {
+                    "delta_1": {
+                      "number_of_instances": 1
+                    }
+                  }
+                },
+                "targets": [
+                  "eric-nrf.eric-nrf-management.notification"
+                ],
+                "allInitialDelta": {
+                  "eric-nrf.eric-nrf-management.notification": {
+                    "type": "tosca.policies.nfv.VduInitialDelta",
+                    "properties": {
+                      "initial_delta": {
+                        "number_of_instances": 2
+                      }
+                    },
+                    "targets": [
+                      "eric-nrf.eric-nrf-management.notification"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "nrf_discovery": {
+            "name": "nrf_discovery",
+            "description": "Scale level of nrf-discovery service\\n",
+            "max_scale_level": 10,
+            "step_deltas": [
+              "delta_1"
+            ],
+            "allScalingAspectDelta": {
+              "eric_nrf_discovery_disc_scaling_aspect_deltas": {
+                "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+                "properties": {
+                  "aspect": "nrf_discovery",
+                  "deltas": {
+                    "delta_1": {
+                      "number_of_instances": 1
+                    }
+                  }
+                },
+                "targets": [
+                  "eric-nrf.eric-nrf-discovery.disc"
+                ],
+                "allInitialDelta": {
+                  "eric-nrf.eric-nrf-discovery.disc": {
+                    "type": "tosca.policies.nfv.VduInitialDelta",
+                    "properties": {
+                      "initial_delta": {
+                        "number_of_instances": 2
+                      }
+                    },
+                    "targets": [
+                      "eric-nrf.eric-nrf-discovery.disc"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "nssf_slice_selection_control": {
+            "name": "nssf_slice_selection_control",
+            "description": "Scale level of eric-nssf-slice-selection-control service\\n",
+            "max_scale_level": 5,
+            "step_deltas": [
+              "delta_1"
+            ],
+            "allScalingAspectDelta": {
+              "eric_nssf_slice_selection_control_scaling_aspect_deltas": {
+                "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+                "properties": {
+                  "aspect": "nssf_slice_selection_control",
+                  "deltas": {
+                    "delta_1": {
+                      "number_of_instances": 1
+                    }
+                  }
+                },
+                "targets": [
+                  "eric-nssf.eric-nssf-slice-selection-control.sliceselectioncontrol"
+                ],
+                "allInitialDelta": {
+                  "eric-nssf.eric-slice-selection-control.sliceselectioncontrol": {
+                    "type": "tosca.policies.nfv.VduInitialDelta",
+                    "properties": {
+                      "initial_delta": {
+                        "number_of_instances": 2
+                      }
+                    },
+                    "targets": [
+                      "eric-nssf.eric-nssf-slice-selection-control.sliceselectioncontrol"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "nrf_register_agent": {
+            "name": "nrf_register_agent",
+            "description": "Scale level of nrf-register-agent service\\n",
+            "max_scale_level": 8,
+            "step_deltas": [
+              "delta_1"
+            ],
+            "allScalingAspectDelta": {
+              "eric_nrf_register_agent_scaling_aspect_deltas": {
+                "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+                "properties": {
+                  "aspect": "nrf_register_agent",
+                  "deltas": {
+                    "delta_1": {
+                      "number_of_instances": 1
+                    }
+                  }
+                },
+                "targets": [
+                  "eric-nrfagent.eric-nrf-register-agent"
+                ],
+                "allInitialDelta": {
+                  "eric-nrfagent.eric-nrf-register-agent": {
+                    "type": "tosca.policies.nfv.VduInitialDelta",
+                    "properties": {
+                      "initial_delta": {
+                        "number_of_instances": 2
+                      }
+                    },
+                    "targets": [
+                      "eric-nrfagent.eric-nrf-register-agent"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "nrf_discovery_agent": {
+            "name": "nrf_discovery_agent",
+            "description": "Scale level of nrf-discovery-agent service\\n",
+            "max_scale_level": 8,
+            "step_deltas": [
+              "delta_1"
+            ],
+            "allScalingAspectDelta": {
+              "eric_nrf_discovery_agent_scaling_aspect_deltas": {
+                "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+                "properties": {
+                  "aspect": "nrf_discovery_agent",
+                  "deltas": {
+                    "delta_1": {
+                      "number_of_instances": 1
+                    }
+                  }
+                },
+                "targets": [
+                  "eric-nrfagent.eric-nrf-discovery-agent"
+                ],
+                "allInitialDelta": {
+                  "eric-nrfagent.eric-nrf-discovery-agent": {
+                    "type": "tosca.policies.nfv.VduInitialDelta",
+                    "properties": {
+                      "initial_delta": {
+                        "number_of_instances": 2
+                      }
+                    },
+                    "targets": [
+                      "eric-nrfagent.eric-nrf-discovery-agent"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "allInitialDelta": {
+    "eric-nrf.eric-nrf-management.mgmt": {
+      "type": "tosca.policies.nfv.VduInitialDelta",
+      "properties": {
+        "initial_delta": {
+          "number_of_instances": 2
+        }
+      },
+      "targets": [
+        "eric-nrf.eric-nrf-management.mgmt"
+      ]
+    },
+    "eric-nrfagent.eric-nrf-discovery-agent": {
+      "type": "tosca.policies.nfv.VduInitialDelta",
+      "properties": {
+        "initial_delta": {
+          "number_of_instances": 2
+        }
+      },
+      "targets": [
+        "eric-nrfagent.eric-nrf-discovery-agent"
+      ]
+    },
+    "eric-nssf.eric-slice-selection-control.sliceselectioncontrol": {
+      "type": "tosca.policies.nfv.VduInitialDelta",
+      "properties": {
+        "initial_delta": {
+          "number_of_instances": 2
+        }
+      },
+      "targets": [
+        "eric-nssf.eric-nssf-slice-selection-control.sliceselectioncontrol"
+      ]
+    },
+    "eric-nrfagent.eric-nrf-register-agent": {
+      "type": "tosca.policies.nfv.VduInitialDelta",
+      "properties": {
+        "initial_delta": {
+          "number_of_instances": 2
+        }
+      },
+      "targets": [
+        "eric-nrfagent.eric-nrf-register-agent"
+      ]
+    },
+    "eric-nrfagent.eric-nrf-notify-agent": {
+      "type": "tosca.policies.nfv.VduInitialDelta",
+      "properties": {
+        "initial_delta": {
+          "number_of_instances": 2
+        }
+      },
+      "targets": [
+        "eric-nrfagent.eric-nrf-notify-agent"
+      ]
+    },
+    "eric-nrf.eric-nrf-discovery.disc": {
+      "type": "tosca.policies.nfv.VduInitialDelta",
+      "properties": {
+        "initial_delta": {
+          "number_of_instances": 2
+        }
+      },
+      "targets": [
+        "eric-nrf.eric-nrf-discovery.disc"
+      ]
+    },
+    "eric-nrf.eric-nrf-management.notification": {
+      "type": "tosca.policies.nfv.VduInitialDelta",
+      "properties": {
+        "initial_delta": {
+          "number_of_instances": 2
+        }
+      },
+      "targets": [
+        "eric-nrf.eric-nrf-management.notification"
+      ]
+    }
+  },
+  "allScalingAspectDelta": {
+    "eric_nrf_management_notification_scaling_aspect_deltas": {
+      "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+      "properties": {
+        "aspect": "nrf_management_notification",
+        "deltas": {
+          "delta_1": {
+            "number_of_instances": 1
+          }
+        }
+      },
+      "targets": [
+        "eric-nrf.eric-nrf-management.notification"
+      ],
+      "allInitialDelta": {
+        "eric-nrf.eric-nrf-management.notification": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 2
+            }
+          },
+          "targets": [
+            "eric-nrf.eric-nrf-management.notification"
+          ]
+        }
+      }
+    },
+    "eric_nrf_management_mgmt_scaling_aspect_deltas": {
+      "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+      "properties": {
+        "aspect": "nrf_management_mgmt",
+        "deltas": {
+          "delta_1": {
+            "number_of_instances": 1
+          }
+        }
+      },
+      "targets": [
+        "eric-nrf.eric-nrf-management.mgmt"
+      ],
+      "allInitialDelta": {
+        "eric-nrf.eric-nrf-management.mgmt": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 2
+            }
+          },
+          "targets": [
+            "eric-nrf.eric-nrf-management.mgmt"
+          ]
+        }
+      }
+    },
+    "eric_nrf_notify_agent_scaling_aspect_deltas": {
+      "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+      "properties": {
+        "aspect": "nrf_notify_agent",
+        "deltas": {
+          "delta_1": {
+            "number_of_instances": 1
+          }
+        }
+      },
+      "targets": [
+        "eric-nrfagent.eric-nrf-notify-agent"
+      ],
+      "allInitialDelta": {
+        "eric-nrfagent.eric-nrf-notify-agent": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 2
+            }
+          },
+          "targets": [
+            "eric-nrfagent.eric-nrf-notify-agent"
+          ]
+        }
+      }
+    },
+    "eric_nrf_discovery_agent_scaling_aspect_deltas": {
+      "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+      "properties": {
+        "aspect": "nrf_discovery_agent",
+        "deltas": {
+          "delta_1": {
+            "number_of_instances": 1
+          }
+        }
+      },
+      "targets": [
+        "eric-nrfagent.eric-nrf-discovery-agent"
+      ],
+      "allInitialDelta": {
+        "eric-nrfagent.eric-nrf-discovery-agent": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 2
+            }
+          },
+          "targets": [
+            "eric-nrfagent.eric-nrf-discovery-agent"
+          ]
+        }
+      }
+    },
+    "eric_nssf_slice_selection_control_scaling_aspect_deltas": {
+      "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+      "properties": {
+        "aspect": "nssf_slice_selection_control",
+        "deltas": {
+          "delta_1": {
+            "number_of_instances": 1
+          }
+        }
+      },
+      "targets": [
+        "eric-nssf.eric-nssf-slice-selection-control.sliceselectioncontrol"
+      ],
+      "allInitialDelta": {
+        "eric-nssf.eric-slice-selection-control.sliceselectioncontrol": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 2
+            }
+          },
+          "targets": [
+            "eric-nssf.eric-nssf-slice-selection-control.sliceselectioncontrol"
+          ]
+        }
+      }
+    },
+    "eric_nrf_discovery_disc_scaling_aspect_deltas": {
+      "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+      "properties": {
+        "aspect": "nrf_discovery",
+        "deltas": {
+          "delta_1": {
+            "number_of_instances": 1
+          }
+        }
+      },
+      "targets": [
+        "eric-nrf.eric-nrf-discovery.disc"
+      ],
+      "allInitialDelta": {
+        "eric-nrf.eric-nrf-discovery.disc": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 2
+            }
+          },
+          "targets": [
+            "eric-nrf.eric-nrf-discovery.disc"
+          ]
+        }
+      }
+    },
+    "eric_nrf_register_agent_scaling_aspect_deltas": {
+      "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+      "properties": {
+        "aspect": "nrf_register_agent",
+        "deltas": {
+          "delta_1": {
+            "number_of_instances": 1
+          }
+        }
+      },
+      "targets": [
+        "eric-nrfagent.eric-nrf-register-agent"
+      ],
+      "allInitialDelta": {
+        "eric-nrfagent.eric-nrf-register-agent": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 2
+            }
+          },
+          "targets": [
+            "eric-nrfagent.eric-nrf-register-agent"
+          ]
+        }
+      }
+    }
+  }
+}

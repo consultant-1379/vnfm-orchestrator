@@ -1,0 +1,185 @@
+{
+  "instanceId": "3435378",
+  "vnfInstanceName": "test-instance-8",
+  "vnfInstanceDescription": "used for testing rollback/fail from FAILED_TEMP state",
+  "vnfdId": "343537",
+  "vnfProvider": "Ericsson",
+  "vnfProductName": "vEPG",
+  "vnfSoftwareVersion": "1.23,1",
+  "vnfdVersion": "2.3",
+  "vnfPkgId": "d3def1ce-4cf4-477c-aab3-21cb04e6a385",
+  "clusterName": "dummy",
+  "namespace": "default",
+  "addedToOss": false,
+  "instantiationState": "INSTANTIATED",
+  "instantiateOssTopology": {
+    "snmpSecurityLevel": {
+      "defaultValue": "AUTH_PRIV",
+      "type": "string",
+      "required": "false"
+    },
+    "subNetworks": {
+      "defaultValue": "SubNetwork=CL,SubNetwork=COMS",
+      "type": "string",
+      "required": "false"
+    },
+    "networkElementPassword": {
+      "defaultValue": "my-password",
+      "type": "string",
+      "required": "true"
+    },
+    "fmAlarmSupervision": {
+      "defaultValue": "true",
+      "type": "boolean",
+      "required": "false"
+    },
+    "snmpSecurityName": {
+      "defaultValue": "sec-name",
+      "type": "string",
+      "required": "false"
+    },
+    "networkElementVersion": {
+      "defaultValue": "2",
+      "type": "string",
+      "required": "false"
+    },
+    "nodeIpAddress": {
+      "defaultValue": "10.210.174.58",
+      "type": "string",
+      "required": "true"
+    },
+    "snmpAuthProtocol": {
+      "defaultValue": "MD5",
+      "type": "string",
+      "required": "false"
+    },
+    "transportProtocol": {
+      "defaultValue": "SSH",
+      "type": "string",
+      "required": "false"
+    },
+    "pmFunction": {
+      "defaultValue": "false",
+      "type": "boolean",
+      "required": "false"
+    },
+    "cmNodeHeartbeatSupervision": {
+      "defaultValue": "true",
+      "type": "boolean",
+      "required": "false"
+    },
+    "snmpVersion": {
+      "defaultValue": "2",
+      "type": "string",
+      "required": "false"
+    },
+    "snmpAuthPassword": {
+      "defaultValue": "my-pass",
+      "type": "string",
+      "required": "true"
+    },
+    "networkElementUsername": {
+      "defaultValue": "my-user",
+      "type": "string",
+      "required": "true"
+    },
+    "networkElementType": {
+      "defaultValue": "UDM-AUSF",
+      "type": "string",
+      "required": "true"
+    },
+    "communityString": {
+      "defaultValue": "enm-public",
+      "type": "string",
+      "required": "true"
+    },
+    "snmpPrivacyPassword": {
+      "defaultValue": "my-pass",
+      "type": "string",
+      "required": "true"
+    },
+    "netConfPort": {
+      "defaultValue": "830",
+      "type": "string",
+      "required": "true"
+    },
+    "snmpPort": {
+      "defaultValue": "161",
+      "type": "string",
+      "required": "false"
+    },
+    "snmpPrivProtocol": {
+      "defaultValue": "AES128",
+      "type": "string",
+      "required": "false"
+    }
+  },
+  "instantiatedVnfInfo": null,
+  "scalingInfo": null,
+  "lcmOperationDetails": [
+    {
+      "currentLifecycleOperation": true,
+      "operationOccurrenceId": "2341241-2",
+      "operationState": "FAILED_TEMP",
+      "stateEnteredTime": "2012-09-17 18:47:52.69",
+      "startTime": "2012-09-17 18:47:52.69",
+      "grantId": null,
+      "lifecycleOperationType": "CHANGE_VNFPKG",
+      "automaticInvocation": false,
+      "operationParams": null,
+      "cancelPending": false,
+      "cancelMode": null,
+      "error": {
+        "type": "someType",
+        "title": "someTitle",
+        "status": 404,
+        "detail": "some error happened",
+        "instance": ""
+      },
+      "vnfProductName": "vEPG",
+      "vnfSoftwareVersion": "1.23,1"
+    },
+    {
+      "currentLifecycleOperation": false,
+      "operationOccurrenceId": "5363749",
+      "operationState": "COMPLETED",
+      "stateEnteredTime": "2012-09-16 18:47:52.69",
+      "startTime": "2012-09-16 18:47:52.69",
+      "grantId": null,
+      "lifecycleOperationType": "INSTANTIATE",
+      "automaticInvocation": false,
+      "operationParams": null,
+      "cancelPending": false,
+      "cancelMode": null,
+      "error": null,
+      "vnfProductName": "vEPG",
+      "vnfSoftwareVersion": "1.23,1"
+    }
+  ],
+  "downgradeSupported": false,
+  "healSupported": true,
+  "lastStateChanged": "2012-09-17 18:47:52.70",
+  "lastLifecycleOperation": {
+    "currentLifecycleOperation": true,
+    "operationOccurrenceId": "2341241-2",
+    "operationState": "FAILED_TEMP",
+    "stateEnteredTime": "2012-09-17 18:47:52.69",
+    "startTime": "2012-09-17 18:47:52.69",
+    "grantId": null,
+    "lifecycleOperationType": "CHANGE_VNFPKG",
+    "automaticInvocation": false,
+    "operationParams": null,
+    "cancelPending": false,
+    "cancelMode": null,
+    "error": {
+      "type": "someType",
+      "title": "someTitle",
+      "status": 404,
+      "detail": "some error happened",
+      "instance": ""
+    },
+    "vnfProductName": "vEPG",
+    "vnfSoftwareVersion": "1.23,1",
+    "username": "Kale67"
+  }
+}

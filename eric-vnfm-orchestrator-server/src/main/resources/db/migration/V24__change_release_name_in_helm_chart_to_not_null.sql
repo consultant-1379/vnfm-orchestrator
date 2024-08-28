@@ -1,0 +1,1 @@
+ALTER TABLE helm_chart ALTER COLUMN release_name SET NOT NULL;

@@ -1,0 +1,1 @@
+ALTER TABLE app_cluster_config_file ADD verification_namespace_uid VARCHAR;

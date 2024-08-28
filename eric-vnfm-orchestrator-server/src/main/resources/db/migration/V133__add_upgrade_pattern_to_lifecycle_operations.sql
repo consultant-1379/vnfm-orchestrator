@@ -1,0 +1,1 @@
+ALTER TABLE app_lifecycle_operations ADD upgrade_pattern VARCHAR DEFAULT null;

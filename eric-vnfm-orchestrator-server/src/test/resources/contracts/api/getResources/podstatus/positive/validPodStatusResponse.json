@@ -1,0 +1,16 @@
+{
+  "pods": [
+    {
+      "name": "eric-am-onboarding-service-85748b467-tg2vf",
+      "status": "Running"
+    },
+    {
+      "name": "eric-lcm-container-registry-registry-0",
+      "status": "Running"
+    },
+    {
+      "name": "eric-lcm-helm-chart-registry-75789844cb-6d566",
+      "status": "Running"
+    }
+  ]
+}

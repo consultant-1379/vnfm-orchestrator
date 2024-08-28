@@ -1,0 +1,12 @@
+vnfc0:
+  autoscaling:
+    enabled: true
+  replicaCount: 10
+vnfc1:
+  replicaCount: 7
+vnfc3:
+  autoscaling:
+    enabled: true
+  replicaCount: 5
+  minReplicas: 5
+  maxReplicas: 6

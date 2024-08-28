@@ -1,0 +1,417 @@
+{{- $global := fromJson (include "eric-cloud-native-kvdb-rd-operand.global" .) -}}
+apiVersion: "kvdbrd.gs.ericsson.com/v1"
+kind: RedisCluster
+metadata:
+  name: {{ include "eric-cloud-native-kvdb-rd-operand.name" . }}
+  labels: {{- include "eric-cloud-native-kvdb-rd-operand.labels" . | nindent 4 }}
+  annotations: {{- include "eric-cloud-native-kvdb-rd-operand.annotations" . | nindent 4 }}
+spec:
+  # numberOfMaster is the number of Redis instances that will run and be
+  # assigned slots in the cluster.
+  numberOfMaster: {{ .Values.numberOfMaster }}
+  # replicationFactor is the number of copies of each master that will be kept
+  # in sync and ready to take over for a failing master.
+  replicationFactor: {{ .Values.replicationFactor }}
+  serviceName: {{ include "eric-cloud-native-kvdb-rd-operand.name" . }}
+  podTemplate:
+    metadata:
+      labels: {{- include "eric-cloud-native-kvdb-rd-operand.labels" . | nindent 8 }}
+      annotations:
+        {{- $commonAnnotations := include "eric-cloud-native-kvdb-rd-operand.annotations" . | fromYaml -}}
+        {{- $egressAnnotation := include "eric-cloud-native-kvdb-rd-operand.egressAnnotations" . | fromYaml -}}
+        {{- include "eric-cloud-native-kvdb-rd-operand.mergeAnnotations" (dict "location" (.Template.Name) "sources" (list
+            $commonAnnotations $egressAnnotation)) | trim | nindent 8 }}
+    spec:
+      serviceAccountName: {{ include "eric-cloud-native-kvdb-rd-operand.name" . }}
+      volumes:
+        - name: data
+          emptyDir: {}
+        - name: redis-instance-info
+          emptyDir: {}
+        - name: combined-ca
+          emptyDir: {}
+        - name: redis-conf
+          configMap:
+            name: {{ include "eric-cloud-native-kvdb-rd-operand.name" . }}
+      {{- if .Values.security.acl.enabled }}
+        - name: acl-file-volume
+          emptyDir:
+            medium: Memory
+        - name: acl-secret-volume
+          secret:
+            secretName: {{ template "eric-cloud-native-kvdb-rd-operand.internalUserSecretName" . }}
+        - name: acl-infile-volume
+          secret:
+            secretName: {{ include "eric-cloud-native-kvdb-rd-operand.name" . }}-users-acl
+      {{- end }}
+      {{- if $global.security.tls.enabled }}
+        - name: client-secret-volume
+          secret:
+            secretName: {{ template "eric-cloud-native-kvdb-rd-operand.clientSecretName" . }}
+        - name: server-secret-volume
+          secret:
+            secretName: {{ template "eric-cloud-native-kvdb-rd-operand.serverSecretName" . }}
+        - name: probes-secret-volume
+          secret:
+            secretName: {{ template "eric-cloud-native-kvdb-rd-operand.probesServerSecretName" . }}
+        - name: client-ca-volume
+          secret:
+            secretName: {{ template "eric-cloud-native-kvdb-rd-operand.name" . }}-client-ca
+        - name: root-ca-volume
+          secret:
+            secretName: eric-sec-sip-tls-trusted-root-cert
+        {{- if has "stream" .Values.log.outputs }}
+        - name: log-transformer-client-certificate-volume
+          secret:
+            secretName: {{ include "eric-cloud-native-kvdb-rd-operand.logTransformerClientSecret" . }}
+            optional: true
+        {{- end }}
+        {{- if .Values.metrics.enabled }}
+        - name: metrics-exporter-volume
+          secret:
+            secretName: {{ template "eric-cloud-native-kvdb-rd-operand.metricsExporterSecretName" . }}
+        - name: metrics-client-volume
+          secret:
+            optional: true
+            secretName: {{ template "eric-cloud-native-kvdb-rd-operand.metricsClientSecret" . }}
+        - name: pm-server-ca-volume
+          secret:
+            optional: true
+            secretName: {{ .Values.pmServerServiceName }}-ca
+        {{- end }}
+      {{- end }}
+      {{- if include "eric-cloud-native-kvdb-rd-operand.pullSecrets" . }}
+      imagePullSecrets:
+        - name: {{ template "eric-cloud-native-kvdb-rd-operand.pullSecrets" . }}
+      {{- end }}
+      {{- if include "eric-cloud-native-kvdb-rd-operand.priorityClassName" . }}
+      priorityClassName: {{ include "eric-cloud-native-kvdb-rd-operand.priorityClassName" . | quote }}
+      {{- end }}
+      containers:
+        - name: redis-node
+          image: {{ template "eric-cloud-native-kvdb-rd-operand.operandImagePath" . }}
+          imagePullPolicy: {{ template "eric-cloud-native-kvdb-rd-operand.node-imagePullPolicy" . }}
+          command:
+            - /rd_node
+          args:
+            - --redis-subject-common-name={{ template "eric-cloud-native-kvdb-rd-operand.name" . }}
+            - --redis-dial-timeout=2s
+            - --redis-start-delay={{ include "eric-cloud-native-kvdb-rd-operand.redisStartDelay" . | printf "%ss" }}
+          ports:
+              - containerPort: 6379
+                name: redis
+          {{- if $global.security.tls.enabled }}
+              - containerPort: 6380
+                name: redis-tls
+              - containerPort: {{ add 6380 10000 }}
+                name: cluster
+          {{- else }}
+              - containerPort: 16379
+                name: cluster
+          {{- end }}
+          volumeMounts:
+            - name: data
+              mountPath: /redis-data
+            - name: redis-instance-info
+              mountPath: /instance-info
+            - name: redis-conf
+              mountPath: /redis-conf
+          {{- if .Values.security.acl.enabled }}
+            - name: acl-file-volume
+              mountPath: /etc/acl
+            - name: acl-secret-volume
+              mountPath: /etc/acl/secrets
+              readOnly: true
+            - name: acl-infile-volume
+              mountPath: /etc/acl/infile
+          {{- end }}
+          {{- if $global.security.tls.enabled }}
+            {{- if has "stream" .Values.log.outputs }}
+            - name: log-transformer-client-certificate-volume
+              mountPath: {{ template "eric-cloud-native-kvdb-rd-operand.logTransformerClientCertificateMountPath" }}
+              readOnly: true
+            {{- end }}
+            - name: client-secret-volume
+              mountPath: {{ template "eric-cloud-native-kvdb-rd-operand.clientCertificateMountPath" . }}
+              readOnly: true
+            - name: server-secret-volume
+              mountPath: {{ template "eric-cloud-native-kvdb-rd-operand.serverCertificateMountPath" . }}
+              readOnly: true
+            - name: probes-secret-volume
+              mountPath: {{ template "eric-cloud-native-kvdb-rd-operand.probesCertificateMountPath" . }}
+              readOnly: true
+            - name: root-ca-volume
+              mountPath: {{ template "eric-cloud-native-kvdb-rd-operand.rootCAMountPath" . }}
+              readOnly: true
+            - name: client-ca-volume
+              mountPath: {{ template "eric-cloud-native-kvdb-rd-operand.clientCAMountPath" . }}
+              readOnly: true
+            - name: combined-ca
+              mountPath: {{ template "eric-cloud-native-kvdb-rd-operand.combinedCAMountPath" . }}
+          {{- end }}
+          env:
+            - name: TZ
+              value: {{ $global.timezone | quote }}
+            - name: LOG_LEVEL
+              value: {{ .Values.log.node.level | quote }}
+            - name: SERVICE_ID
+              value: {{ include "eric-cloud-native-kvdb-rd-operand.name" . | quote }}
+            - name: CONTAINER_NAME
+              value: "redis-node"
+            - name: ACL_ENABLED
+              value: {{ .Values.security.acl.enabled | quote }}
+            - name: TLS_ENABLED
+              value: {{ $global.security.tls.enabled | quote }}
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: LOG_STDOUT_ENABLED
+              value: {{ has "stdout" .Values.log.outputs | quote }}
+            - name: LOG_STREAM_ENABLED
+              value: {{ has "stream" .Values.log.outputs | quote }}
+          {{- if has "stream" .Values.log.outputs }}
+            - name: LOG_TRANSFORMER_HOST
+              value: {{ include "eric-cloud-native-kvdb-rd-operand.logTransformerHost" . | quote }}
+            - name: LOG_TRANSFORMER_PORT
+              value: {{ include "eric-cloud-native-kvdb-rd-operand.logTransformerPort" . | quote }}
+            - name: LOG_BUFFERED_LINES
+              value: {{ .Values.log.node.bufferedLines | quote }}
+            {{- if $global.security.tls.enabled }}
+            - name: LOG_TRANSFORMER_CLIENT_CERTIFICATE_FILE
+              value: {{ template "eric-cloud-native-kvdb-rd-operand.logTransformerClientCertificateMountPath" . }}/cert.pem
+            - name: LOG_TRANSFORMER_CLIENT_KEY_FILE
+              value: {{ template "eric-cloud-native-kvdb-rd-operand.logTransformerClientCertificateMountPath" . }}/privkey.pem
+            - name: LOG_TRANSFORMER_CA_CERT_FILE
+              value: {{ template "eric-cloud-native-kvdb-rd-operand.rootCAMountPath" . }}/cacertbundle.pem
+            {{- end }}
+          {{- end }}
+          startupProbe:
+            httpGet:
+              path: /ready
+              port: {{ template "eric-cloud-native-kvdb-rd-operand.probes.port" . }}
+              scheme: {{ template "eric-cloud-native-kvdb-rd-operand.probes.scheme" . }}
+            initialDelaySeconds: {{ .Values.probes.node.startupProbe.initialDelaySeconds }}
+            failureThreshold: {{ .Values.probes.node.startupProbe.failureThreshold }}
+            periodSeconds: {{ .Values.probes.node.startupProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.node.startupProbe.timeoutSeconds }}
+          livenessProbe:
+            httpGet:
+              path: /live
+              port: {{ template "eric-cloud-native-kvdb-rd-operand.probes.port" . }}
+              scheme: {{ template "eric-cloud-native-kvdb-rd-operand.probes.scheme" . }}
+            initialDelaySeconds: {{ .Values.probes.node.livenessProbe.initialDelaySeconds }}
+            failureThreshold: {{ .Values.probes.node.livenessProbe.failureThreshold }}
+            timeoutSeconds: {{ .Values.probes.node.livenessProbe.timeoutSeconds }}
+            periodSeconds: {{ .Values.probes.node.livenessProbe.periodSeconds }}
+            successThreshold: {{ .Values.probes.node.livenessProbe.successThreshold }}
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: {{ template "eric-cloud-native-kvdb-rd-operand.probes.port" . }}
+              scheme: {{ template "eric-cloud-native-kvdb-rd-operand.probes.scheme" . }}
+            initialDelaySeconds: {{ .Values.probes.node.readinessProbe.initialDelaySeconds }}
+            failureThreshold: {{ .Values.probes.node.readinessProbe.failureThreshold }}
+            timeoutSeconds: {{ .Values.probes.node.readinessProbe.timeoutSeconds }}
+            periodSeconds: {{ .Values.probes.node.readinessProbe.periodSeconds }}
+            successThreshold: {{ .Values.probes.node.readinessProbe.successThreshold }}
+          {{- if .Values.resources }}
+          resources:
+            requests:
+              {{- if .Values.resources.node.requests.cpu }}
+              cpu: {{ .Values.resources.node.requests.cpu | quote }}
+              {{- end }}
+              {{- if .Values.resources.node.requests.memory }}
+              memory: {{ .Values.resources.node.requests.memory | quote }}
+              {{- end }}
+              {{- if index .Values "resources" "node" "requests" "ephemeral-storage" }}
+              ephemeral-storage: {{ index .Values "resources" "node" "requests" "ephemeral-storage" | quote }}
+              {{- end }}
+            limits:
+              {{- if .Values.resources.node.limits.cpu }}
+              cpu: {{ .Values.resources.node.limits.cpu | quote }}
+              {{- end }}
+              {{- if .Values.resources.node.limits.memory }}
+              memory: {{ .Values.resources.node.limits.memory | quote }}
+              {{- end }}
+              {{- if index .Values "resources" "node" "limits" "ephemeral-storage" }}
+              ephemeral-storage: {{ index .Values "resources" "node" "limits" "ephemeral-storage" | quote }}
+              {{- end }}
+          {{- end }}
+        {{- if .Values.metrics.enabled }}
+        - name: metrics-exporter
+          image: {{ template "eric-cloud-native-kvdb-rd-operand.metricsExporterImagePath" . }}
+          imagePullPolicy: {{ template "eric-cloud-native-kvdb-rd-operand.metricsExporter-imagePullPolicy" . }}
+          command:
+            - "/bin/bash"
+            - "-c"
+          args:
+            - "/metrics-exporter-wrapper
+              {{- if $global.security.tls.enabled }}
+                --tls
+                --verify-client-certificate {{ .Values.service.endpoints.metrics.tls.verifyClientCertificate }}
+                --pm-server-ca-mount-path {{ include "eric-cloud-native-kvdb-rd-operand.pmServerCAMountPath" . }}/client-cacertbundle.pem
+              {{- end }}"
+          volumeMounts:
+            {{- if $global.security.tls.enabled }}
+            {{- if has "stream" .Values.log.outputs }}
+            - name: log-transformer-client-certificate-volume
+              mountPath: {{ template "eric-cloud-native-kvdb-rd-operand.logTransformerClientCertificateMountPath" }}
+              readOnly: true
+            {{- end }}
+            - name: client-secret-volume
+              mountPath: {{ template "eric-cloud-native-kvdb-rd-operand.clientCertificateMountPath" . }}
+              readOnly: true
+            - name: metrics-exporter-volume
+              mountPath: {{ template "eric-cloud-native-kvdb-rd-operand.metricsExporterCertificateMountPath" . }}
+              readOnly: true
+            - name: root-ca-volume
+              mountPath: {{ template "eric-cloud-native-kvdb-rd-operand.rootCAMountPath" . }}
+              readOnly: true
+            {{- if eq .Values.service.endpoints.metrics.tls.verifyClientCertificate "required" }}
+            - name: metrics-client-volume
+              mountPath: {{ template "eric-cloud-native-kvdb-rd-operand.metricsClientCertificateMountPath" . }}
+              readOnly: true
+            - name: pm-server-ca-volume
+              mountPath: {{ template "eric-cloud-native-kvdb-rd-operand.pmServerCAMountPath" . }}
+              readOnly: true
+           {{- end }}
+           {{- end }}
+          env:
+            - name: REDIS_ADDR
+          {{- if $global.security.tls.enabled }}
+              value: redis://localhost:6380
+          {{- else }}
+              value: "localhost" # When the value is "localhost", go redis client tries to connect to pod IP
+          {{- end }}
+            - name: TZ
+              value: {{ $global.timezone | quote }}
+            - name: SERVICE_ID
+              value: {{ include "eric-cloud-native-kvdb-rd-operand.name" . | quote }}
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: CONTAINER_NAME
+              value: "metrics-exporter"
+            - name: LOG_STDOUT_ENABLED
+              value: {{ has "stdout" .Values.log.outputs | quote }}
+            - name: LOG_STREAM_ENABLED
+              value: {{ has "stream" .Values.log.outputs | quote }}
+            {{- if has "stream" .Values.log.outputs }}
+            - name: LOG_TRANSFORMER_HOST
+              value: {{ include "eric-cloud-native-kvdb-rd-operand.logTransformerHost" . | quote }}
+            - name: LOG_TRANSFORMER_PORT
+              value: {{ include "eric-cloud-native-kvdb-rd-operand.logTransformerPort" . | quote }}
+            - name: LOG_BUFFERED_LINES
+              value: {{ .Values.log.metricsExporter.bufferedLines | quote }}
+            {{- if $global.security.tls.enabled }}
+            - name: LOG_TRANSFORMER_CLIENT_CERTIFICATE_FILE
+              value: {{ template "eric-cloud-native-kvdb-rd-operand.logTransformerClientCertificateMountPath" . }}/cert.pem
+            - name: LOG_TRANSFORMER_CLIENT_KEY_FILE
+              value: {{ template "eric-cloud-native-kvdb-rd-operand.logTransformerClientCertificateMountPath" . }}/privkey.pem
+            - name: LOG_TRANSFORMER_CA_CERT_FILE
+              value: {{ template "eric-cloud-native-kvdb-rd-operand.rootCAMountPath" . }}/cacertbundle.pem
+            {{- end }}
+            {{- end }}
+            {{- if .Values.security.acl.enabled }}
+            - name: REDIS_USER
+              valueFrom:
+               secretKeyRef:
+                name: {{ template "eric-cloud-native-kvdb-rd-operand.internalUserSecretName" . }}
+                key: username
+            - name: REDIS_PASSWORD
+              valueFrom:
+               secretKeyRef:
+                name: {{ template "eric-cloud-native-kvdb-rd-operand.internalUserSecretName" . }}
+                key: password
+            {{- end }}
+            {{- if $global.security.tls.enabled }}
+            - name: REDIS_EXPORTER_SKIP_TLS_VERIFICATION
+              value: "false"
+            - name: REDIS_EXPORTER_TLS_CLIENT_KEY_FILE
+              value: {{ template "eric-cloud-native-kvdb-rd-operand.clientCertificateMountPath" . }}/privkey.pem
+            - name: REDIS_EXPORTER_TLS_CLIENT_CERT_FILE
+              value: {{ template "eric-cloud-native-kvdb-rd-operand.clientCertificateMountPath" . }}/cert.pem
+            - name: REDIS_EXPORTER_TLS_CA_CERT_FILE
+              value: {{ template "eric-cloud-native-kvdb-rd-operand.rootCAMountPath" . }}/cacertbundle.pem
+            - name: REDIS_EXPORTER_TLS_SERVER_KEY_FILE
+              value: {{ template "eric-cloud-native-kvdb-rd-operand.metricsExporterCertificateMountPath" . }}/privkey.pem
+            - name: REDIS_EXPORTER_TLS_SERVER_CERT_FILE
+              value: {{ template "eric-cloud-native-kvdb-rd-operand.metricsExporterCertificateMountPath" . }}/cert.pem
+            {{- if eq .Values.service.endpoints.metrics.tls.verifyClientCertificate "required" }}
+            - name: REDIS_EXPORTER_TLS_SERVER_CA_CERT_FILE
+              value: {{ template "eric-cloud-native-kvdb-rd-operand.pmServerCAMountPath" . }}/client-cacertbundle.pem
+            {{- end }}
+            {{- end }}
+          startupProbe:
+          {{- include "eric-cloud-native-kvdb-rd-operand.metricsProbeCommand" . | nindent 12 }}
+            initialDelaySeconds: {{ .Values.probes.metricsExporter.startupProbe.initialDelaySeconds }}
+            failureThreshold: {{ .Values.probes.metricsExporter.startupProbe.failureThreshold }}
+            periodSeconds: {{ .Values.probes.metricsExporter.startupProbe.periodSeconds }}
+            timeoutSeconds: {{ .Values.probes.metricsExporter.startupProbe.timeoutSeconds }}
+          livenessProbe:
+          {{- include "eric-cloud-native-kvdb-rd-operand.metricsProbeCommand" . | nindent 12 }}
+            initialDelaySeconds: {{ .Values.probes.metricsExporter.livenessProbe.initialDelaySeconds }}
+            failureThreshold: {{ .Values.probes.metricsExporter.livenessProbe.failureThreshold }}
+            periodSeconds: {{ .Values.probes.metricsExporter.livenessProbe.periodSeconds }}
+            successThreshold: {{ .Values.probes.metricsExporter.livenessProbe.successThreshold }}
+            timeoutSeconds: {{ .Values.probes.metricsExporter.livenessProbe.timeoutSeconds }}
+          ports:
+            - name: {{ template "eric-cloud-native-kvdb-rd-operand.metrics-port-name" . }}
+              containerPort: 9121
+              protocol: TCP
+          {{- if .Values.resources }}
+          resources:
+            requests:
+              {{- if .Values.resources.metricsExporter.requests.cpu }}
+              cpu: {{ .Values.resources.metricsExporter.requests.cpu | quote }}
+              {{- end }}
+              {{- if .Values.resources.metricsExporter.requests.memory }}
+              memory: {{ .Values.resources.metricsExporter.requests.memory | quote }}
+              {{- end }}
+              {{- if index .Values "resources" "metricsExporter" "requests" "ephemeral-storage" }}
+              ephemeral-storage: {{ index .Values "resources" "metricsExporter" "requests" "ephemeral-storage" | quote }}
+              {{- end }}
+            limits:
+              {{- if .Values.resources.metricsExporter.limits.cpu }}
+              cpu: {{ .Values.resources.metricsExporter.limits.cpu | quote }}
+              {{- end }}
+              {{- if .Values.resources.metricsExporter.limits.memory }}
+              memory: {{ .Values.resources.metricsExporter.limits.memory | quote }}
+              {{- end }}
+              {{- if index .Values "resources" "metricsExporter" "limits" "ephemeral-storage" }}
+              ephemeral-storage: {{ index .Values "resources" "metricsExporter" "limits" "ephemeral-storage" | quote }}
+              {{- end }}
+          {{- end }}
+        {{- end }}
+      {{- if include "eric-cloud-native-kvdb-rd-operand.nodeSelector" . }}
+      nodeSelector:
+        {{- include "eric-cloud-native-kvdb-rd-operand.nodeSelector" . | nindent 8 }}
+      {{- end }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      topologySpreadConstraints: {{ toYaml .Values.topologySpreadConstraints | nindent 8 }}
+      {{- if include "eric-cloud-native-kvdb-rd-operand.tolerations" . }}
+      tolerations: {{- include "eric-cloud-native-kvdb-rd-operand.tolerations" . | nindent 8 }}
+      {{- end }}
+      affinity:
+        podAntiAffinity:
+    {{- if eq .Values.affinity.podAntiAffinity "hard" }}
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+    {{- else if eq .Values.affinity.podAntiAffinity "soft" }}
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+    {{- end }}
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - {{ template "eric-cloud-native-kvdb-rd-operand.name" . }}
+                topologyKey: {{ .Values.affinity.topologyKey }}

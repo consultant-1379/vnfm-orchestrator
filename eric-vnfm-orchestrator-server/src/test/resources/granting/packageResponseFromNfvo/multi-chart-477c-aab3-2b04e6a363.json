@@ -1,0 +1,74 @@
+[
+  {
+    "id": "d3def1ce-4cf4-477c-aab3-pkgId4e6a400",
+    "vnfdId": "multi-chart-477c-aab3-2b04e6a363",
+    "vnfProvider": "Ericsson",
+    "vnfProductName": "spider-app-multi-a-tosca",
+    "vnfSoftwareVersion": "1.0.37s",
+    "vnfdVersion": "1.0.37",
+    "checksum": {
+      "algorithm": "SHA-512",
+      "hash": "58CCCA845A199D01FEE5A9DBEB2060BF860BA8DFAAE37BCACAFA1A1A505DCAAA4F8B2EE93B245B425B377CE74BCB19FD8465FCB7C9FBA1DB2086EEF7A4CCE663"
+    },
+    "softwareImages": [],
+    "additionalArtifacts": null,
+    "onboardingState": "ONBOARDED",
+    "operationalState": "ENABLED",
+    "usageState": "NOT_IN_USE",
+    "userDefinedData": {
+      "skipImageUpload": "true",
+      "onboarding.timeout": "10",
+      "description": "Onboarded using E-VNFM GUI"
+    },
+    "_links": {
+      "self": {
+        "href": "https://vnfm.zyulbor.haber002-iccr.ews.gic.ericsson.se/vnfm/onboarding/api/vnfpkgm/v1/vnf_packages/d3def1ce-4cf4-477c-aab3-pkgId4e6a400"
+      },
+      "vnfd": null,
+      "packageContent": null
+    },
+    "helmPackageUrls": [
+      {
+        "priority": 1,
+        "chartUrl": "http://eric-lcm-helm-chart-registry.zyulbor-ns.svc.cluster.local:8080/onboarded/charts/eric-sec-sip-tls-crd-4.2.0+32.tgz",
+        "chartName": "eric-sec-sip-tls-crd",
+        "chartVersion": "4.2.0+32",
+        "chartType": "CRD",
+        "chartArtifactKey": "crd_package1"
+      },
+      {
+        "priority": 2,
+        "chartUrl": "http://eric-lcm-helm-chart-registry.zyulbor-ns.svc.cluster.local:8080/onboarded/charts/eric-sec-certm-crd-3.16.0+48.tgz",
+        "chartName": "eric-sec-certm-crd",
+        "chartVersion": "3.16.0+48",
+        "chartType": "CRD",
+        "chartArtifactKey": "crd_package2"
+      },
+      {
+        "priority": 3,
+        "chartUrl": "http://eric-lcm-helm-chart-registry.zyulbor-ns.svc.cluster.local:8080/onboarded/charts/scale-crd-1.0.0.tgz",
+        "chartName": "scale-crd",
+        "chartVersion": "1.0.0",
+        "chartType": "CRD",
+        "chartArtifactKey": "crd_package3"
+      },
+      {
+        "priority": 4,
+        "chartUrl": "http://eric-lcm-helm-chart-registry.zyulbor-ns.svc.cluster.local:8080/onboarded/charts/test-scale-chart-2.0.0.tgz",
+        "chartName": "test-scale-chart",
+        "chartVersion": "2.0.0",
+        "chartType": "CNF",
+        "chartArtifactKey": "helm_package1"
+      },
+      {
+        "priority": 5,
+        "chartUrl": "http://eric-lcm-helm-chart-registry.zyulbor-ns.svc.cluster.local:8080/onboarded/charts/spider-app-2.0.0.tgz",
+        "chartName": "spider-app",
+        "chartVersion": "2.0.0",
+        "chartType": "CNF",
+        "chartArtifactKey": "helm_package2"
+      }
+    ],
+    "packageSecurityOption": "UNSIGNED"
+  }
+]

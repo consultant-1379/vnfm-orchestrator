@@ -1,0 +1,31 @@
+{
+  "eric-adp-gs-testapp": {
+    "ingress": {
+      "enabled": false
+    }
+  },
+  "influxdb": {
+    "ext": {
+      "apiAccessHostname": "influxdb-service2.rontgen010.seli.gic.ericsson.se"
+    }
+  },
+  "eric-pm-server": {
+    "server": {
+      "persistentVolume": {
+        "storageClass": "erikube-rbd"
+      },
+      "ingress": {
+        "enabled": false
+      }
+    }
+  },
+  "pm-testapp": {
+    "ingress": {
+      "domain": "rontgen010.seli.gic.ericsson.se"
+    }
+  },
+  "tags": {
+    "all": false,
+    "pm": true
+  }
+}

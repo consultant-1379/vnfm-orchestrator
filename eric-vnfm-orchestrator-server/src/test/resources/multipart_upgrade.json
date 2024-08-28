@@ -1,0 +1,9 @@
+{
+  "vnfdId": "d3def1ce-4cf4-477c-aab3-21cb04e6a379",
+  "chartUrl": "http://sample-helm1.tgz",
+  "state": "PROCESSING",
+  "lifecycleOperationId": "2ad705fe-be5f-4c12-a9d1-7b2368173487",
+  "additionalParams": {
+    "namespace": "test-multipart-ns"
+  }
+}

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ ~ COPYRIGHT Ericsson 2024
+ ~
+ ~
+ ~
+ ~ The copyright to the computer program(s) herein is the property of
+ ~
+ ~ Ericsson Inc. The programs may be used and/or copied only with written
+ ~
+ ~ permission from Ericsson Inc. or in accordance with the terms and
+ ~
+ ~ conditions stipulated in the agreement/contract under which the
+ ~
+ ~ program(s) have been supplied.
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+<!DOCTYPE suppressions PUBLIC
+  "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+  "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+  <suppress checks="HideUtilityClassConstructor" files="ApplicationServer.java"/>
+  <suppress checks="HideUtilityClassConstructor" files="TestRunner.java"/>
+  <suppress checks="ParameterNumberCheck" files="VnfInstancesControllerImpl.java|VnfLcmOperationsController.java|AutoCompleteFilter.java|AutoCompleteFilterImpl.java"/>
+  <suppress checks="TypeName" files="(/?.*/)?V\d+\w+.java$"/>
+  <suppress checks="HideUtilityClassConstructor" files="QueryUtility.java"/>
+  <suppress checks="HideUtilityClassConstructor" files="Utils.java"/>
+  <suppress checks="HideUtilityClassConstructor" files="RoutingUtility.java"/>
+  <suppress checks="HideUtilityClassConstructor" files="MessageConverter.java"/>
+  <suppress checks="HideUtilityClassConstructor" files="EvnfmWorkFlowDeletePvcRequest.java"/>
+  <suppress checks="HideUtilityClassConstructor" files="EvnfmWorkFlowDownsizeRequest.java"/>
+  <suppress checks="HideUtilityClassConstructor" files="EvnfmWorkFlowInstantiateRequest.java"/>
+  <suppress checks="HideUtilityClassConstructor" files="EvnfmWorkFlowRollbackRequest.java"/>
+  <suppress checks="HideUtilityClassConstructor" files="EvnfmWorkflowScaleRequest.java"/>
+  <suppress checks="HideUtilityClassConstructor" files="EvnfmWorkFlowTerminateRequest.java"/>
+  <suppress checks="HideUtilityClassConstructor" files="EvnfmWorkFlowUpgradeRequest.java"/>
+  <suppress checks="HideUtilityClassConstructor" files="NonScalableTargetsValidator.java"/>
+  <suppress checks="HideUtilityClassConstructor" files="SyncResultApplier.java"/>
+  <suppress checks="HideUtilityClassConstructor" files="BackupServiceHelper.java"/>
+  <suppress checks="HideUtilityClassConstructor" files="RollbackPatternMapper.java"/>
+  <suppress checks="IllegalThrows" files="IdempotencyAspect.java"/>
+</suppressions>

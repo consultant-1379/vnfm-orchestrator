@@ -1,0 +1,7 @@
+{
+  "additionalParams": {
+    "scope": "EVNFM",
+    "backupName": "default_enm-01_20210205",
+    "remote": "sftp://user@external.server"
+  }
+}

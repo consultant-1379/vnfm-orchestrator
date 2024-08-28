@@ -1,0 +1,305 @@
+{
+  "kubernetesResourceInfos": [
+    {
+      "clusterName": "default",
+      "releaseName": "b-rel4",
+      "pods": [
+        {
+          "uid": "dc126c32-3a35-457b-90b0-80f0afc500e5",
+          "name": "eric-adp-gs-testapp-7675c84cd9-mctst",
+          "status": "Running",
+          "namespace": "rel4-multi-a",
+          "hostname": "node-10-158-164-62",
+          "labels": {
+            "app.kubernetes.io/instance": "multi-a-rel4-2",
+            "pod-template-hash": "7675c84cd9",
+            "service": "eric-adp-gs-testapp"
+          },
+          "annotations": {
+            "cni.projectcalico.org/containerID": "91e12d7fcec55f78e520e18c4bfa4d0b195cb05210189f828834820f80e4bbfe",
+            "cni.projectcalico.org/podIP": "192.168.213.97/32",
+            "cni.projectcalico.org/podIPs": "192.168.213.97/32",
+            "ericsson.com/nf-name": "spider-app-multi-a-v2"
+          },
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "eric-adp-gs-testapp-7675c84cd9",
+              "uid": "d3be7242-04a8-4930-8c51-f7f6a500fa78"
+            }
+          ]
+        },
+        {
+          "uid": "dc126c32-3a35-457b-90b0-80f0afc500e6",
+          "name": "eric-adp-gs-testapp-7675c84cd9-mctst-1",
+          "status": "Running",
+          "namespace": "rel4-multi-b",
+          "hostname": "node-10-158-164-62",
+          "labels": {
+            "app.kubernetes.io/instance": "multi-a-rel4-2",
+            "pod-template-hash": "7675c84cd9",
+            "service": "eric-adp-gs-testapp"
+          },
+          "annotations": {
+            "cni.projectcalico.org/containerID": "91e12d7fcec55f78e520e18c4bfa4d0b195cb05210189f828834820f80e4bbfe",
+            "cni.projectcalico.org/podIP": "192.168.213.97/32",
+            "cni.projectcalico.org/podIPs": "192.168.213.97/32",
+            "ericsson.com/nf-name": "spider-app-multi-a-v2"
+          },
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "eric-adp-gs-testapp-7675c84cd9",
+              "uid": "d3be7242-04a8-4930-8c51-f7f6a500fa78"
+            }
+          ]
+        },
+        {
+          "uid": "0a23decc-6fa0-42c1-9fc5-4c02f779da32",
+          "name": "eric-pm-bulk-reporter-79cdb8c6d6-2jhqw",
+          "status": "Running",
+          "namespace": "rel4-multi-a",
+          "hostname": "node-10-158-164-55",
+          "labels": {
+            "app": "eric-pm-bulk-reporter",
+            "app.kubernetes.io/instance": "multi-a-rel4-2",
+            "app.kubernetes.io/name": "eric-pm-bulk-reporter",
+            "app.kubernetes.io/version": "2.3.0-2",
+            "pod-template-hash": "79cdb8c6d6",
+            "release": "multi-a-rel4-2"
+          },
+          "annotations": {
+            "cni.projectcalico.org/containerID": "ac813acdcc37f97e204a4014e8e6ead9c40472f11189e85c13366a3782509582",
+            "cni.projectcalico.org/podIP": "192.168.121.136/32",
+            "cni.projectcalico.org/podIPs": "192.168.121.136/32",
+            "ericsson.com/nf-name": "spider-app-multi-a-v2"
+          },
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "eric-pm-bulk-reporter-79cdb8c6d6",
+              "uid": "d86f306b-941e-477c-abc1-0983c402e0be"
+            }
+          ]
+        },
+        {
+          "uid": "e97f70eb-112e-4033-a4c9-a3f17054876f",
+          "name": "eric-pm-bulk-reporter-79cdb8c6d6-hrbt8",
+          "status": "Running",
+          "namespace": "rel4-multi-a",
+          "hostname": "node-10-158-164-57",
+          "labels": {
+            "app": "eric-pm-bulk-reporter",
+            "app.kubernetes.io/instance": "multi-a-rel4-2",
+            "app.kubernetes.io/name": "eric-pm-bulk-reporter",
+            "app.kubernetes.io/version": "2.3.0-2",
+            "pod-template-hash": "79cdb8c6d6",
+            "release": "multi-a-rel4-2"
+          },
+          "annotations": {
+            "cni.projectcalico.org/containerID": "fa19145464238eec622623a5e668dfeb7259945f4f527d9dbc9abac8bee980ab",
+            "cni.projectcalico.org/podIP": "192.168.31.157/32",
+            "cni.projectcalico.org/podIPs": "192.168.31.157/32",
+            "ericsson.com/nf-name": "spider-app-multi-a-v2"
+          },
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "eric-pm-bulk-reporter-79cdb8c6d6",
+              "uid": "d86f306b-941e-477c-abc1-0983c402e0be"
+            }
+          ]
+        },
+        {
+          "uid": "05855882-ec20-4289-8226-c27598936b2e",
+          "name": "eric-pm-server-0",
+          "status": "Running",
+          "namespace": "rel4-multi-a",
+          "hostname": "node-10-158-164-60",
+          "labels": {
+            "app": "eric-pm-server",
+            "app.kubernetes.io/instance": "multi-a-rel4-2",
+            "app.kubernetes.io/name": "eric-pm-server",
+            "app.kubernetes.io/version": "2.3.0-42",
+            "component": "server",
+            "controller-revision-hash": "eric-pm-server-79d5f459df",
+            "release": "multi-a-rel4-2",
+            "statefulset.kubernetes.io/pod-name": "eric-pm-server-0"
+          },
+          "annotations": {
+            "cni.projectcalico.org/containerID": "246ee2a9b7237037a1e25bba2c60b5dc10d66997678b71b0a6fde1118da2de18",
+            "cni.projectcalico.org/podIP": "192.168.174.175/32",
+            "cni.projectcalico.org/podIPs": "192.168.174.175/32",
+            "ericsson.com/nf-name": "spider-app-multi-a-v2"
+          },
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "StatefulSet",
+              "name": "eric-pm-server",
+              "uid": "a037d44d-ca3d-41c5-992e-ebbba30db1f2"
+            }
+          ]
+        },
+        {
+          "uid": "132890a7-3aba-433d-bf33-f1c4a9955703",
+          "name": "eric-pm-testapp-controller-6f8c788864-97jfj",
+          "status": "Running",
+          "namespace": "rel4-multi-a",
+          "hostname": "node-10-158-164-52",
+          "labels": {
+            "app.kubernetes.io/instance": "multi-a-rel4-2",
+            "app.kubernetes.io/name": "eric-pm-testapp-controller",
+            "app.kubernetes.io/version": "0.4.0-13",
+            "pod-template-hash": "6f8c788864"
+          },
+          "annotations": {
+            "cni.projectcalico.org/containerID": "3121994126a2f813861d2fa714f682070e0a41ee17f7ef0215a0aac621b98c18",
+            "cni.projectcalico.org/podIP": "192.168.231.162/32",
+            "cni.projectcalico.org/podIPs": "192.168.231.162/32",
+            "ericsson.com/nf-name": "spider-app-multi-a-v2"
+          },
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "eric-pm-testapp-controller-6f8c788864",
+              "uid": "9621f0e1-b954-40e2-bd6f-898f8577e09d"
+            }
+          ]
+        },
+        {
+          "uid": "c00b753e-8570-4688-877e-f75310932f79",
+          "name": "influxdb-service-6ccb89676b-8vrtr",
+          "status": "Running",
+          "namespace": "rel4-multi-a",
+          "hostname": "node-10-158-164-64",
+          "labels": {
+            "app.kubernetes.io/instance": "multi-a-rel4-2",
+            "pod-template-hash": "6ccb89676b",
+            "service": "influxdb-service"
+          },
+          "annotations": {
+            "cni.projectcalico.org/containerID": "194e0f2387d20bdbd37d5eb7e8fd8b409dfe40b999f66edc4a0f6c2126b188a4",
+            "cni.projectcalico.org/podIP": "192.168.158.10/32",
+            "cni.projectcalico.org/podIPs": "192.168.158.10/32",
+            "ericsson.com/nf-name": "spider-app-multi-a-v2"
+          },
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "influxdb-service-6ccb89676b",
+              "uid": "0f55d1f4-7ea9-46af-9eda-114a1b10c333"
+            }
+          ]
+        },
+        {
+          "uid": "5570d8bd-08b3-48cf-a252-ec444f6b3748",
+          "name": "multi-a-rel4-2-pm-testapp-7f475c7fd-wscrh",
+          "status": "Running",
+          "namespace": "rel4-multi-a",
+          "hostname": "node-10-158-164-60",
+          "labels": {
+            "app": "pm-testapp",
+            "app.kubernetes.io/instance": "multi-a-rel4-2",
+            "pod-template-hash": "7f475c7fd",
+            "release": "multi-a-rel4-2"
+          },
+          "annotations": {
+            "cni.projectcalico.org/containerID": "193ba7d7a3e2c0720ca88d337ec471235508310cfcfdc3dd4f0c7d6cbeb454b7",
+            "cni.projectcalico.org/podIP": "192.168.174.159/32",
+            "cni.projectcalico.org/podIPs": "192.168.174.159/32",
+            "ericsson.com/nf-name": "spider-app-multi-a-v2"
+          },
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "multi-a-rel4-2-pm-testapp-7f475c7fd",
+              "uid": "98cc3ae3-34c9-46cb-b3b6-68f054c17d3d"
+            }
+          ]
+        }
+      ],
+      "deployments": [
+        {
+          "uid": "6a2f81fa-8207-437b-938c-a3ec8116e80c",
+          "name": "eric-adp-gs-testapp",
+          "kind": "Deployment",
+          "namespace": "rel4-multi-a",
+          "replicas": 1,
+          "availableReplicas": 1,
+          "ownerReferences": null
+        },
+        {
+          "uid": "957a7c17-5368-4eb2-a7ec-98e4c6acbf18",
+          "name": "eric-pm-bulk-reporter",
+          "kind": "Deployment",
+          "namespace": "rel4-multi-a",
+          "replicas": 2,
+          "availableReplicas": 2,
+          "ownerReferences": null
+        },
+        {
+          "uid": "7066b7dc-bf49-4ae5-a05a-0e036f55ad14",
+          "name": "eric-pm-testapp-controller",
+          "kind": "Deployment",
+          "namespace": "rel4-multi-a",
+          "replicas": 1,
+          "availableReplicas": 1,
+          "ownerReferences": null
+        },
+        {
+          "uid": "fd78a568-5420-40b2-9df4-309393037c55",
+          "name": "influxdb-service",
+          "kind": "Deployment",
+          "namespace": "rel4-multi-a",
+          "replicas": 1,
+          "availableReplicas": 1,
+          "ownerReferences": null
+        },
+        {
+          "uid": "5ca703cd-c9c2-4ff8-9566-e12d6473337a",
+          "name": "multi-a-rel4-2-pm-testapp",
+          "kind": "Deployment",
+          "namespace": "rel4-multi-a",
+          "replicas": 1,
+          "availableReplicas": 1,
+          "ownerReferences": null
+        }
+      ],
+      "statefulSets": [
+        {
+          "uid": "a037d44d-ca3d-41c5-992e-ebbba30db1f2",
+          "name": "eric-pm-server",
+          "kind": "StatefulSet",
+          "namespace": "rel4-multi-a",
+          "replicas": 1,
+          "availableReplicas": 1,
+          "ownerReferences": null
+        }
+      ]
+    }
+  ]
+}

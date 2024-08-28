@@ -1,0 +1,28 @@
+{
+  "type":[
+    "SAPC",
+    "SASN",
+    "SGSN-MME"
+  ],
+  "cluster":[
+    "cluster1",
+    "cluster2",
+    "cluster3",
+    "cluster4"
+  ],
+  "packageVersion":[
+    "cxp9025898_4r81e08",
+    "cxp9025898_4r81e09",
+    "cxp9025898_4r81e10",
+    "cxp9025898_4r81e11"
+  ],
+  "softwareVersion":[
+    "1.20 (CXS101289_R81E08)"
+  ],
+  "sourcePackage":[
+    "Ericsson.SAPC.1.20 (CXS101289_R81E08)",
+    "Ericsson.EPG.1.21 (CXS101289_R81E09)",
+    "Ericsson.SASN.1.22 (CXS101289_R81E10)",
+    "Ericsson.SGSN-MME.1.23 (CXS101289_R81E11)"
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "eric-pm-bulk-reporter": {
+    "minReplicasParameterName": null,
+    "minReplicasCount": null,
+    "maxReplicasParameterName": null,
+    "maxReplicasCount": null,
+    "scalingParameterName": "eric-pm-bulk-reporter.replicaCount",
+    "currentReplicaCount": 1,
+    "autoScalingEnabledParameterName": null,
+    "autoScalingEnabledValue": false
+  }
+}

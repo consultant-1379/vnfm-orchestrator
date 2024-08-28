@@ -1,0 +1,36 @@
+{
+  "id": "2",
+  "resourceId": "123e4567-e89b-12d3-a456-426614174000",
+  "extNetAttDefResourceData": [
+    {
+      "netAttDefResourceId": "nad3",
+      "resourceHandle": {
+        "resourceId": "macvlan-3",
+        "containerNamespace": "nfvoNamespace"
+      }
+    }
+  ],
+  "extCps": [
+    {
+      "cpdId": "test-cnf-vnfc1_vdu_cp_macvlan",
+      "cpConfig": {
+        "1": {
+          "netAttDefResourceId": [
+            "nad3"
+          ],
+          "cpProtocolData": [
+            {
+              "layerProtocol": "IP_FOR_VIRTUAL_CP",
+              "ipOverEthernet": {
+                "ipAddresses": [{
+                  "type": "IPV4",
+                  "numDynamicAddresses": 1
+                }]
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+vnfc1:
+  replicaCount: 221
+vnfc2:
+  replicaCount: 222
+vnfc3:
+  replicaCount: 223
+eric-pm-bulk-reporter:
+  replicaCount: 226

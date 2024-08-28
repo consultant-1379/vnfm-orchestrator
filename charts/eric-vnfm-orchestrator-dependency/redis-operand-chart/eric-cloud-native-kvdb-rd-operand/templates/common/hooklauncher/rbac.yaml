@@ -1,0 +1,85 @@
+{{- $helmHook := dict -}}
+{{- $_ := set $helmHook "helm.sh/hook" "pre-install,pre-upgrade,pre-rollback,pre-delete" -}}
+{{- $_ := set $helmHook "helm.sh/hook-weight" "-202" -}} {{- /* Must run before any hooklauncher job !!! */ -}}
+{{- $commonAnn := fromYaml (include "eric-cloud-native-kvdb-rd-operand.hkln.annotations" .) -}}
+{{- $secretName := include "eric-cloud-native-kvdb-rd-operand.hkln.job-inventory-secret-name" . -}}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ template "eric-cloud-native-kvdb-rd-operand.hkln.name" . }}
+  labels:
+    {{- include "eric-cloud-native-kvdb-rd-operand.hkln.labels" . | nindent 4 }}
+  annotations:
+    {{- include "eric-cloud-native-kvdb-rd-operand.mergeAnnotations" (dict "location" .Template.Name "sources" (list $helmHook $commonAnn)) | trim | nindent 4 }}
+rules:
+  - apiGroups: ["batch"]
+    resources: ["jobs"]
+    verbs: ["create", "delete", "get"]
+  - apiGroups: ["batch"]
+    resources: ["jobs/status"]
+    verbs: ["get"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    verbs: ["create"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: {{ printf "[\"%s\"]" $secretName }}
+    verbs: ["get"]
+  - apiGroups: [""]
+    resources: ["secrets"]
+    resourceNames: {{ printf "[\"%s-stashed\"]" $secretName  }}
+    verbs: ["get", "update", "delete"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ template "eric-cloud-native-kvdb-rd-operand.hkln.name" . }}
+  labels:
+    {{- include "eric-cloud-native-kvdb-rd-operand.hkln.labels" . | nindent 4 }}
+  annotations:
+    {{- include "eric-cloud-native-kvdb-rd-operand.mergeAnnotations" (dict "location" .Template.Name "sources" (list $helmHook $commonAnn)) | trim | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ template "eric-cloud-native-kvdb-rd-operand.hkln.name" . }}
+subjects:
+  - namespace: {{ .Release.Namespace }}
+    kind: ServiceAccount
+    name: {{ template "eric-cloud-native-kvdb-rd-operand.hkln.name" . }}
+
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ template "eric-cloud-native-kvdb-rd-operand.hkln.name" . }}
+  labels:
+    {{- include "eric-cloud-native-kvdb-rd-operand.hkln.labels" . | nindent 4 }}
+  annotations:
+    {{- include "eric-cloud-native-kvdb-rd-operand.mergeAnnotations" (dict "location" .Template.Name "sources" (list $helmHook $commonAnn)) | trim | nindent 4 }}
+
+---
+{{- if .Values.global -}}
+  {{- if .Values.global.security -}}
+    {{- if .Values.global.security.policyBinding -}}
+      {{- if .Values.global.security.policyBinding.create -}}
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ template "eric-cloud-native-kvdb-rd-operand.hkln.name" . }}-security-policy
+  labels:
+    {{- include "eric-cloud-native-kvdb-rd-operand.hkln.labels" . | nindent 4 }}
+  annotations:
+    {{- include "eric-cloud-native-kvdb-rd-operand.mergeAnnotations" (dict "location" .Template.Name "sources" (list $helmHook $commonAnn)) | trim | nindent 4 }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "eric-cloud-native-kvdb-rd-operand.hkln.securityPolicy.reference" . }}
+subjects:
+- kind: ServiceAccount
+  name: {{ template "eric-cloud-native-kvdb-rd-operand.hkln.name" . }}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end }}

@@ -1,0 +1,4 @@
+vnfc1:
+  replicaCount: 441
+eric-pm-bulk-reporter:
+  replicaCount: 442

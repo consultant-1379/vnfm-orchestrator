@@ -1,0 +1,102 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    hikari:
+      data-source-properties: stringtype=unspecified
+      minimum-idle: 1
+  flyway:
+    locations: classpath:db/migration,classpath:db/dev
+    clean-on-validation-error: true
+    clean-disabled: false
+  jpa:
+    properties:
+      hibernate:
+        temp:
+          use_jdbc_metadata_defaults: false
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: false
+  cloud:
+    kubernetes:
+      enabled: false
+  main:
+    cloud-platform: "NONE"
+  data:
+    redis:
+      host: "localhost"
+      port: 6379
+      username:
+      password:
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+# Overriding of default output format (json) by empty config file to log in plain format (log lines).
+logging:
+  config: ''
+  level:
+# Could be uncomented to debug how many test context creating during tests execution
+#    org.springframework.test.context.cache: DEBUG
+    org.springframework: OFF
+    org.springframework.amqp.rabbit: OFF
+    com.github.tomakehurst.wiremock: ERROR
+    WireMock: OFF
+    org.flywaydb.core.internal.command.DbMigrate: OFF
+
+smallstack:
+  application: false
+
+oss:
+  topology:
+    directory: ${java.io.tmpdir}
+  polling:
+    delay: 0
+
+retry:
+  defaultProperties:
+    maxAttempts: 2
+    backOff: 1
+  wfsRouting:
+    maxAttempts: 2
+    backOff: 1
+
+stubrunner:
+  amqp:
+    mockConnection: false
+
+helm:
+  registry:
+    host: https://arm.epk.ericsson.se
+
+clusterVerificationUidUpdater:
+  enable: false
+
+redis:
+  listener:
+    enabled: false
+  cluster:
+    enabled: false
+  acl:
+    enabled: false
+  consumer:
+    name: "localhost"

@@ -1,0 +1,132 @@
+{
+  "_links": {
+    "first": {
+      "href": "http://localhost/api/v1/operations?size=5&page=1"
+    },
+    "prev": {
+      "href": "http://localhost/api/v1/operations?size=5&page=1"
+    },
+    "self": {
+      "href": "http://localhost/api/v1/operations?size=5&page=2"
+    },
+    "next": {
+      "href": "http://localhost/api/v1/operations?size=5&page=3"
+    },
+    "last": {
+      "href": "http://localhost/api/v1/operations?size=5&page=4"
+    }
+  },
+  "page": {
+    "number": 2,
+    "size": 5,
+    "totalPages": 4,
+    "totalElements": 18
+  },
+  "items": [
+    {
+      "currentLifecycleOperation": null,
+      "operationOccurrenceId": "99223f1c-bcb9-474c-9cb6-6",
+      "operationState": "COMPLETED",
+      "stateEnteredTime": "2021-05-30T10:36:37.118644",
+      "startTime": "2021-05-30T10:36:19.852381",
+      "grantId": null,
+      "lifecycleOperationType": "INSTANTIATE",
+      "automaticInvocation": null,
+      "operationParams": null,
+      "cancelPending": null,
+      "cancelMode": null,
+      "error": null,
+      "vnfProductName": "spider",
+      "vnfSoftwareVersion": "1.0.2",
+      "clusterName": "cluster-6",
+      "namespace": "namespace-6",
+      "vnfInstanceId": "4d3a4b72-e724-4832-83c5-6",
+      "vnfInstanceName": "instance-6",
+      "username": "Kale67"
+    },
+    {
+      "currentLifecycleOperation": null,
+      "operationOccurrenceId": "99223f1c-bcb9-474c-9cb6-7",
+      "operationState": "COMPLETED",
+      "stateEnteredTime": "2021-05-30T10:36:37.118644",
+      "startTime": "2021-05-30T10:36:19.852381",
+      "grantId": null,
+      "lifecycleOperationType": "INSTANTIATE",
+      "automaticInvocation": null,
+      "operationParams": null,
+      "cancelPending": null,
+      "cancelMode": null,
+      "error": null,
+      "vnfProductName": "spider",
+      "vnfSoftwareVersion": "1.0.2",
+      "clusterName": "cluster-7",
+      "namespace": "namespace-7",
+      "vnfInstanceId": "4d3a4b72-e724-4832-83c5-7",
+      "vnfInstanceName": "instance-7",
+      "username": "Kale67"
+    },
+    {
+      "currentLifecycleOperation": null,
+      "operationOccurrenceId": "99223f1c-bcb9-474c-9cb6-8",
+      "operationState": "FAILED_TEMP",
+      "stateEnteredTime": "2021-05-30T15:23:13.779081",
+      "startTime": "2021-05-30T15:23:03.536587",
+      "grantId": null,
+      "lifecycleOperationType": "CHANGE_VNFPKG",
+      "automaticInvocation": null,
+      "operationParams": null,
+      "cancelPending": null,
+      "cancelMode": null,
+      "error": null,
+      "vnfProductName": "spider",
+      "vnfSoftwareVersion": "1.0.2",
+      "clusterName": "cluster-8",
+      "namespace": "namespace-8",
+      "vnfInstanceId": "4d3a4b72-e724-4832-83c5-8",
+      "vnfInstanceName": "instance-8",
+      "username": "Kale67"
+    },
+    {
+      "currentLifecycleOperation": null,
+      "operationOccurrenceId": "99223f1c-bcb9-474c-9cb6-9",
+      "operationState": "COMPLETED",
+      "stateEnteredTime": "2021-05-30T15:23:13.779081",
+      "startTime": "2021-05-30T15:23:03.536587",
+      "grantId": null,
+      "lifecycleOperationType": "INSTANTIATE",
+      "automaticInvocation": null,
+      "operationParams": null,
+      "cancelPending": null,
+      "cancelMode": null,
+      "error": null,
+      "vnfProductName": "spider",
+      "vnfSoftwareVersion": "1.0.2",
+      "clusterName": "cluster-9",
+      "namespace": "namespace-9",
+      "vnfInstanceId": "4d3a4b72-e724-4832-83c5-9",
+      "vnfInstanceName": "instance-9",
+      "username": "Kale67"
+    },
+    {
+      "currentLifecycleOperation": null,
+      "operationOccurrenceId": "99223f1c-bcb9-474c-9cb6-10",
+      "operationState": "COMPLETED",
+      "stateEnteredTime": "2021-05-30T15:23:13.779081",
+      "startTime": "2021-05-30T15:23:03.536587",
+      "grantId": null,
+      "lifecycleOperationType": "INSTANTIATE",
+      "automaticInvocation": null,
+      "operationParams": null,
+      "cancelPending": null,
+      "cancelMode": null,
+      "error": null,
+      "vnfProductName": "spider",
+      "vnfSoftwareVersion": "1.0.2",
+      "clusterName": "cluster-10",
+      "namespace": "namespace-10",
+      "vnfInstanceId": "4d3a4b72-e724-4832-83c5-10",
+      "vnfInstanceName": "instance-10",
+      "username": "Kale67"
+    }
+  ]
+}

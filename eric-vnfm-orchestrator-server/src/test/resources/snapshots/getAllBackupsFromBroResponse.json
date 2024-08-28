@@ -1,0 +1,16 @@
+{
+  "backups": [
+    {
+      "id": "test1",
+      "name": "test1",
+      "creationTime": "2019-03-07T11:23:37.831",
+      "status": "COMPLETE"
+    },
+    {
+      "id": "test2",
+      "name": "test2",
+      "creationTime": "2019-05-07T14:52:31.831",
+      "status": "INCOMPLETE"
+    }
+  ]
+}

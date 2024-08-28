@@ -1,0 +1,1 @@
+ALTER TABLE helm_chart_history ADD is_chart_enabled BOOLEAN  default true;

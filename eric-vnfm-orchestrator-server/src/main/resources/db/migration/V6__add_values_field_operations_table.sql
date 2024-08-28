@@ -1,0 +1,1 @@
+ALTER TABLE app_lifecycle_operations ADD values_file_params VARCHAR;

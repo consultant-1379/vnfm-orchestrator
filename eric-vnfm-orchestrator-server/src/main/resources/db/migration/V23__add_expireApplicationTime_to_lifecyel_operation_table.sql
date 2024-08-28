@@ -1,0 +1,1 @@
+ALTER TABLE app_lifecycle_operations ADD expired_application_time TIMESTAMP DEFAULT NULL;

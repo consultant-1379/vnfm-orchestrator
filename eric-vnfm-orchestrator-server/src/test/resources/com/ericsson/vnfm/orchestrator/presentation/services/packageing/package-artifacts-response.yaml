@@ -1,0 +1,12 @@
+values:
+  name: site_values_2
+resources:
+  requests:
+    memory: 21Gi
+    cpu: 401m
+  limits:
+    memory: 31Gi
+    cpu:
+      gpu: 5
+eric-pm-server:
+  enabled: true

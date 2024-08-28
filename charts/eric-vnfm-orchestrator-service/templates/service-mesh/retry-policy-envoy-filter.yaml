@@ -1,0 +1,42 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+{{- if (eq (include "eric-vnfm-orchestrator-service.service-mesh-enabled" .) "true") }}
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: {{ template "eric-vnfm-orchestrator-service.name" . }}-retry-policy-envoy-filter
+  labels: {{- include "eric-vnfm-orchestrator-service.labels.extended-defaults" . | nindent 4 }}
+  annotations: {{- include "eric-vnfm-orchestrator-service.annotations" . | nindent 4 }}
+spec:
+  configPatches:
+    - applyTo: HTTP_ROUTE
+      match:
+        context: SIDECAR_OUTBOUND
+        routeConfiguration:
+          vhost:
+            name: {{ include "eric-vnfm-orchestrator-service.envoy.retryAfter.vhost" . | quote }}
+      patch:
+        operation: MERGE
+        value:
+          route:
+            retry_policy:
+              rate_limited_retry_back_off:
+                reset_headers:
+                  - name: retry-after
+              retriableHeaders:
+                - name: retry-after
+{{- end }}

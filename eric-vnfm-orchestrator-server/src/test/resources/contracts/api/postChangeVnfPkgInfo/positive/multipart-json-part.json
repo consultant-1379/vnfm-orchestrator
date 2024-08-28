@@ -1,0 +1,13 @@
+{
+  "vnfdId": "1234567",
+  "additionalParams": {
+    "cleanUpResources": "true",
+    "persistDMConfig": "true"
+  },
+  "extensions":  {
+    "deployableModules":  {
+      "deployable_module_1": "enabled",
+      "deployable_module_2": "disabled"
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "<NFVO_VL_Identifier_1>",
+  "resourceId": "extNetAttDefResouceData",
+  "extNetAttDefResourceData": [
+    {
+      "netAttDefResourceId": "nad1",
+      "resourceHandle": {
+        "resourceId": "macvlan-1",
+        "containerNamespace": "nfvoNamespace"
+      }
+    },
+    {
+      "netAttDefResourceId": "nad2",
+      "resourceHandle": {
+        "resourceId": "macvlan-2",
+        "containerNamespace": "nfvoNamespace"
+      }
+    }
+  ],
+  "extCps": [
+    {
+      "cpdId": "eric-pm-bulk-reporter_virtual_cp",
+      "cpConfig": {
+        "1": {
+          "cpProtocolData": [
+            {
+              "layerProtocol": "IP_FOR_VIRTUAL_CP",
+              "virtualCpAddress": {
+                "type": "IPV4",
+                "loadBalancerIp": "127.10.234.23"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

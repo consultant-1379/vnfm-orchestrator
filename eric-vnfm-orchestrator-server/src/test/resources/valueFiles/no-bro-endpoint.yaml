@@ -1,0 +1,4 @@
+eric-pm-server:
+  server:
+    ingress:
+      enabled: false

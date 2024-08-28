@@ -1,0 +1,240 @@
+{
+  "node_types": {
+    "Ericsson_SAMPLE-VNF_1_24_CXS101289_R81E08_cxp9025898_4r81e08": {
+      "derived_from": "tosca.nodes.nfv.VNF",
+      "interfaces": {
+        "EricssonChangeCurrentVnfPackage": {
+          "type": "ericsson.interfaces.nfv.EricssonChangeCurrentVnfPackage"
+        },
+        "Vnflcm": {
+          "type": "tosca.interfaces.nfv.Vnflcm",
+          "operations": {
+            "heal": {
+              "inputs": {
+                "additional_parameters": {
+                  "type": "ericsson.datatypes.nfv.HealVnfOperationAdditionalParameters",
+                  "required": false
+                }
+              }
+            },
+            "scale": {},
+            "terminate": {},
+            "instantiate": {
+              "inputs": {
+                "additional_parameters": {
+                  "type": "ericsson.datatypes.nfv.InstantiateVnfOperationAdditionalParameters",
+                  "required": false
+                },
+                "helm_packages": {
+                  "description": "list of all helm charts",
+                  "type": "list",
+                  "entry_schema": {
+                    "type": "map"
+                  },
+                  "required": true
+                }
+              }
+            },
+            "change_current_package": {
+              "inputs": {
+                "additional_parameters": {
+                  "type": "ericsson.datatypes.nfv.ChangePackageVnfOperationAdditionalParameters",
+                  "required": false
+                },
+                "helm_packages": {
+                  "description": "list of all helm charts",
+                  "type": "list",
+                  "entry_schema": {
+                    "type": "map"
+                  },
+                  "required": true
+                }
+              }
+            }
+          }
+        }
+      },
+      "properties": {
+        "descriptor_id": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "multi-chart-etsi-rel4-5fcb086597"
+              ]
+            }
+          ],
+          "default": "multi-chart-etsi-rel4-5fcb086597"
+        },
+        "modifiable_attributes": {
+          "type": "tosca.datatypes.nfv.VnfInfoModifiableAttributes"
+        },
+        "provider": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "Ericsson"
+              ]
+            }
+          ],
+          "default": "Ericsson"
+        },
+        "descriptor_version": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "1.0.41"
+              ]
+            }
+          ],
+          "default": "1.0.41"
+        },
+        "vnfm_info": {
+          "type": "list",
+          "entry_schema": {
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "3881:E-VNFM"
+                ]
+              }
+            ]
+          },
+          "default": [
+            "3881:E-VNFM"
+          ]
+        },
+        "flavour_id": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "default"
+              ]
+            }
+          ],
+          "default": "default"
+        },
+        "software_version": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "1.0.41s"
+              ]
+            }
+          ],
+          "default": "1.0.41s"
+        },
+        "lcm_operations_configuration": {
+          "type": "tosca.datatypes.nfv.VnfLcmOperationsConfiguration",
+          "default": {
+            "heal": {
+              "causes": [
+                "Full Restore"
+              ]
+            }
+          }
+        },
+        "flavour_description": {
+          "type": "string",
+          "default": ""
+        },
+        "product_name": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "spider-app-multi-a-etsi-tosca-rel4"
+              ]
+            }
+          ],
+          "default": "spider-app-multi-a-etsi-tosca-rel4"
+        }
+      },
+      "artifacts": {
+        "crd_package1": {
+          "type": "tosca.artifacts.File",
+          "description": "sip-tls-crd-chart package",
+          "file": "Definitions/OtherTemplates/eric-sec-sip-tls-crd-4.2.0+32.tgz"
+        },
+        "crd_package3": {
+          "type": "tosca.artifacts.File",
+          "description": "instantiate crd package",
+          "file": "Definitions/OtherTemplates/scale-crd-1.0.0.tgz"
+        },
+        "crd_package2": {
+          "type": "tosca.artifacts.File",
+          "description": "cert-m crd package",
+          "file": "Definitions/OtherTemplates/eric-sec-certm-crd-3.16.0+48.tgz"
+        },
+        "helm_package2": {
+          "type": "tosca.artifacts.File",
+          "description": "helm package associated with spider-app",
+          "file": "Definitions/OtherTemplates/spider-app-4.0.1.tgz"
+        },
+        "helm_package1": {
+          "type": "tosca.artifacts.File",
+          "description": "test-scale package",
+          "file": "Definitions/OtherTemplates/test-scale-chart-4.0.0.tgz"
+        },
+        "scaling_mapping": {
+          "type": "tosca.artifacts.File",
+          "description": "Scaling Mapping file associated with this descriptor",
+          "file": "Definitions/OtherTemplates/scaling_mapping.yaml"
+        },
+        "software_images": {
+          "description": "Location of the software images being used in this package",
+          "file": "Files/images/docker.tar",
+          "type": "tosca.artifacts.nfv.SwImage",
+          "properties": {
+            "size": "99 B",
+            "min_disk": "100 B",
+            "name": "Docker",
+            "checksum": {
+              "hash": "C2259250EAE4E9D4CDCA5BC2829D40BB2D48A89870E37D21D9364F41BB0A85081757CAAD988D5C7D6D2DC62AFE30A505DFE7827FAA52BDA2CCF5E34C3CDD8301",
+              "algorithm": "sha-512"
+            },
+            "disk_format": "raw",
+            "version": "1.0.0",
+            "container_format": "docker"
+          }
+        }
+      }
+    }
+  },
+  "imports": [
+    "etsi_nfv_sol001_vnfd_4_2_1_types.yaml"
+  ],
+  "tosca_definitions_version": "tosca_simple_yaml_1_3",
+  "description": "VNF Descriptor for Ericsson SGSN-MME",
+  "data_types": {
+    "file": {
+      "derived_from": "string"
+    },
+    "ericsson.datatypes.nfv.HealVnfOperationAdditionalParameters": {
+      "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters"
+    },
+    "ericsson.datatypes.nfv.VnfInfoModifiableAttributesExtensions": {
+      "derived_from": "tosca.datatypes.nfv.VnfInfoModifiableAttributesExtensions"
+    },
+    "ericsson.datatypes.nfv.rollbackFromPackage6ToPackage4": {
+      "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters"
+    },
+    "ericsson.datatypes.nfv.ChangePackageVnfOperationAdditionalParameters": {
+      "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters"
+    },
+    "ericsson.datatypes.nfv.rollbackFromPackage6ToPackage5": {
+      "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters"
+    },
+    "ericsson.datatypes.nfv.InstantiateVnfOperationAdditionalParameters": {
+      "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters",
+      "ericsson.datatypes.nfv.VnfInfoModifiableAttributes": {
+        "derived_from": "tosca.datatypes.nfv.VnfInfoModifiableAttributes"
+      }
+    }
+  }
+}

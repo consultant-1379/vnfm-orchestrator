@@ -1,0 +1,88 @@
+{
+  "_links": {
+    "first": {
+      "href": "http://localhost/api/v1/operations?page=1"
+    },
+    "prev": {
+      "href": "http://localhost/api/v1/operations?page=1"
+    },
+    "self": {
+      "href": "http://localhost/api/v1/operations?page=2"
+    },
+    "next": null,
+    "last": {
+      "href": "http://localhost/api/v1/operations?page=2"
+    }
+  },
+  "page": {
+    "number": 2,
+    "size": 15,
+    "totalPages": 2,
+    "totalElements": 18
+  },
+  "items": [
+    {
+      "currentLifecycleOperation": null,
+      "operationOccurrenceId": "99223f1c-bcb9-474c-9cb6-16",
+      "operationState": "COMPLETED",
+      "stateEnteredTime": "2021-05-30T10:36:37.118644",
+      "startTime": "2021-05-30T10:36:19.852381",
+      "grantId": null,
+      "lifecycleOperationType": "INSTANTIATE",
+      "automaticInvocation": null,
+      "operationParams": null,
+      "cancelPending": null,
+      "cancelMode": null,
+      "error": null,
+      "vnfProductName": "spider",
+      "vnfSoftwareVersion": "1.0.2",
+      "clusterName": "cluster-16",
+      "namespace": "namespace-16",
+      "vnfInstanceId": "4d3a4b72-e724-4832-83c5-16",
+      "vnfInstanceName": "instance-16",
+      "username": "vnfm-16"
+    },
+    {
+      "currentLifecycleOperation": null,
+      "operationOccurrenceId": "99223f1c-bcb9-474c-9cb6-17",
+      "operationState": "COMPLETED",
+      "stateEnteredTime": "2021-05-30T10:36:35.765829",
+      "startTime": "2021-05-30T10:36:18.408308",
+      "grantId": null,
+      "lifecycleOperationType": "INSTANTIATE",
+      "automaticInvocation": null,
+      "operationParams": null,
+      "cancelPending": null,
+      "cancelMode": null,
+      "error": null,
+      "vnfProductName": "spider",
+      "vnfSoftwareVersion": "1.0.2",
+      "clusterName": "cluster-17",
+      "namespace": "namespace-17",
+      "vnfInstanceId": "4d3a4b72-e724-4832-83c5-17",
+      "vnfInstanceName": "instance-17",
+      "username": "vnfm-17"
+    },
+    {
+      "currentLifecycleOperation": null,
+      "operationOccurrenceId": "99223f1c-bcb9-474c-9cb6-18",
+      "operationState": "COMPLETED",
+      "stateEnteredTime": "2021-05-30T15:23:13.779081",
+      "startTime": "2021-05-30T15:23:03.536587",
+      "grantId": null,
+      "lifecycleOperationType": "INSTANTIATE",
+      "automaticInvocation": null,
+      "operationParams": null,
+      "cancelPending": null,
+      "cancelMode": null,
+      "error": null,
+      "vnfProductName": "spider",
+      "vnfSoftwareVersion": "1.0.2",
+      "clusterName": "cluster-18",
+      "namespace": "namespace-18",
+      "vnfInstanceId": "4d3a4b72-e724-4832-83c5-18",
+      "vnfInstanceName": "instance-18",
+      "username": "vnfm-18"
+    }
+  ]
+}

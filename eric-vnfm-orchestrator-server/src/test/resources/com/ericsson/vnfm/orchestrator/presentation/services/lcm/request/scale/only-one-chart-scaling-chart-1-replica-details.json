@@ -1,0 +1,52 @@
+{
+  "test-cnf": {
+    "minReplicasParameterName": null,
+    "minReplicasCount": null,
+    "maxReplicasParameterName": null,
+    "maxReplicasCount": null,
+    "scalingParameterName": "vnfc1.test-cnf.replicaCount",
+    "currentReplicaCount": 1,
+    "autoScalingEnabledParameterName": null,
+    "autoScalingEnabledValue": false
+  },
+  "test-cnf-vnfc1": {
+    "minReplicasParameterName": "vnfc1.minReplicas",
+    "minReplicasCount": null,
+    "maxReplicasParameterName": "vnfc1.maxReplicas",
+    "maxReplicasCount": null,
+    "scalingParameterName": "vnfc1.replicaCount",
+    "currentReplicaCount": 1,
+    "autoScalingEnabledParameterName": "vnfc1.autoscaling.enabled",
+    "autoScalingEnabledValue": false
+  },
+  "test-cnf-vnfc3": {
+    "minReplicasParameterName": null,
+    "minReplicasCount": null,
+    "maxReplicasParameterName": null,
+    "maxReplicasCount": null,
+    "scalingParameterName": "vnfc3.replicaCount",
+    "currentReplicaCount": 1,
+    "autoScalingEnabledParameterName": null,
+    "autoScalingEnabledValue": false
+  },
+  "test-cnf-vnfc4": {
+    "minReplicasParameterName": null,
+    "minReplicasCount": null,
+    "maxReplicasParameterName": null,
+    "maxReplicasCount": null,
+    "scalingParameterName": "vnfc4.replicaCount",
+    "currentReplicaCount": 1,
+    "autoScalingEnabledParameterName": null,
+    "autoScalingEnabledValue": false
+  },
+  "test-cnf-vnfc5": {
+    "minReplicasParameterName": "vnfc5.minReplicas",
+    "minReplicasCount": 1,
+    "maxReplicasParameterName": "vnfc5.maxReplicas",
+    "maxReplicasCount": 1,
+    "scalingParameterName": "vnfc5.replicaCount",
+    "currentReplicaCount": 1,
+    "autoScalingEnabledParameterName": "vnfc5.autoscaling.enabled",
+    "autoScalingEnabledValue": true
+  }
+}

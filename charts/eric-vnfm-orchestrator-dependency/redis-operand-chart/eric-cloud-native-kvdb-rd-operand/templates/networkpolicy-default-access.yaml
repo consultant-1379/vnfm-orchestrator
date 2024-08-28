@@ -1,0 +1,32 @@
+{{- $global := fromJson (include "eric-cloud-native-kvdb-rd-operand.global" .) -}}
+{{- if and $global.networkPolicy .Values.networkPolicy -}}
+{{- if and $global.networkPolicy.enabled .Values.networkPolicy.enabled -}}
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: {{ include "eric-cloud-native-kvdb-rd-operand.name" . }}-default-access
+  labels:
+    {{- include "eric-cloud-native-kvdb-rd-operand.labels" . | nindent 4 }}
+  annotations:
+    {{- include "eric-cloud-native-kvdb-rd-operand.helm-annotations" . | nindent 4 }}
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: {{ template "eric-cloud-native-kvdb-rd-operand.name" . }}
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              {{ template "eric-cloud-native-kvdb-rd-operand.name" . }}-access: "true"
+      ports:
+        {{- if $global.security.tls.enabled }}
+        - port: 6380
+          protocol: TCP
+        {{- else }}
+        - port: 6379
+          protocol: TCP
+        {{- end }}
+{{- end }}
+{{- end }}

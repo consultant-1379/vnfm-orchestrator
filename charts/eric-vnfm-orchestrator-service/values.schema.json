@@ -1,0 +1,55 @@
+{
+   "$schema":"http://json-schema.org/draft-07/schema#",
+   "type": "object",
+   "additionalProperties": true,
+   "properties": {
+      "oss": {
+         "type": "object",
+         "additionalProperties": false,
+         "properties": {
+            "topology": {
+               "type": "object",
+               "additionalProperties": true,
+               "properties": {
+                  "secretName": {
+                     "type": ["string", "null"],
+                     "minLength": 1
+                  }
+               }
+            }
+         }
+      },
+      "smallstack": {
+         "type": "object",
+         "additionalProperties": false,
+         "properties": {
+            "application": {
+               "type":"boolean"
+            }
+         },
+         "required": [
+            "application"
+         ]
+      },
+      "affinity": {
+         "type": "object",
+         "properties": {
+            "podAntiAffinity": {
+               "type": "string",
+               "enum": ["hard", "soft"],
+               "default": "hard"
+            },
+            "topologyKey": {
+               "type": "string",
+               "default": "kubernetes.io/hostname",
+               "maxLength": 63
+            }
+         }
+      }
+
+   },
+   "required": [
+      "oss",
+      "smallstack"
+   ]
+}

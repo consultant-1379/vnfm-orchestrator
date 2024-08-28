@@ -1,0 +1,24 @@
+productName: Cloud Native Base
+productNumber: CXD 101 001
+images:
+  kvdbOperand:
+    productName: "Key Value Database RD Operand IMAGE"
+    productNumber: "CXU 101 0636"
+    registry: "selndocker.mo.sw.ericsson.se"
+    repoPath: "proj-pc-gs-released"
+    name: "eric-data-key-value-database-rd-operand"
+    tag: "3.6.0-56"
+  kvdbMetricsExporter:
+    productName: "Key Value Database RD Operand Metrics Exporter IMAGE"
+    productNumber: "CXU 101 0637"
+    registry: "selndocker.mo.sw.ericsson.se"
+    repoPath: "proj-pc-gs-released"
+    name: "eric-data-key-value-database-rd-operand-metrics-exporter"
+    tag: "3.6.0-56"
+  hooklauncher:
+    productName: "Key Value Database RD Smart Helm Hook Image"
+    productNumber: "CXU 101 1577"
+    registry: "selndocker.mo.sw.ericsson.se"
+    repoPath: "proj-pc-gs-released"
+    name: "eric-data-key-value-database-rd-hooklauncher"
+    tag: "3.6.0-56"

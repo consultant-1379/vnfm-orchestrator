@@ -1,0 +1,20 @@
+{
+   "flavourId":null,
+   "instantiationLevelId":null,
+   "clusterName":"default",
+   "extVirtualLinks":null,
+   "extManagedVirtualLinks":null,
+   "localizationLanguage":null,
+   "additionalParams":{
+      "namespace":"default",
+      "releaseName":"add-attributes-check",
+      "applicationTimeOut":300,
+      "tags.pm":true,
+      "tags.all":false,
+      "day0.configuration.param2.value":"supersecretvalue",
+      "day0.configuration.param2.key":"password",
+      "day0.configuration.secretname":"test-secret",
+      "day0.configuration.param1.key":"login",
+      "day0.configuration.param1.value":"supersecretlogin"
+   }
+}

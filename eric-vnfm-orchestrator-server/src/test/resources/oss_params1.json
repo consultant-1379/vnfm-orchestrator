@@ -1,0 +1,17 @@
+{
+    "networkElementType": {
+        "type": "string",
+        "default": "nodetype",
+        "required": "false"
+    },
+    "managedElementId": {
+        "type": "string",
+        "default": "elementId",
+        "required": "true"
+    },
+    "nodeIpAddress": {
+        "type": "string",
+        "default": "my-ip",
+        "required": "false"
+    }
+}

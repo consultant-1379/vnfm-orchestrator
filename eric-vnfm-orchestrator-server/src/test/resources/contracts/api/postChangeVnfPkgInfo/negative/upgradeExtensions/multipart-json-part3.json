@@ -1,0 +1,11 @@
+{
+  "vnfdId": "1234567",
+  "extensions" : {
+    "vnfControlledScaling" : {
+      "Aspect1" : "xyz"
+    },
+    "deployableModules": {
+      "deployable_module_1": "xyz"
+    }
+  }
+}

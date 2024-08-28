@@ -1,0 +1,498 @@
+{
+  "allScalingAspects": {
+    "ScalingAspects1": {
+      "type": "tosca.policies.nfv.ScalingAspects",
+      "properties": {
+        "aspects": {
+          "Aspect5": {
+            "name": "Aspect5",
+            "description": "Scale level 0-12 maps to 3-27 for test-cnf-vnfc5 VNFC instances (2 instance per scale step)\n",
+            "max_scale_level": 10,
+            "step_deltas": [
+              "delta_1"
+            ],
+            "allScalingAspectDelta": {
+              "Payload_ScalingAspectDeltas5": {
+                "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+                "properties": {
+                  "aspect": "Aspect5",
+                  "deltas": {
+                    "delta_1": {
+                      "number_of_instances": 1
+                    }
+                  }
+                },
+                "targets": [
+                  "test-cnf-vnfc5"
+                ],
+                "allInitialDelta": {
+                  "vnfc5": {
+                    "type": "tosca.policies.nfv.VduInitialDelta",
+                    "properties": {
+                      "initial_delta": {
+                        "number_of_instances": 1
+                      }
+                    },
+                    "targets": [
+                      "test-cnf-vnfc5"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "Aspect1": {
+            "name": "Aspect1",
+            "description": "Scale level 0-10 maps to 1-11 for eric-pm-bulk-reporter instances.\n",
+            "max_scale_level": 10,
+            "step_deltas": [
+              "delta_1"
+            ],
+            "allScalingAspectDelta": {
+              "Payload_ScalingAspectDeltas1": {
+                "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+                "properties": {
+                  "aspect": "Aspect1",
+                  "deltas": {
+                    "delta_1": {
+                      "number_of_instances": 1
+                    }
+                  }
+                },
+                "targets": [
+                  "eric-pm-bulk-reporter"
+                ],
+                "allInitialDelta": {
+                  "eric-pm-bulk-reporter": {
+                    "type": "tosca.policies.nfv.VduInitialDelta",
+                    "properties": {
+                      "initial_delta": {
+                        "number_of_instances": 1
+                      }
+                    },
+                    "targets": [
+                      "eric-pm-bulk-reporter"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "Aspect2": {
+            "name": "Aspect2",
+            "description": "Scale level 0-7 maps to 5-27 for test-cnf-vnfc3 and test-cnf-vnfc4 VNFC instances (4 instance in first scale level, 1 instance in second scale level, 9 instance in third scale level and 3 instance in all the next scale levels)\n",
+            "max_scale_level": 7,
+            "step_deltas": [
+              "delta_1",
+              "delta_2",
+              "delta_3",
+              "delta_4"
+            ],
+            "allScalingAspectDelta": {
+              "Payload_ScalingAspectDeltas2": {
+                "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+                "properties": {
+                  "aspect": "Aspect2",
+                  "deltas": {
+                    "delta_1": {
+                      "number_of_instances": 4
+                    },
+                    "delta_2": {
+                      "number_of_instances": 1
+                    },
+                    "delta_3": {
+                      "number_of_instances": 9
+                    },
+                    "delta_4": {
+                      "number_of_instances": 3
+                    }
+                  }
+                },
+                "targets": [
+                  "test-cnf-vnfc4",
+                  "test-cnf-vnfc3"
+                ],
+                "allInitialDelta": {
+                  "vnfc3": {
+                    "type": "tosca.policies.nfv.VduInitialDelta",
+                    "properties": {
+                      "initial_delta": {
+                        "number_of_instances": 1
+                      }
+                    },
+                    "targets": [
+                      "test-cnf-vnfc3"
+                    ]
+                  },
+                  "vnfc4": {
+                    "type": "tosca.policies.nfv.VduInitialDelta",
+                    "properties": {
+                      "initial_delta": {
+                        "number_of_instances": 1
+                      }
+                    },
+                    "targets": [
+                      "test-cnf-vnfc4"
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "Aspect3": {
+            "name": "Aspect3",
+            "description": "Scale level 0-12 maps to 3-27 for test-cnf and test-cnf-vnfc1 VNFC instances (2 instance per scale step)\n",
+            "max_scale_level": 12,
+            "step_deltas": [
+              "delta_1"
+            ],
+            "allScalingAspectDelta": {
+              "Payload_ScalingAspectDeltas3": {
+                "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+                "properties": {
+                  "aspect": "Aspect3",
+                  "deltas": {
+                    "delta_1": {
+                      "number_of_instances": 2
+                    }
+                  }
+                },
+                "targets": [
+                  "test-cnf",
+                  "test-cnf-vnfc1"
+                ],
+                "allInitialDelta": {
+                  "vnfc1.test-cnf": {
+                    "type": "tosca.policies.nfv.VduInitialDelta",
+                    "properties": {
+                      "initial_delta": {
+                        "number_of_instances": 1
+                      }
+                    },
+                    "targets": [
+                      "test-cnf"
+                    ]
+                  },
+                  "vnfc1": {
+                    "type": "tosca.policies.nfv.VduInitialDelta",
+                    "properties": {
+                      "initial_delta": {
+                        "number_of_instances": 1
+                      }
+                    },
+                    "targets": [
+                      "test-cnf-vnfc1"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "allInitialDelta": {
+    "vnfc5": {
+      "type": "tosca.policies.nfv.VduInitialDelta",
+      "properties": {
+        "initial_delta": {
+          "number_of_instances": 1
+        }
+      },
+      "targets": [
+        "test-cnf-vnfc5"
+      ]
+    },
+    "eric-pm-bulk-reporter": {
+      "type": "tosca.policies.nfv.VduInitialDelta",
+      "properties": {
+        "initial_delta": {
+          "number_of_instances": 1
+        }
+      },
+      "targets": [
+        "eric-pm-bulk-reporter"
+      ]
+    },
+    "vnfc1.test-cnf": {
+      "type": "tosca.policies.nfv.VduInitialDelta",
+      "properties": {
+        "initial_delta": {
+          "number_of_instances": 1
+        }
+      },
+      "targets": [
+        "test-cnf"
+      ]
+    },
+    "vnfc3": {
+      "type": "tosca.policies.nfv.VduInitialDelta",
+      "properties": {
+        "initial_delta": {
+          "number_of_instances": 1
+        }
+      },
+      "targets": [
+        "test-cnf-vnfc3"
+      ]
+    },
+    "vnfc4": {
+      "type": "tosca.policies.nfv.VduInitialDelta",
+      "properties": {
+        "initial_delta": {
+          "number_of_instances": 1
+        }
+      },
+      "targets": [
+        "test-cnf-vnfc4"
+      ]
+    },
+    "vnfc1": {
+      "type": "tosca.policies.nfv.VduInitialDelta",
+      "properties": {
+        "initial_delta": {
+          "number_of_instances": 1
+        }
+      },
+      "targets": [
+        "test-cnf-vnfc1"
+      ]
+    }
+  },
+  "allScalingAspectDelta": {
+    "Payload_ScalingAspectDeltas2": {
+      "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+      "properties": {
+        "aspect": "Aspect2",
+        "deltas": {
+          "delta_1": {
+            "number_of_instances": 4
+          },
+          "delta_2": {
+            "number_of_instances": 1
+          },
+          "delta_3": {
+            "number_of_instances": 9
+          },
+          "delta_4": {
+            "number_of_instances": 3
+          }
+        }
+      },
+      "targets": [
+        "test-cnf-vnfc4",
+        "test-cnf-vnfc3"
+      ],
+      "allInitialDelta": {
+        "vnfc3": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 1
+            }
+          },
+          "targets": [
+            "test-cnf-vnfc3"
+          ]
+        },
+        "vnfc4": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 1
+            }
+          },
+          "targets": [
+            "test-cnf-vnfc4"
+          ]
+        }
+      }
+    },
+    "Payload_ScalingAspectDeltas1": {
+      "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+      "properties": {
+        "aspect": "Aspect1",
+        "deltas": {
+          "delta_1": {
+            "number_of_instances": 1
+          }
+        }
+      },
+      "targets": [
+        "eric-pm-bulk-reporter"
+      ],
+      "allInitialDelta": {
+        "eric-pm-bulk-reporter": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 1
+            }
+          },
+          "targets": [
+            "eric-pm-bulk-reporter"
+          ]
+        }
+      }
+    },
+    "Payload_ScalingAspectDeltas3": {
+      "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+      "properties": {
+        "aspect": "Aspect3",
+        "deltas": {
+          "delta_1": {
+            "number_of_instances": 2
+          }
+        }
+      },
+      "targets": [
+        "test-cnf",
+        "test-cnf-vnfc1"
+      ],
+      "allInitialDelta": {
+        "vnfc1.test-cnf": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 1
+            }
+          },
+          "targets": [
+            "test-cnf"
+          ]
+        },
+        "vnfc1": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 1
+            }
+          },
+          "targets": [
+            "test-cnf-vnfc1"
+          ]
+        }
+      }
+    },
+    "Payload_ScalingAspectDeltas5": {
+      "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+      "properties": {
+        "aspect": "Aspect5",
+        "deltas": {
+          "delta_1": {
+            "number_of_instances": 1
+          }
+        }
+      },
+      "targets": [
+        "test-cnf-vnfc5"
+      ],
+      "allInitialDelta": {
+        "vnfc5": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 1
+            }
+          },
+          "targets": [
+            "test-cnf-vnfc5"
+          ]
+        }
+      }
+    }
+  },
+  "allVnfPackageChangePolicy": {
+    "rollback_from_package6_to_package4": {
+      "type": "tosca.policies.nfv.VnfPackageChange",
+      "properties": {
+        "modification_qualifier": "down",
+        "additional_modification_description": "..",
+        "destination_flavour_id": "default",
+        "selector": {
+          "source_descriptor_id": "multi-chart-477c-aab3-2b04e6a383",
+          "destination_descriptor_id": "36ff67a9-0de4-48f9-97a3-4b0661670934",
+          "source_flavour_id": "default"
+        },
+        "component_mappings": null
+      },
+      "triggers": [
+        {
+          "rollback_from_package6_to_package4": {
+            "action": "EricssonChangeCurrentVnfPackage.rollback_from_package6_to_package4",
+            "event": "tosca.interfaces.nfv.Vnflcm.change_current_package_notification"
+          }
+        }
+      ]
+    },
+    "rollback_from_package6_to_package5": {
+      "type": "tosca.policies.nfv.VnfPackageChange",
+      "properties": {
+        "modification_qualifier": "down",
+        "additional_modification_description": "..",
+        "destination_flavour_id": "default",
+        "selector": {
+          "source_descriptor_id": "multi-chart-477c-aab3-2b04e6a383",
+          "destination_descriptor_id": "multi-chart-569d-xyz3-5g15f7h499",
+          "source_flavour_id": "default"
+        },
+        "component_mappings": null
+      },
+      "triggers": [
+        {
+          "rollback_from_package6_to_package5": {
+            "action": "EricssonChangeCurrentVnfPackage.rollback_from_package6_to_package5",
+            "event": "tosca.interfaces.nfv.Vnflcm.change_current_package_notification"
+          }
+        }
+      ]
+    }
+  },
+  "allVduInstantiationLevels": {
+    "vdu_1_instantiation_levels": {
+      "type": "tosca.policies.nfv.VduInstantiationLevels",
+      "properties": {
+        "instantiationLevels": {
+          "instantiation_level_1": {
+            "number_of_instances": 1
+          }
+        },
+        "levels": {
+          "instantiation_level_1": {
+            "number_of_instances": 1
+          }
+        }
+      },
+      "targets": [
+        "eric-pm-bulk-reporter"
+      ]
+    }
+  },
+  "allInstantiationLevels": {
+    "InstantiationLevels": {
+      "type": "tosca.policies.nfv.InstantiationLevels",
+      "properties": {
+        "levels": {
+          "instantiation_level_2": {
+            "scale_info": {
+              "Aspect5": {
+                "scale_level": 1
+              }
+            },
+            "description": "eric-ctrl-bro, test-cnf"
+          },
+          "instantiation_level_1": {
+            "scale_info": {
+              "Aspect1": {
+                "scale_level": 0
+              }
+            },
+            "description": "eric-pm-bulk-reporter"
+          }
+        },
+        "default_level": "instantiation_level_1"
+      }
+    }
+  }
+}

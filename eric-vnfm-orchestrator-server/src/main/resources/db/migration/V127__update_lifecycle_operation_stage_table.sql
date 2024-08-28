@@ -1,0 +1,1 @@
+ALTER TABLE lifecycle_operation_stage ALTER COLUMN owner DROP NOT NULL;

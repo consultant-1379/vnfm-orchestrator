@@ -1,0 +1,28 @@
+{{- $g := fromJson (include "eric-cloud-native-kvdb-rd-operand.global" . ) -}}
+{{- if and $g.security.tls.enabled (has "stream" .Values.log.outputs) -}}
+apiVersion: "siptls.sec.ericsson.com/v1"
+kind: "InternalCertificate"
+metadata:
+  name: "{{ include "eric-cloud-native-kvdb-rd-operand.name" . }}-lt-client-cert"
+  labels:
+    {{- include "eric-cloud-native-kvdb-rd-operand.labels" . | nindent 4 }}
+  annotations:
+    {{- include "eric-cloud-native-kvdb-rd-operand.annotations" . | nindent 4 }}
+spec:
+  kubernetes:
+    generatedSecretName: "{{ include "eric-cloud-native-kvdb-rd-operand.logTransformerClientSecret" . }}"
+    certificateName: "cert.pem"
+    privateKeyName: "privkey.pem"
+  certificate:
+    subject:
+      cn: {{ include "eric-cloud-native-kvdb-rd-operand.name" . | quote }}
+    {{- if .Values.security.tls.certificateTTL }}
+    validity:
+        overrideTtl: {{ .Values.security.tls.certificateTTL }}
+    {{- end }}
+    extendedKeyUsage:
+      tlsClientAuth: true
+      tlsServerAuth: false
+    issuer:
+      reference: "{{ include "eric-cloud-native-kvdb-rd-operand.logTransformerHost" . }}-input-ca-cert"
+{{- end -}}

@@ -1,0 +1,11 @@
+{
+  "type":[
+    "SAPC",
+    "SASN",
+    "SGSN-MME"
+  ],
+  "cluster":[],
+  "packageVersion":[],
+  "softwareVersion":[],
+  "sourcePackage":[]
+}

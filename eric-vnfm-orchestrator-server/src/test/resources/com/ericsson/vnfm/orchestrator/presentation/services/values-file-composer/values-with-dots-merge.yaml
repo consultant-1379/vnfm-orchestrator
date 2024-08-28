@@ -1,0 +1,8 @@
+eric-pm-server:
+  server:
+    ingress:
+      enabled: true
+    persistentVolume:
+      storageClass: network-block
+param.with.dots: true
+intel.com/somevalue: 100

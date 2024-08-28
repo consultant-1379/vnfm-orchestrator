@@ -1,0 +1,1 @@
+ALTER TABLE app_vnf_instance ADD crd_namespace VARCHAR DEFAULT 'eric-crd-ns';

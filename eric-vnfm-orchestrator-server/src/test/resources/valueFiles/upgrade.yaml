@@ -1,0 +1,45 @@
+influxdb:
+  ext:
+    apiAccessHostname: influxdb-service2.rontgen99.seli.gic.ericsson.se
+pm-testapp:
+  ingress:
+    domain: rontgen99.seli.gic.ericsson.se
+tags:
+  all: true
+  pm: true
+eric-adp-gs-testapp:
+  ingress:
+    enabled: false
+eric-pm-server:
+  server:
+    persistentVolume:
+      storageClass: network-block
+applicationTimeOut: 900
+commandTimeOut: 300
+userConfig:
+  secretKey: users.yaml
+  secretName: pm-br-sftp-users-secret
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

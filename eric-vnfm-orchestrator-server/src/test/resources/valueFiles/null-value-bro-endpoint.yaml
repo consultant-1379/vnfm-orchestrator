@@ -1,0 +1,5 @@
+eric-pm-server:
+  server:
+    ingress:
+      enabled: false
+bro_endpoint_url: null

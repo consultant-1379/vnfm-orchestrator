@@ -1,0 +1,262 @@
+{
+  "description": "VNF Descriptor for Ericsson SGSN-MME",
+  "node_types": {
+    "Ericsson.SAMPLE-VNF.1_25_CXS101289_R81E08.cxp9025898_4r81e08": {
+      "derived_from": "tosca.nodes.nfv.VNF",
+      "interfaces": {
+        "Vnflcm": {
+          "heal": {
+            "inputs": {
+              "additional_parameters": {
+                "type": "ericsson.datatypes.nfv.HealVnfOperationAdditionalParameters",
+                "required": false
+              }
+            }
+          },
+          "scale": {},
+          "change_package": {
+            "inputs": {
+              "additional_parameters": {
+                "type": "ericsson.datatypes.nfv.ChangePackageVnfOperationAdditionalParameters",
+                "required": false
+              }
+            }
+          },
+          "type": "tosca.interfaces.nfv.Vnflcm",
+          "instantiate": {
+            "inputs": {
+              "additional_parameters": {
+                "type": "ericsson.datatypes.nfv.InstantiateVnfOperationAdditionalParameters",
+                "required": false
+              }
+            }
+          }
+        }
+      },
+      "properties": {
+        "descriptor_id": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "UPDATED-SCALING"
+              ]
+            }
+          ],
+          "default": "UPDATED-SCALING"
+        },
+        "modifiable_attributes": {
+          "type": "tosca.datatypes.nfv.VnfInfoModifiableAttributes"
+        },
+        "provider": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "Ericsson"
+              ]
+            }
+          ],
+          "default": "Ericsson"
+        },
+        "descriptor_version": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "cxp9025898_4r81e08"
+              ]
+            }
+          ],
+          "default": "cxp9025898_4r81e08"
+        },
+        "vnfm_info": {
+          "type": "list",
+          "entry_schema": {
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "3881:E-VNFM"
+                ]
+              }
+            ]
+          },
+          "default": [
+            "3881:E-VNFM"
+          ]
+        },
+        "flavour_id": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "default"
+              ]
+            }
+          ],
+          "default": "default"
+        },
+        "software_version": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "1.25 (CXS101289_R81E08)"
+              ]
+            }
+          ],
+          "default": "1.25 (CXS101289_R81E08)"
+        },
+        "lcm_operations_configuration": {
+          "type": "tosca.datatypes.nfv.VnfLcmOperationsConfiguration",
+          "default": {
+            "heal": {
+              "causes": [
+                "Full Restore"
+              ]
+            }
+          }
+        },
+        "flavour_description": {
+          "type": "string",
+          "default": ""
+        },
+        "product_name": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "SAMPLE-VNF"
+              ]
+            }
+          ],
+          "default": "SAMPLE-VNF"
+        }
+      },
+      "artifacts": {
+        "scaling_mapping": {
+          "type": "tosca.artifacts.File",
+          "description": "Scaling Mapping file associated with this descriptor",
+          "file": "Definitions/OtherTemplates/scaling_mapping.yaml"
+        },
+        "helm_package": {
+          "type": "tosca.artifacts.File",
+          "description": "Helm package associated with this descriptor",
+          "file": "Definitions/OtherTemplates/sample-helm1.tgz"
+        },
+        "software_images": {
+          "type": "tosca.artifacts.nfv.SwImage",
+          "description": "Location of the software images being used in this package",
+          "file": "Files/images/docker.tar"
+        },
+        "helm_package_2": {
+          "type": "tosca.artifacts.File",
+          "description": "Helm package associated with this descriptor",
+          "file": "Definitions/OtherTemplates/sample-helm2.tgz"
+        }
+      }
+    }
+  },
+  "imports": [
+    "etsi_nfv_sol001_vnfd_2_5_1_types.yaml"
+  ],
+  "topology_template": {
+    "node_templates": {
+      "SAMPLE-VNF": {
+        "type": "Ericsson.SAMPLE-VNF.1_25_CXS101289_R81E08.cxp9025898_4r81e08",
+        "interfaces": {
+          "Vnflcm": {}
+        }
+      }
+    }
+  },
+  "data_types": {
+    "ericsson.datatypes.nfv.InstantiateVnfOperationAdditionalParameters": {
+      "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters",
+      "properties": {
+        "clusterIp": {
+          "description": "sample description for clusterIp",
+          "metadata": {
+            "chart_param": "server.service.clusterIP"
+          },
+          "type": "string",
+          "constraints": [
+            {
+              "pattern": "[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+"
+            }
+          ],
+          "required": true
+        }
+      }
+    },
+    "ericsson.datatypes.nfv.HealVnfOperationAdditionalParameters": {
+      "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters",
+      "properties": {
+        "restore.backupFileReference": {
+          "type": "string",
+          "description": "Input for restore backupFileReference can be Latest or URI",
+          "required": false
+        }
+      }
+    },
+    "ericsson.datatypes.nfv.VnfInfoModifiableAttributes": {
+      "derived_from": "tosca.datatypes.nfv.VnfInfoModifiableAttributes",
+      "properties": {
+        "extensions": {
+          "type": "ericsson.datatypes.nfv.VnfInfoModifiableAttributesExtensions"
+        }
+      }
+    },
+    "ericsson.datatypes.nfv.VnfInfoModifiableAttributesExtensions": {
+      "derived_from": "tosca.datatypes.nfv.VnfInfoModifiableAttributesExtensions",
+      "properties": {
+        "vnfControlledScaling": {
+          "description": "Represents for each aspect the controlled scaling method, either Manual or CISM",
+          "default": {
+            "Payload": "ManualControlled",
+            "Payload_2": "CISMControlled"
+          },
+          "type": "map",
+          "entry_schema": {
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "ManualControlled",
+                  "CISMControlled"
+                ]
+              }
+            ]
+          },
+          "required": false
+        }
+      }
+    },
+    "ericsson.datatypes.nfv.ChangePackageVnfOperationAdditionalParameters": {
+      "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters",
+      "properties": {
+        "upgrade.downsize.allowed": {
+          "description": "It will enable efficient use of compute and memory resources but certainly result in downtime during upgrade.",
+          "default": false,
+          "type": "boolean",
+          "required": false
+        },
+        "clusterIp": {
+          "description": "sample description for clusterIp",
+          "metadata": {
+            "chart_param": "server.service.clusterIP"
+          },
+          "type": "string",
+          "constraints": [
+            {
+              "pattern": "[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+"
+            }
+          ],
+          "required": true
+        }
+      }
+    }
+  },
+  "tosca_definitions_version": "tosca_simple_yaml_1_2"
+}

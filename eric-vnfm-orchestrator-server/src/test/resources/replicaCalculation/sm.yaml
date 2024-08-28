@@ -1,0 +1,76 @@
+test-cnf-vnfc0:
+  Auto-Scaling-Enabled: vnfc0.autoscaling.enabled
+  Auto-Scaling-MinReplicas-Name: vnfc0.minReplicas
+  Auto-Scaling-MaxReplicas-Name: vnfc0.maxReplicas
+  Scaling-Parameter-Name: vnfc0.replicaCount
+  Mciop-Name: helm_package1
+  Storage:
+    test_cnf_storage: test-cnf.storage
+  test_cnf_container:
+    Requested_CPU_Resources: test-cnf.resources.requests.cpu
+    CPU_Resource_Limit: test-cnf.resources.limits.cpu
+    Requested_Memory_Resources: test-cnf.resources.requests.memory
+    Memory_Resource_Limit: test-cnf.resources.limits.memory
+    Deployment_Allowed: test-cnf.enabled
+test-cnf-vnfc1:
+  Scaling-Parameter-Name: vnfc1.replicaCount
+  Auto-Scaling-Enabled: vnfc1.autoscaling.enabled
+  Auto-Scaling-MinReplicas-Name: vnfc1.minReplicas
+  Auto-Scaling-MaxReplicas-Name: vnfc1.maxReplicas
+  Mciop-Name: helm_package1
+  vnfc1_container:
+    Requested_CPU_Resources: vnfc1.resources.requests.cpu
+    CPU_Resource_Limit: vnfc1.resources.limits.cpu
+    Requested_Memory_Resources: vnfc1.resources.requests.memory
+    Memory_Resource_Limit: vnfc1.resources.limits.memory
+    Deployment_Allowed: vnfc1.enabled
+test-cnf-vnfc3:
+  Auto-Scaling-Enabled: vnfc3.autoscaling.enabled
+  Auto-Scaling-MinReplicas-Name: vnfc3.minReplicas
+  Auto-Scaling-MaxReplicas-Name: vnfc3.maxReplicas
+  Scaling-Parameter-Name: vnfc3.replicaCount
+  Mciop-Name: helm_package1
+  vnfc3_container:
+    Requested_CPU_Resources: vnfc3.resources.requests.cpu
+    CPU_Resource_Limit: vnfc3.resources.limits.cpu
+    Requested_Memory_Resources: vnfc3.resources.requests.memory
+    Memory_Resource_Limit: vnfc3.resources.limits.memory
+    Deployment_Allowed: vnfc3.enabled
+test-cnf-vnfc4:
+  Auto-Scaling-Enabled: vnfc4.autoscaling.enabled
+  Auto-Scaling-MinReplicas-Name: vnfc4.minReplicas
+  Auto-Scaling-MaxReplicas-Name: vnfc4.maxReplicas
+  Scaling-Parameter-Name: vnfc4.replicaCount
+  Mciop-Name: helm_package1
+  vnfc4_container:
+    Requested_CPU_Resources: vnfc4.resources.requests.cpu
+    CPU_Resource_Limit: vnfc4.resources.limits.cpu
+    Requested_Memory_Resources: vnfc4.resources.requests.memory
+    Memory_Resource_Limit: vnfc4.resources.limits.memory
+    Deployment_Allowed: vnfc4.enabled
+test-cnf-vnfc5:
+  Auto-Scaling-MinReplicas-Name: vnfc5.minReplicas
+  Auto-Scaling-MaxReplicas-Name: vnfc5.maxReplicas
+  Scaling-Parameter-Name: vnfc5.replicaCount
+  Auto-Scaling-Enabled: vnfc5.autoscaling.enabled
+  Mciop-Name: helm_package1
+  vnfc5_container:
+    Requested_CPU_Resources: vnfc5.resources.requests.cpu
+    CPU_Resource_Limit: vnfc5.resources.limits.cpu
+    Requested_Memory_Resources: vnfc5.resources.requests.memory
+    Memory_Resource_Limit: vnfc5.resources.limits.memory
+    Deployment_Allowed: vnfc5.enabled
+eric-pm-bulk-reporter:
+  Auto-Scaling-Enabled: eric-pm-bulk-reporter.autoscaling.enabled
+  Auto-Scaling-MinReplicas-Name: eric-pm-bulk-reporter.minReplicas
+  Auto-Scaling-MaxReplicas-Name: eric-pm-bulk-reporter.maxReplicas
+  Scaling-Parameter-Name: eric-pm-bulk-reporter.replicaCount
+  Mciop-Name: helm_package2
+  Storage:
+    bulk_reporter_storage: eric-pm-bulk-reporter.persistentVolumeClaim.size
+  bulk_reporter_container:
+    Requested_CPU_Resources: eric-pm-bulk-reporter.resources.bulkreporter.requests.cpu
+    CPU_Resource_Limit: eric-pm-bulk-reporter.resources.bulkreporter.limits.cpu
+    Requested_Memory_Resources: eric-pm-bulk-reporter.resources.bulkreporter.requests.memory
+    Memory_Resource_Limit: eric-pm-bulk-reporter.resources.bulkreporter.limits.memory
+    Deployment_Allowed: eric-pm-bulk-reporter.enabled

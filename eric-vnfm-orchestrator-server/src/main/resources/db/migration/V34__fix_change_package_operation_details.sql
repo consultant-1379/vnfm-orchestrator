@@ -1,0 +1,1 @@
+ALTER TABLE change_package_operation_details ALTER COLUMN target_operation_occurrence_id DROP NOT NULL;

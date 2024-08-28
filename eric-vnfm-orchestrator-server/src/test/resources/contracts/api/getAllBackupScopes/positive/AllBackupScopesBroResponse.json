@@ -1,0 +1,14 @@
+{
+  "backupManagers":[
+    {
+      "backupType":"myType",
+      "backupDomain":"myDomain",
+      "id":"DEFAULT"
+    },
+    {
+      "backupType":"myType",
+      "backupDomain":"myDomain",
+      "id":"EVNFM"
+    }
+  ]
+}

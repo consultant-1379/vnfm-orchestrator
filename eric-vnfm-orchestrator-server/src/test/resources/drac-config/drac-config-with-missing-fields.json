@@ -1,0 +1,13 @@
+{
+  "roles": [
+    {
+      "name": "role-1"
+    },
+    {
+      "nodeTypes": [
+        "type-2-1",
+        "type-2-2"
+      ]
+    }
+  ]
+}

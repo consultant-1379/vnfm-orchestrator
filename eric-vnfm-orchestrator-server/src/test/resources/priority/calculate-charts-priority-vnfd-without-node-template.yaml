@@ -1,0 +1,91 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+
+tosca_definitions_version: tosca_simple_yaml_1_2
+
+description: VNF Descriptor for Ericsson R3A Cloud-Native vCU
+
+imports:
+  - etsi_nfv_sol001_vnfd_2_5_1_types.yaml
+
+data_types:
+  ericsson.datatypes.nfv.InstantiateVnfOperationAdditionalParameters:
+    derived_from: tosca.datatypes.nfv.VnfOperationAdditionalParameters
+    properties:
+      overrideGlobalRegistry:
+        type: boolean
+        constraints: [ valid_values: [  true, false ] ]
+        default: false
+        required: false
+
+node_types:
+  Ericsson.EXILIS-VCU-UP:
+    derived_from: tosca.nodes.nfv.VNF
+    properties:
+      descriptor_id:
+        type: string
+        constraints: [ valid_values: [ 1b2ed4aa-ef1c-11ed-baa6-0242ac110002 ] ]
+        default: 1b2ed4aa-ef1c-11ed-baa6-0242ac110002
+      descriptor_version:
+        type: string
+        constraints: [ valid_values: [ 1.2186.4 ] ]
+        default: 1.2186.4
+      provider:
+        type: string
+        constraints: [ valid_values: [ Ericsson ] ]
+        default: Ericsson
+      product_name:
+        type: string
+        constraints: [ valid_values: [ EXILIS-VCU-UP ] ]
+        default: EXILIS-VCU-UP
+      software_version:
+        type: string
+        constraints: [ valid_values: [ '1.2186.4' ] ]
+        default: '1.2186.4'
+      vnfm_info:
+        type: list
+        entry_schema:
+          type: string
+          constraints: [ valid_values: [ '3881:E-VNFM' ] ]
+        default: [ '3881:E-VNFM' ]
+      #configurable_properties: # Not used
+      #modifiable_attributes: # Not used
+      flavour_id:
+        type: string
+        constraints: [ valid_values: [ default ] ]
+        default: default
+      flavour_description:
+        type: string
+        default: ''
+    interfaces:
+      Vnflcm:
+        type: tosca.interfaces.nfv.Vnflcm
+        instantiate:
+          inputs:
+            additional_parameters:
+              type: ericsson.datatypes.nfv.InstantiateVnfOperationAdditionalParameters
+              required: false
+        terminate: {}
+    artifacts:
+      helm_package:
+        description: Helm package associated with this descriptor
+        type: tosca.artifacts.File
+        file: Definitions/OtherTemplates/eric-ran-cu-up-nr-1.2186.4.tgz
+      software_images:
+        description: Location of the software images being used in this package
+        type: tosca.artifacts.nfv.SwImage
+        file: Files/Images/docker.tar

@@ -1,0 +1,1 @@
+ALTER TABLE changed_info ADD vnf_info_modifiable_attributes_extensions VARCHAR DEFAULT null;

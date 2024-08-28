@@ -1,0 +1,10 @@
+{
+  "import_backup_data": {
+    "importBackupStatus": {
+      "exitStatus": 1,
+      "commandOutput": {
+        "return-value": "Cannot be imported"
+      }
+    }
+  }
+}

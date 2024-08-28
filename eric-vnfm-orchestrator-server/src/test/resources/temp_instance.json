@@ -1,0 +1,15 @@
+{
+    "vnfDescriptorId": "68aea56b-14e8-4850-b2a6-48f785042127",
+    "vnfProviderName": "Ericsson",
+    "vnfInstanceId": "13143285-ced7-4e67-a55b-8236c88de4ea",
+    "vnfdVersion": "cxp9025898_4r81e08",
+    "deleteNodePythonFile": null,
+    "vnfInstanceDescription": "",
+    "combinedAdditionalParams": "{}",
+    "namespace": "test",
+    "operationOccurrenceId": "521ecc62-420d-49bd-aa7d-705dd926e6e1",
+    "vnfPackageId": "68aea56b-14e8-4850-b2a6-48f785042127",
+    "clusterName": "default",
+    "combinedValuesFile": null,
+    "vnfProductName": "SGSN-MME"
+}

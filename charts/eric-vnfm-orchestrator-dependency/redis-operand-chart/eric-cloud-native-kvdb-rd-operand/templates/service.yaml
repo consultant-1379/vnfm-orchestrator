@@ -1,0 +1,42 @@
+{{- $global := fromJson (include "eric-cloud-native-kvdb-rd-operand.global" .) -}}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "eric-cloud-native-kvdb-rd-operand.name" . }}
+  labels:
+    {{- $commonLabels := include "eric-cloud-native-kvdb-rd-operand.labels" . | fromYaml -}}
+    {{- $redisLabel := dict "redis-operator.k8s.io/cluster-name" (include "eric-cloud-native-kvdb-rd-operand.name" . ) -}}
+    {{- include "eric-cloud-native-kvdb-rd-operand.mergeLabels" (dict "location" (.Template.Name) "sources" (list
+        $commonLabels $redisLabel)) | trim | nindent 4 }}
+  annotations:
+    {{- $commonAnnotations := include "eric-cloud-native-kvdb-rd-operand.annotations" . | fromYaml -}}
+    {{- $prometheus := include "eric-cloud-native-kvdb-rd-operand.prometheus" . | fromYaml -}}
+    {{- include "eric-cloud-native-kvdb-rd-operand.mergeAnnotations" (dict "location" (.Template.Name) "sources" (list
+        $commonAnnotations $prometheus)) | trim | nindent 4 }}
+spec:
+{{- if $global.internalIPFamily }}
+  ipFamilies: [{{ $global.internalIPFamily | quote }}]
+{{- end }}
+  type: ClusterIP
+  clusterIP: None
+  ports:
+  {{- if $global.security.tls.enabled }}
+  {{- if eq .Values.service.endpoints.kvdbClients.tls.enforced "required" }}
+  - name: redis-tls
+    port: 6380
+    targetPort: 6380
+  {{- else if eq .Values.service.endpoints.kvdbClients.tls.enforced "optional" }}
+  - name: redis
+    port: 6379
+    targetPort: 6379
+  - name: redis-tls
+    port: 6380
+    targetPort: 6380
+  {{- end }}
+  {{- else }}
+  - name: redis
+    port: 6379
+    targetPort: 6379
+  {{- end }}
+  selector:
+    app.kubernetes.io/name: {{ template "eric-cloud-native-kvdb-rd-operand.name" . }}

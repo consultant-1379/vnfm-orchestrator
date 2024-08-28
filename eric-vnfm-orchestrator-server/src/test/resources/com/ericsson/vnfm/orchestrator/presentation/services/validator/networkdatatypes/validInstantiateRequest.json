@@ -1,0 +1,124 @@
+{
+  "clusterName": "haber022",
+  "additionalParams": {
+    "namespace": "test_namespace",
+    "probesConfig.readinessProbe.delayBeforeReady": 10,
+    "applicationTimeOut": 300,
+    "cleanUpResources": false,
+    "skipVerification": true
+  },
+  "extVirtualLinks": [
+    {
+      "id": "<NFVO_VL_Identifier_1>",
+      "resourceId": "extNetAttDefResouceData",
+      "extNetAttDefResourceData": [
+        {
+          "netAttDefResourceId": "nad1",
+          "resourceHandle": {
+            "resourceId": "macvlan-1",
+            "containerNamespace": "nfvoNamespace"
+          }
+        },
+        {
+          "netAttDefResourceId": "nad2",
+          "resourceHandle": {
+            "resourceId": "macvlan-2",
+            "containerNamespace": "nfvoNamespace"
+          }
+        }
+      ],
+      "extCps": [
+        {
+          "cpdId": "test-cnf_vdu_cp_macvlan",
+          "cpConfig": {
+            "1": {
+              "netAttDefResourceId": [
+                "nad1",
+                "nad2"
+              ],
+              "cpProtocolData": [
+                {
+                  "layerProtocol": "IP_OVER_ETHERNET",
+                  "ipOverEthernet": {
+                    "ipAddresses": [{
+                      "type": "IPV4",
+                      "numDynamicAddresses": 1
+                    }]
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cpdId": "test-cnf-vnfc1_virtual_cp",
+          "cpConfig": {
+            "1": {
+              "cpProtocolData": [
+                {
+                  "layerProtocol": "IP_FOR_VIRTUAL_CP",
+                  "virtualCpAddress": {
+                    "type": "IPV4",
+                    "addressPoolName": "addPool1"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "cpdId": "eric-pm-bulk-reporter_virtual_cp",
+          "cpConfig": {
+            "1": {
+              "cpProtocolData": [
+                {
+                  "layerProtocol": "IP_FOR_VIRTUAL_CP",
+                  "virtualCpAddress": {
+                    "type": "IPV4",
+                    "loadBalancerIp": "127.10.234.23"
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "resourceId": "123e4567-e89b-12d3-a456-426614174000",
+      "extNetAttDefResourceData": [
+        {
+          "netAttDefResourceId": "nad3",
+          "resourceHandle": {
+            "resourceId": "macvlan-3",
+            "containerNamespace": "nfvoNamespace"
+          }
+        }
+      ],
+      "extCps": [
+        {
+          "cpdId": "test-cnf-vnfc1_vdu_cp_macvlan",
+          "cpConfig": {
+            "1": {
+              "netAttDefResourceId": [
+                "nad3"
+              ],
+              "cpProtocolData": [
+                {
+                  "layerProtocol": "IP_OVER_ETHERNET",
+                  "ipOverEthernet": {
+                    "ipAddresses": [{
+                      "type": "IPV4",
+                      "numDynamicAddresses": 1
+                    }]
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

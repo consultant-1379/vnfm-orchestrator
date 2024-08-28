@@ -1,0 +1,9 @@
+{{- if ne (include "eric-cloud-native-kvdb-rd-operand.deprecation.notices" .) "" }}
+
+DEPRECATION NOTICE: The following configuration parameters have been specified but are deprecated.
+
+{{ include "eric-cloud-native-kvdb-rd-operand.deprecation.notices" . }}
+
+See Key Value Database-RD's User Guide for more information.
+
+{{- end }}

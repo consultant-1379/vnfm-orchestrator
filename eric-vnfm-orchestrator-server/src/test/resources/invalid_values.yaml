@@ -1,0 +1,120 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+tosca_definitions_version: tosca_simple_yaml_1_2
+
+description: VNF Descriptor for Ericsson SGSN-MME
+
+# INFO:
+# - This is a work-in-progress example VNFD for containerized VNFs in small stack scenario.
+# - Based on ETSI GS NFV-SOL 001 V2.5.1
+
+
+imports:
+  - etsi_nfv_sol001_vnfd_2_5_1_types.yaml
+
+
+      global.internalServiceEndpoint.port:
+        type: integer
+        description: sample description for internal_service_port
+        required: false
+        default: 25161
+        constraints: [ valid_values: [ 161, 25161 ] ]
+
+        ossTopology.snmpPrivacyPassword:
+          type: string
+          description: Applicable only for ENM when SNMP V3 is used and the security level is AUTH_NO_PRIV or AUTH_PRIV. Password set for authentication with the provided Authentication Protocol for secure authorization.
+          required: true
+        ossTopology.pmFunction:
+          type: boolean
+          description: PmFunction is used to switch on and off PMIC Mediation flows for each Network Element. If PmFunction is on, all file collection, subscription activation, subscription deactivation, scanner polling and scanner master functionality is available for the Network Element. Default value is false.
+          constraints: [ valid_values: [  true, false ] ]
+          default: false
+          required: false
+        ossTopology.cmNodeHeartbeatSupervision:
+          type: boolean
+          description: Used only in case of ENM. Enabling CM Supervision will copy the current status of the configuration data of the node into ENM and enable CM Notifications. Enabling CM Notifications ensures that the node will notify ENM of any configuration data changes. Default value is true.
+          constraints: [ valid_values: [  true, false ] ]
+          default: true
+          required: false
+        ossTopology.fmAlarmSupervision:
+          type: boolean
+          description: FmAlarmSupervision is used to enable or disable alarms in case of any failures. Default value is true.
+          constraints: [ valid_values: [  true, false ] ]
+          default: true
+          required: false
+        ossTopology.netConfPort:
+          type: string
+          description: NetConf port number.Not applicable for AXE based nodes.
+          required: true
+        ossTopology.sftpPort:
+          type: string
+          description: SFTP port.  If port is not provided, then the default port 22 will be set.
+          required: false
+        ossTopology.subNetworks:
+          type: string
+          description: SubNetwork is used for logical grouping of nodes within ENM.
+          required: false
+        ossTopology.ossServerHostname:
+          type: string
+          description:  hostname for scripting cluster VM in ENM.
+          required: true
+        ossTopology.sshPortNo:
+          type: string
+          description: SSH Port Number. If not provided, default should be used.
+          required: false
+        ossTopology.ftpPortNo:
+          type: string
+          description: FTP Port Number. If not provided, default should be used.
+          required: false
+        ossTopology.axeNodeClusterIP:
+          type: string
+          description: Mandatory for AXE-based nodes. The Cluster IP Address of the Network Element.
+          required: false
+        ossTopology.axeNodeInterfaceAIp:
+          type: string
+          description: Mandatory for AXE-based nodes. IP address for the active side A of the Network Element.
+          required: false
+        ossTopology.axeNodeInterfaceBIp:
+          type: string
+          description: Mandatory for AXE-based nodes. IP address for the active side B of the Network Element.
+          required: false
+        ossTopology.isManagerIpAddress:
+          type: string
+          description: Mandatory for IS-based AXE nodes. IP address for the SIS interface manager.
+          required: false
+        ossTopology.timeZone:
+          type: string
+          description:  Applicable only for AXE based nodes in ENM. If timeZone is not provided, then the timeZone of the system will be set.
+          required: false
+        ossTopology.transportProtocol:
+          type: string
+          description:  If transportProtocol is not provided, then the default value SSH will be set
+          required: false
+          constraints: [ valid_values: [  'SSH', 'TLS' ] ]
+          default: 'SSH'
+
+    artifacts:
+      helm_package:
+        description: Helm package associated with this descriptor
+        type: tosca.artifacts.File
+        file: Definitions/OtherTemplates/sampledescriptor-0.0.1-223.tgz
+      software_images:
+        description: Location of the software images being used in this package
+        type: tosca.artifacts.nfv.SwImage
+        file: Files/images/docker.tar
+
+

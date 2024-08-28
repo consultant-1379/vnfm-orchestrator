@@ -1,0 +1,1 @@
+ALTER TABLE APP_CLUSTER_CONFIG_FILE ADD crd_namespace VARCHAR DEFAULT 'eric-crd-ns';

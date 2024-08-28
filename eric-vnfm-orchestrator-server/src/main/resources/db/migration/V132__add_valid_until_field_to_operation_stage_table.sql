@@ -1,0 +1,1 @@
+ALTER TABLE lifecycle_operation_stage ADD COLUMN valid_until TIMESTAMP;

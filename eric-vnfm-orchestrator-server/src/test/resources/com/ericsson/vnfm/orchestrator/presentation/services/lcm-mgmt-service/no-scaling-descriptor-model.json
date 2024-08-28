@@ -1,0 +1,20 @@
+{
+  "id": "no-scaling",
+  "vnfdVersion": "cxp9025898_4r81e08",
+  "vnfSoftwareVersion": "1.20 (CXS101289_R81E08)",
+  "vnfProductName": "SGSN-MME",
+  "vnfProvider": "Ericsson",
+  "vnfdId": "no-scaling",
+  "descriptorModel": "{\"description\":\"VNF Descriptor for Ericsson SGSN-MME\", \"topology_template\": {\"node_templates\": {\"VbfChange\": {\"type\": \"Ericsson.SAMPLE-VNF.1_24_CXS101289_R81E08.cxp9025898_4r81e08\" ,\"interfaces\": {\"Vnflcm\": {}}}}} ,\"node_types\":{\"Ericsson.SAMPLE-VNF.1_24_CXS101289_R81E08.cxp9025898_4r81e08\":{\"derived_from\":\"tosca.nodes.nfv.VNF\",\"interfaces\":{\"Vnflcm\":{\"type\":\"tosca.interfaces.nfv.Vnflcm\",\"instantiate\":{\"inputs\":{\"additional_parameters\":{\"type\":\"ericsson.datatypes.nfv.InstantiateVnfOperationAdditionalParameters\",\"required\":false}}}}},\"properties\":{\"descriptor_id\":{\"type\":\"string\",\"constraints\":[{\"valid_values\":[\"def1ce-4cf4-477c-aab3-2b04e6a381\"]}],\"default\":\"def1ce-4cf4-477c-aab3-2b04e6a381\"},\"provider\":{\"type\":\"string\",\"constraints\":[{\"valid_values\":[\"Ericsson\"]}],\"default\":\"Ericsson\"},\"descriptor_version\":{\"type\":\"string\",\"constraints\":[{\"valid_values\":[\"cxp9025898_4r81e08\"]}],\"default\":\"cxp9025898_4r81e08\"},\"vnfm_info\":{\"type\":\"list\",\"entry_schema\":{\"type\":\"string\",\"constraints\":[{\"valid_values\":[\"3881:E-VNFM\"]}]},\"default\":[\"3881:E-VNFM\"]},\"flavour_id\":{\"type\":\"string\",\"constraints\":[{\"valid_values\":[\"default\"]}],\"default\":\"default\"},\"software_version\":{\"type\":\"string\",\"constraints\":[{\"valid_values\":[\"1.24 (CXS101289_R81E08)\"]}],\"default\":\"1.24 (CXS101289_R81E08)\"},\"flavour_description\":{\"type\":\"string\",\"default\":\"\"},\"product_name\":{\"type\":\"string\",\"constraints\":[{\"valid_values\":[\"SAMPLE-VNF\"]}],\"default\":\"SAMPLE-VNF\"}},\"artifacts\":{\"helm_package\":{\"type\":\"tosca.artifacts.File\",\"description\":\"Helm package associated with this descriptor\",\"file\":\"Definitions/OtherTemplates/sample-vnf-0.1.1.tgz\"},\"software_images\":{\"type\":\"tosca.artifacts.nfv.SwImage\",\"description\":\"Location of the software images being used in this package\",\"file\":\"Files/images/docker.tar\"}}}},\"imports\":[\"etsi_nfv_sol001_vnfd_2_5_1_types.yaml\"],\"data_types\":{\"ericsson.datatypes.nfv.InstantiateVnfOperationAdditionalParameters\":{\"derived_from\":\"tosca.datatypes.nfv.VnfOperationAdditionalParameters\",\"properties\":{\"ossTopology.disableLdapUser\":{\"type\":\"boolean\",\"description\":\"Whether to enable or disable node remote authentication with ENM COM-AA. If the parameter is not provided, the default is enable.\",\"required\":false},\"clusterIp\":{\"description\":\"sample description for clusterIp\",\"metadata\":{\"chart_param\":\"server.service.clusterIP\"},\"type\":\"string\",\"constraints\":[{\"pattern\":\"[0-9]+\\\\.[0-9]+\\\\.[0-9]+\\\\.[0-9]+\"}],\"required\":true}}},\"ericsson.datatypes.nfv.ChangePackageVnfOperationAdditionalParameters\":{\"derived_from\":\"tosca.datatypes.nfv.VnfOperationAdditionalParameters\",\"properties\":{\"upgrade.downsize.allowed\":{\"description\":\"It will enable efficient use of compute and memory resources but certainly result in downtime during upgrade.\",\"default\":false,\"type\":\"boolean\",\"required\":false}}}},\"tosca_definitions_version\":\"tosca_simple_yaml_1_2\"}",
+  "helmPackageUrls": [
+    {
+      "priority": 1,
+      "chartUrl": "sample-helm1.tgz",
+      "chartName": "sample-helm1",
+      "chartVersion": "1.0.0",
+      "chartType": "CNF",
+      "chartArtifactKey": "helm_package2"
+    }
+  ],
+  "userDefinedData": null
+}

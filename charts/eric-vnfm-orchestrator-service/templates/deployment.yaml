@@ -1,0 +1,336 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+{{/*
+Values for probes
+*/}}
+{{- $probesValue := fromJson (include "eric-vnfm-orchestrator-service.probes" .) -}}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "eric-vnfm-orchestrator-service.name" . }}
+  labels: {{- include "eric-vnfm-orchestrator-service.labels.extended-defaults" . | nindent 4 }}
+  annotations: {{- include "eric-vnfm-orchestrator-service.annotations" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: {{ .Values.updateStrategy.type | quote }}
+  {{- if and (eq .Values.updateStrategy.type "RollingUpdate") .Values.updateStrategy.rollingUpdate }}
+    rollingUpdate:
+      maxUnavailable: {{ .Values.updateStrategy.rollingUpdate.maxUnavailable }}
+      maxSurge: {{ .Values.updateStrategy.rollingUpdate.maxSurge }}
+  {{- end }}
+  selector:
+    matchLabels:
+      app: {{ template "eric-vnfm-orchestrator-service.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        {{- $commonLabels := include "eric-vnfm-orchestrator-service.labels.extended-defaults" . | fromYaml }}
+        {{- include "eric-eo-evnfm-library-chart.mergeLabels" (dict "location" .Template.Name "sources" (list
+            $commonLabels)) | trim | nindent 8 }}
+      annotations:
+        {{- $commonAnnotations := include "eric-vnfm-orchestrator-service.annotations" . | fromYaml }}
+        {{- $serviceMesh := include "eric-vnfm-orchestrator-service.service-mesh-inject" . | fromYaml }}
+        {{- $serviceMeshVersion := include "eric-vnfm-orchestrator-service.service-mesh-version" . | fromYaml }}
+        {{- $serviceMeshLogs := include "eric-vnfm-orchestrator-service.service-mesh-logs" . | fromYaml }}
+        {{- $serviceMeshExcludeOutboundPort := include "eric-vnfm-orchestrator-service.excludeOutboundPorts" . | fromYaml }}
+        {{- include "eric-eo-evnfm-library-chart.mergeAnnotations" (dict "location" .Template.Name "sources" (list $commonAnnotations
+            $serviceMesh $serviceMeshVersion $serviceMeshLogs $serviceMeshExcludeOutboundPort)) | trim | nindent 8 }}
+    spec:
+      securityContext:
+        fsGroup: {{ include "eric-vnfm-orchestrator-service.fsGroup" . }}
+      affinity:
+        podAntiAffinity:
+      {{- if eq .Values.affinity.podAntiAffinity "hard" }}
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+      {{- else if eq .Values.affinity.podAntiAffinity "soft" }}
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+      {{- end }}
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - {{ template "eric-vnfm-orchestrator-service.name" . }}
+              topologyKey: {{ .Values.affinity.topologyKey }}
+      {{- if include "eric-vnfm-orchestrator-service.pullSecrets" . }}
+      imagePullSecrets:
+        - name: {{ template "eric-vnfm-orchestrator-service.pullSecrets" . }}
+      {{- end }}
+      serviceAccountName: {{ template "eric-vnfm-orchestrator-service.serviceAccount.name" . }}
+      {{- if include "eric-vnfm-orchestrator-service.podPriority" . }}
+      priorityClassName: {{- include "eric-vnfm-orchestrator-service.podPriority" . | indent 2 }}
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: {{ template "eric-vnfm-orchestrator-service.mainImagePath" . }}
+          imagePullPolicy: {{ template "eric-vnfm-orchestrator-service.imagePullPolicy" . }}
+          lifecycle:
+            preStop:
+              exec:
+                command: [ "curl", "-XPOST", "localhost:8888/actuator/shutdown" ]
+          ports:
+            - name: http
+              containerPort: {{ .Values.container.ports.http }}
+              protocol: TCP
+      {{- if .Values.oss.topology.secretName }}
+            - name: ssh
+              protocol: TCP
+              containerPort: {{ .Values.container.ports.ssh }}
+      {{- end }}
+          env:
+            - name: "KUBERNETES_MASTER"
+              value: {{ .Values.kubernetes.master }}
+            - name: "SPRING_PROFILES_ACTIVE"
+              value: "prod"
+            - name: "SPRING_DATASOURCE_URL"
+              value: "jdbc:postgresql://application-manager-postgres.{{ .Release.Namespace }}:{{ index .Values "database" "port" }}/{{ index .Values "database" "schema" }}"
+            - name: "SPRING_DATASOURCE_USERNAME"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.postgresCredentials.secret }}
+                  key: pguserid
+            - name: "SPRING_DATASOURCE_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.postgresCredentials.secret }}
+                  key: pgpasswd
+            - name: "orchestrator.restrictedMode"
+              value: "{{ .Values.orchestrator.restrictedMode }}"
+            - name: "orchestrator.suffixFirstCnfReleaseSchema"
+              value: "{{ .Values.orchestrator.suffixFirstCnfReleaseSchema }}"
+            - name: "license.host"
+              value: "http://eric-eo-lm-consumer.{{ .Release.Namespace }}"
+            - name: "onboarding.host"
+              value: "http://eric-am-onboarding-service.{{ .Release.Namespace }}"
+            - name: "crypto.host"
+              value: "http://eric-eo-evnfm-crypto.{{ .Release.Namespace }}"
+            - name: "workflow.host"
+              value: "eric-am-common-wfs.{{ .Release.Namespace }}"
+            - name: "smallstack.application"
+              value: {{ .Values.smallstack.application | quote }}
+            - name: TZ
+              value: {{ .Values.global.timezone }}
+            - name: SERVICE_ID
+              value: "eric-eo-evnfm-orchestrator"
+            - name: "oss.topology.directory"
+              value: {{ .Values.oss.topology.directory }}
+            - name: "retry.maxAttempts"
+              value: {{ .Values.retry.maxAttempts | quote }}
+            - name: "retry.backoff"
+              value: {{ .Values.retry.backoff | quote }}
+            - name: "retry.scaleRetryAttempts"
+              value: {{ .Values.retry.scaleRetryAttempts | quote }}
+            - name: "TX_RETRY_ATTEMPTS"
+              value: {{ .Values.txRetry.attempts | quote }}
+            - name: "TX_RETRY_DELAY_IN_SECONDS"
+              value: {{ .Values.txRetry.delayInSeconds | quote }}
+            - name: JAVA_OPTS
+              value: "-Xmx{{ .Values.jvm.heap.max }}"
+{{ include "eric-vnfm-orchestrator-service.db.connection.pool.max.lifetime" . | indent 12 }}
+            - name: "evnfm.namespace"
+              value: {{ .Release.Namespace }}
+        {{- if .Values.global.logging }}
+          {{- if .Values.global.logging.enabled }}
+            - name: LOG_STREAMINGMETHOD
+              value: {{ include "eric-vnfm-orchestrator-service.log.streamingMethod" . }}
+            {{- if or (eq (include "eric-vnfm-orchestrator-service.log.streamingMethod" . ) "dual") (eq (include "eric-vnfm-orchestrator-service.log.streamingMethod" . ) "direct") }}
+            - name: LOGSTASH_HOST
+              value: "{{ .Values.logging.logstash.host }}"
+            - name: LOGSTASH_PORT
+              value: "{{ .Values.logging.logstash.port }}"
+            {{- end }}
+          {{- end }}
+        {{- end }}
+        {{- if .Values.oss.topology.secretName }}
+            - name: "ENM_CLUSTER_HOST"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.oss.topology.secretName }}
+                  key: enm-scripting-ip
+            - name: "ENM_CLUSTER_USERNAME"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.oss.topology.secretName }}
+                  key: enm-scripting-username
+            - name: "ENM_CLUSTER_PASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.oss.topology.secretName }}
+                  key: enm-scripting-password
+            - name: "ENM_CLUSTER_PORT"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.oss.topology.secretName }}
+                  key: enm-scripting-ssh-port
+            - name: "ENM_CLUSTER_TIMEOUT"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.oss.topology.secretName }}
+                  key: enm-scripting-connection-timeout
+          {{- if .Values.oss.topology.enrollment.additionalCertificate.productNames }}
+            - name: "ENROLLMENT_ADDITIONAL_CERT_PRODUCT_NAMES"
+              value: {{ join "," .Values.oss.topology.enrollment.additionalCertificate.productNames | quote }}
+          {{- end }}
+        {{- end }}
+            - name: "helm.registry.host"
+              valueFrom:
+                secretKeyRef:
+                  name: eric-lcm-helm-chart-registry
+                  key: url
+                  optional: true
+            {{- if .Values.redis.acl.enabled }}
+            - name: SPRING_DATA_REDIS_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "eric-vnfm-orchestrator-service.redis.acl.secretname" . | quote }}
+                  key: {{ .Values.redis.acl.userKey | quote }}
+            - name: SPRING_DATA_REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "eric-vnfm-orchestrator-service.redis.acl.secretname" . | quote }}
+                  key: {{ .Values.redis.acl.passKey | quote }}
+            {{- end }}
+          securityContext:
+            readOnlyRootFilesystem: true
+            allowPrivilegeEscalation: false
+            privileged: false
+            runAsNonRoot: true
+            runAsGroup: 157772
+            capabilities:
+              drop:
+                - all
+          volumeMounts:
+            - name: tmp-data
+              mountPath: /tmp
+              readOnly: false
+          resources:
+            requests:
+            {{- if .Values.resources.orchestrator.requests.cpu }}
+              cpu: {{ .Values.resources.orchestrator.requests.cpu | quote }}
+            {{- end }}
+            {{- if .Values.resources.orchestrator.requests.memory }}
+              memory: {{ .Values.resources.orchestrator.requests.memory | quote }}
+            {{- end }}
+            {{- if index .Values.resources.orchestrator.requests "ephemeral-storage" }}
+              ephemeral-storage: {{ index .Values.resources.orchestrator.requests "ephemeral-storage" | quote }}
+            {{- end }}
+            limits:
+            {{- if .Values.resources.orchestrator.limits.cpu }}
+              cpu: {{ .Values.resources.orchestrator.limits.cpu | quote }}
+            {{- end }}
+            {{- if .Values.resources.orchestrator.limits.memory }}
+              memory: {{ .Values.resources.orchestrator.limits.memory | quote }}
+            {{- end }}
+            {{- if index .Values.resources.orchestrator.limits "ephemeral-storage" }}
+              ephemeral-storage: {{ index .Values.resources.orchestrator.limits "ephemeral-storage" | quote }}
+            {{- end }}
+          livenessProbe:
+            initialDelaySeconds: {{ $probesValue.orchestrator.livenessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ $probesValue.orchestrator.livenessProbe.timeoutSeconds }}
+            periodSeconds: {{ $probesValue.orchestrator.livenessProbe.periodSeconds }}
+            failureThreshold: {{ $probesValue.orchestrator.livenessProbe.failureThreshold }}
+            httpGet:
+              path: /actuator/health/liveness
+              port: {{ .Values.container.ports.http }}
+          readinessProbe:
+            initialDelaySeconds: {{ $probesValue.orchestrator.readinessProbe.initialDelaySeconds }}
+            timeoutSeconds: {{ $probesValue.orchestrator.readinessProbe.timeoutSeconds }}
+            periodSeconds: {{ $probesValue.orchestrator.readinessProbe.periodSeconds }}
+            failureThreshold: {{ $probesValue.orchestrator.readinessProbe.failureThreshold }}
+            httpGet:
+              path: /actuator/health/readiness
+              port: {{ .Values.container.ports.http }}
+      volumes:
+        - name: tmp-data
+          emptyDir: {}
+      initContainers:
+        - name: create-db-schema
+          image: {{ template "eric-vnfm-orchestrator-service.pgInitContainerPath" . }}
+          imagePullPolicy: {{ template "eric-vnfm-orchestrator-service.pgInitContainer.imagePullPolicy" . }}
+          env:
+            - name: "POSTGRES_HOST"
+              value: "application-manager-postgres.{{ .Release.Namespace }}"
+            - name: "POSTGRES_USER"
+              value: "postgres"
+            - name: "PGPASSWORD"
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.global.postgresCredentials.secret }}
+                  key: pgpasswd
+            - name: "POSTGRES_DB"
+              value: {{ .Values.database.schema | quote }}
+            - name: "POSTGRES_PORT"
+              value: {{ .Values.database.port | quote }}
+            - name: "STARTUP_WAIT"
+              value: {{ .Values.database.creationTime | quote }}
+            - name: TZ
+              value: {{ .Values.global.timezone }}
+          resources:
+            requests:
+            {{- if .Values.resources.orchestratorInit.requests.cpu }}
+              cpu: {{ .Values.resources.orchestratorInit.requests.cpu | quote }}
+            {{- end }}
+            {{- if .Values.resources.orchestratorInit.requests.memory }}
+              memory: {{ .Values.resources.orchestratorInit.requests.memory | quote }}
+            {{- end }}
+            {{- if index .Values.resources.orchestratorInit.requests "ephemeral-storage" }}
+              ephemeral-storage: {{ index .Values.resources.orchestratorInit.requests "ephemeral-storage" | quote }}
+            {{- end }}
+            limits:
+            {{- if .Values.resources.orchestratorInit.limits.cpu }}
+              cpu: {{ .Values.resources.orchestratorInit.limits.cpu | quote }}
+            {{- end }}
+            {{- if .Values.resources.orchestratorInit.limits.memory }}
+              memory: {{ .Values.resources.orchestratorInit.limits.memory | quote }}
+            {{- end }}
+            {{- if index .Values.resources.orchestratorInit.limits "ephemeral-storage" }}
+              ephemeral-storage: {{ index .Values.resources.orchestratorInit.limits "ephemeral-storage" | quote }}
+            {{- end }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            privileged: false
+            runAsNonRoot: true
+            runAsGroup: 113992
+            capabilities:
+              drop:
+                - all
+      {{- if or .Values.nodeSelector (and .Values.global .Values.global.nodeSelector) }}
+      nodeSelector: {{- include "eric-vnfm-orchestrator-service.nodeSelector" . | nindent 8 }}
+      {{- end }}
+      {{- if or .Values.tolerations (and .Values.global .Values.global.tolerations) }}
+      tolerations: {{ include "eric-vnfm-orchestrator-service.tolerations.orchestrator" . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.terminationGracePeriodSeconds }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds.orchestrator | int }}
+      {{- end }}
+      {{- if .Values.topologySpreadConstraints }}
+      topologySpreadConstraints:
+      {{- range $constraints := .Values.topologySpreadConstraints }}
+        - maxSkew: {{ $constraints.maxSkew }}
+          topologyKey: {{ $constraints.topologyKey }}
+          whenUnsatisfiable: {{ $constraints.whenUnsatisfiable }}
+          labelSelector:
+            matchLabels:
+              app.kubernetes.io/name: {{ template "eric-vnfm-orchestrator-service.name" . }}
+              app.kubernetes.io/instance: {{ .Release.Name | quote }}
+      {{- end }}
+      {{- end }}

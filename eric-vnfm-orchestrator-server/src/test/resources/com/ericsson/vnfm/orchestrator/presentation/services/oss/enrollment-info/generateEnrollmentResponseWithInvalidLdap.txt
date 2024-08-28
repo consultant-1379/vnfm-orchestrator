@@ -1,0 +1,12 @@
+{
+  "enrollment_info_data": {
+    "generateEnrollmentInfoStatus": {
+      "exitStatus": 0,
+      "commandOutput": "[u'Enrollment information file generated successfully.']"
+    },
+    "getLdapInfoStatus": {
+      "exitStatus": 0,
+      "commandOutput": invalid response"
+    }
+  }
+}

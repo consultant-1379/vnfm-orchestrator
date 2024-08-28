@@ -1,0 +1,12 @@
+applicationTimeOut: 360
+skipVerification: false
+vnfc5:
+  replicaCount: 115
+eric-pm-bulk-reporter:
+  replicaCount: 116
+vnfc3:
+  replicaCount: 113
+vnfc1:
+  replicaCount: 111
+vnfc2:
+  replicaCount: 112

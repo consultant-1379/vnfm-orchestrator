@@ -1,0 +1,1 @@
+ALTER TABLE app_vnf_instance DROP COLUMN instantiated_vnf_info;

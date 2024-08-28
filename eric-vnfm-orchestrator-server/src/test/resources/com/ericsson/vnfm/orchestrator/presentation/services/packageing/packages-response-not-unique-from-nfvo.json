@@ -1,0 +1,44 @@
+[
+  {
+    "helmPackageUrls": [
+      {
+        "chartUrl": "https://helm-repository.evnfm01.eccd01.eccd:443/onboarded/charts/spider-app-label-verification-2.193.100.tgz",
+        "priority": 1
+      },
+      {
+        "chartUrl": "https://helm-repository.evnfm01.eccd01.eccd:443/onboarded/charts/spider-app-label-verification-3.193.100.tgz",
+        "priority": 2
+      }
+    ],
+    "id": "43bf1225-81e1-46b4-ae10-cadea4432939",
+    "onboardingState": "ONBOARDED",
+    "operationalState": "ENABLED",
+    "usageState": "IN_USE",
+    "vnfProductName": "SPIDER-APP-label-ver",
+    "vnfProvider": "Ericsson",
+    "vnfSoftwareVersion": "1.2(CXS101289_R81E08)",
+    "vnfdId": "b0b99535-28a1-4531-9c12-7d194b660500",
+    "vnfdVersion": "cxp9025898_4r81e08"
+  },
+  {
+    "helmPackageUrls": [
+      {
+        "chartUrl": "https://helm-repository.evnfm01.eccd01.eccd:443/onboarded/charts/spider-app-label-verification-2.193.100.tgz",
+        "priority": 1
+      },
+      {
+        "chartUrl": "https://helm-repository.evnfm01.eccd01.eccd:443/onboarded/charts/spider-app-label-verification-3.193.100.tgz",
+        "priority": 2
+      }
+    ],
+    "id": "43bf1225-81e1-46b4-ae10-cadea4432940",
+    "onboardingState": "ONBOARDED",
+    "operationalState": "ENABLED",
+    "usageState": "IN_USE",
+    "vnfProductName": "SPIDER-APP-label-ver",
+    "vnfProvider": "Ericsson",
+    "vnfSoftwareVersion": "1.2(CXS101289_R81E08)",
+    "vnfdId": "b0b99535-28a1-4531-9c12-7d194b660500",
+    "vnfdVersion": "cxp9025898_4r81e08"
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "helmChartName": "helm_package1",
+    "priorities": [
+      {
+        "priority": 1,
+        "lcmType": "INSTANTIATE"
+      },
+      {
+        "priority": 1,
+        "lcmType": "CHANGE_VNFPKG"
+      },
+      {
+        "priority": 1,
+        "lcmType": "SCALE"
+      },
+      {
+        "priority": 1,
+        "lcmType": "TERMINATE"
+      }
+    ]
+  }
+]

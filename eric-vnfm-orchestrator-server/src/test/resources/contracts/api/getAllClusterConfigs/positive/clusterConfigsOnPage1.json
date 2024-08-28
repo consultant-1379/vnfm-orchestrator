@@ -1,0 +1,145 @@
+{
+  "_links": {
+    "first": {
+      "href": "http://localhost/vnflcm/v1/clusterconfigs?page=1"
+    },
+    "prev": null,
+    "self": {
+      "href": "http://localhost/vnflcm/v1/clusterconfigs?page=1"
+    },
+    "next": {
+      "href": "http://localhost/vnflcm/v1/clusterconfigs?page=2"
+    },
+    "last": {
+      "href": "http://localhost/vnflcm/v1/clusterconfigs?page=2"
+    }
+  },
+  "page": {
+    "number": 1,
+    "size": 15,
+    "totalPages": 2,
+    "totalElements": 24
+  },
+  "items": [
+    {
+      "id": "default",
+      "name": "default.config",
+      "status": "IN_USE",
+      "description": "Default cluster config file",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": true
+    },
+    {
+      "id": 1,
+      "name": "cluster1.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 1",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 2,
+      "name": "cluster2.config",
+      "status": "IN_USE",
+      "description": "Description for config file 2",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 3,
+      "name": "cluster3.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 3",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 4,
+      "name": "cluster3.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 4",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 5,
+      "name": "cluster5.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 5",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 6,
+      "name": "cluster6.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 6",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 7,
+      "name": "cluster7.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 7",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 8,
+      "name": "cluster8.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 8",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 9,
+      "name": "cluster9.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 9",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 10,
+      "name": "cluster10.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 10",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 11,
+      "name": "cluster11.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 11",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 12,
+      "name": "cluster12.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 12",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 13,
+      "name": "cluster13.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 13",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 503,
+      "name": "cluster503ForDeregister.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 503",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    }
+  ]
+}

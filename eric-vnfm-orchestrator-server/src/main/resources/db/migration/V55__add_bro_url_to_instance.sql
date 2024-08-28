@@ -1,0 +1,1 @@
+ALTER TABLE app_vnf_instance ADD bro_endpoint_url VARCHAR DEFAULT NULL;

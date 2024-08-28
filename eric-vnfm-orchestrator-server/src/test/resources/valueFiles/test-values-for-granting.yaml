@@ -1,0 +1,71 @@
+global:
+  registry:
+    url: armdocker.rnd.ericsson.se
+  pullSecret: test
+
+test_cnf:
+  enabled: false
+  ingress:
+    enabled: true
+    host:
+  replicaCount: 1
+  minReplicas: 1
+  maxReplicas: 10
+  autoscaling:
+    enabled: true
+vnfc1:
+  ingress:
+    enabled: true
+    host:
+  replicaCount: 5
+  minReplicas: 1
+  maxReplicas: 10
+  autoscaling:
+    enabled: false
+vnfc2:
+  enabled: true
+  ingress:
+    enabled: true
+    host:
+  replicaCount: 1
+  minReplicas: 1
+  maxReplicas: 10
+  autoscaling:
+    enabled: true
+vnfc3:
+  enabled: false
+  ingress:
+    enabled: true
+    host:
+  replicaCount: 1
+  minReplicas: 1
+  maxReplicas: 3
+  autoscaling:
+    enabled: true
+vnfc4:
+  enabled: false
+  ingress:
+    enabled: true
+    host:
+  replicaCount: 5
+  minReplicas: 1
+  maxReplicas: 2
+  autoscaling:
+    enabled: false
+vnfc5:
+  enabled: true
+  ingress:
+    enabled: true
+    host:
+  replicaCount: 1
+  minReplicas: 1
+  maxReplicas: 10
+  autoscaling:
+    enabled: true
+eric-pm-bulk-reporter:
+  enabled: false
+  replicaCount: 1
+  minReplicas: 1
+  maxReplicas: 10
+  autoscaling:
+    enabled: true

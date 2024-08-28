@@ -1,0 +1,192 @@
+{
+  "sourceDowngradePackageInfo": {
+    "packageId": "testPackageIdDOWNGRADE",
+    "packageVersion": "testPackageVersion",
+    "vnfdId": "ebc68e34-0cfa-40ba-8b45-9caa31f9dcb5"
+  },
+  "targetDowngradePackageInfo": {
+    "packageId": "d3def1ce-4cf4-477c-aab3-21cb04e6a379",
+    "packageVersion": "cxp9025898_4r81e08",
+    "vnfdId": "b1bb0ce7-ebca-4fa7-95ed-4840d70a1177"
+  },
+  "additionalParameters": {
+    "server.service.date": {
+      "status": null,
+      "constraints": null,
+      "entrySchema": null,
+      "externalSchema": null,
+      "metadata": {
+        "chart_param": "server.service.date"
+      },
+      "defaultValue": null,
+      "typeValue": null,
+      "type": "timestamp",
+      "description": "Sample date example",
+      "required": false
+    },
+    "day0.configuration.param2.value": {
+      "status": null,
+      "constraints": null,
+      "entrySchema": null,
+      "externalSchema": null,
+      "metadata": null,
+      "defaultValue": null,
+      "typeValue": null,
+      "type": "string",
+      "description": "Value for external storage (SFTP)password",
+      "required": false
+    },
+    "router.enabled": {
+      "status": null,
+      "constraints": null,
+      "entrySchema": null,
+      "externalSchema": null,
+      "metadata": null,
+      "defaultValue": null,
+      "typeValue": null,
+      "type": "boolean",
+      "description": "Enable router function",
+      "required": false
+    },
+    "system.protocol": {
+      "status": null,
+      "constraints": [ { "valid_values": [  "SHA1", "MD5" ] } ],
+      "entrySchema": null,
+      "externalSchema": null,
+      "metadata": null,
+      "defaultValue": "MD5",
+      "typeValue": null,
+      "type": "string",
+      "description": null,
+      "required": false
+    },
+    "restore.scope": {
+      "status": null,
+      "constraints": null,
+      "entrySchema": null,
+      "externalSchema": null,
+      "metadata": null,
+      "defaultValue": "Rollback",
+      "typeValue": null,
+      "type": "string",
+      "description": null,
+      "required": true
+    },
+    "mapType": {
+      "status": null,
+      "constraints": null,
+      "entrySchema": {
+        "description": null,
+        "type": "string",
+        "constraints": null
+      },
+      "externalSchema": null,
+      "metadata": null,
+      "defaultValue": null,
+      "typeValue": null,
+      "type": "map",
+      "description": "map of strings with default values not required",
+      "required": false
+    },
+    "day0.configuration.param1.key": {
+      "status": null,
+      "constraints": null,
+      "entrySchema": null,
+      "externalSchema": null,
+      "metadata": null,
+      "defaultValue": "restore.externalStorageURI",
+      "typeValue": null,
+      "type": "string",
+      "description": "Key for URI of external storage(SFTP) for backup import",
+      "required": false
+    },
+    "listType": {
+      "status": null,
+      "constraints": null,
+      "entrySchema": {
+        "description": null,
+        "type": "string",
+        "constraints": null
+      },
+      "externalSchema": null,
+      "metadata": null,
+      "defaultValue": null,
+      "typeValue": null,
+      "type": "list",
+      "description": "list of strings with default values not required",
+      "required": false
+    },
+    "day0.configuration.param1.value": {
+      "status": null,
+      "constraints": null,
+      "entrySchema": null,
+      "externalSchema": null,
+      "metadata": null,
+      "defaultValue": null,
+      "typeValue": null,
+      "type": "string",
+      "description": "Value for URI of external storage(SFTP) for backup import",
+      "required": false
+    },
+    "script.config": {
+      "status": null,
+      "constraints": null,
+      "entrySchema": null,
+      "externalSchema": null,
+      "metadata": {
+        "chart_param": "script.config"
+      },
+      "defaultValue": null,
+      "typeValue": null,
+      "type": "file",
+      "description": "Sample file type for configMap",
+      "required": false
+    },
+    "day0.configuration.param2.key": {
+      "status": null,
+      "constraints": null,
+      "entrySchema": null,
+      "externalSchema": null,
+      "metadata": null,
+      "defaultValue": "restore.externalStorageCredentials",
+      "typeValue": null,
+      "type": "string",
+      "description": "Key for external storage (SFTP)password",
+      "required": false
+    },
+    "day0.configuration.secretname": {
+      "status": null,
+      "constraints": null,
+      "entrySchema": null,
+      "externalSchema": null,
+      "metadata": null,
+      "defaultValue": "restore-external-storage-secret",
+      "typeValue": null,
+      "type": "string",
+      "description": "The name of the secret",
+      "required": false
+    },
+    "component.replicaCount": {
+      "status": null,
+      "constraints": null,
+      "entrySchema": null,
+      "externalSchema": null,
+      "metadata": null,
+      "defaultValue": 3,
+      "type": "integer",
+      "description": null,
+      "required": true
+    },
+    "restore.backupName": {
+      "status": null,
+      "constraints": null,
+      "entrySchema": null,
+      "externalSchema": null,
+      "metadata": null,
+      "defaultValue": null,
+      "type": "string",
+      "description": null,
+      "required": true
+    }
+  }
+}

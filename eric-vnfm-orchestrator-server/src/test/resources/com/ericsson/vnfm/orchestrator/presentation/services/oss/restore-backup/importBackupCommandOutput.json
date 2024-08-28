@@ -1,0 +1,10 @@
+{
+  "import_backup_data": {
+    "importBackupStatus": {
+      "exitStatus": 0,
+      "commandOutput": {
+        "return-value": "action-id-ref"
+      }
+    }
+  }
+}

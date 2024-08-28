@@ -1,0 +1,1 @@
+ALTER TABLE app_lifecycle_operations ADD rollback_pattern VARCHAR DEFAULT null;

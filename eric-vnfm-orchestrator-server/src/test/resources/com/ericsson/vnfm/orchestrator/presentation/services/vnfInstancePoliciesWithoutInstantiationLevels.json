@@ -1,0 +1,65 @@
+{
+  "allScalingAspects": {
+    "scaling_aspects": {
+      "type": "tosca.policies.nfv.ScalingAspects",
+      "properties": {
+        "aspects": {
+          "aspect-1": {
+            "name": "aspect-1",
+            "description": "Aspect 1 for testing purposes",
+            "max_scale_level": 10,
+            "step_deltas": null
+          },
+          "aspect-2": {
+            "name": "aspect-2",
+            "description": "Aspect 2 for testing purposes",
+            "max_scale_level": 10,
+            "step_deltas": [
+              "delta_2"
+            ]
+          },
+          "aspect-3": {
+            "name": "aspect-3",
+            "description": "Aspect 3 for testing purposes",
+            "max_scale_level": 5,
+            "step_deltas": [
+              "delta_2"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "allInitialDelta": {
+    "aspect-1-initial-delta": {
+      "type": "tosca.policies.nfv.VduInitialDelta",
+      "properties": {
+        "initial_delta": {
+          "number_of_instances": 1
+        }
+      },
+      "targets": [
+        "PL_scaled_vm",
+        "TL_scaled_vm"
+      ]
+    }
+  },
+  "allScalingAspectDelta": {
+    "scaling_aspects_deltas": {
+      "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+      "properties": {
+        "aspect": "aspect-1",
+        "deltas": {
+          "delta_1": {
+            "number_of_instances": 4
+          }
+        }
+      },
+      "targets": [
+        "PL_scaled_vm",
+        "CL_scaled_vm"
+      ]
+    }
+  },
+  "allInstantiationLevels": { }
+}

@@ -1,0 +1,33 @@
+{
+  "add_node_data": {
+    "createCredentialsStatus": {
+      "exitStatus": null,
+      "commandOutput": null},
+    "alarmSupervisionStatus": {
+      "exitStatus": null,
+      "commandOutput": null},
+    "createNetworkMOStatus": {
+      "exitStatus": 1,
+      "commandOutput": "[u'', u'Error 1009 : An incorrect value (UDM) has been encountered for neType possible value(s) are [5GRadioNode, AFG, BGF, BSC, BSP, CCDM, CCN-TSP, CCPC, CCRC, CCSM, CISCO-ASR900, CISCO-ASR9000, CSCF, CSCF-TSP, CUDB, DSC, DSE, ECI-Optical, EME, EPG, EPG-OI, ERBS, ERS-SupportNode, ESC, EXTREME-EOS, EXTREME-EXOS, FRONTHAUL-6020, FRONTHAUL-6080, Fronthaul-6392, GenericESA, HDS, HLR-FE, HLR-FE-BSP, HLR-FE-IS, HSS-FE, HSS-FE-TSP, IP-STP, IP-STP-BSP, IPWorks, JUNIPER-MX, JUNIPER-PTX, JUNIPER-SRX, JUNIPER-vMX, JUNIPER-vSRX, MGW, MINI-LINK-6351, MINI-LINK-6352, MINI-LINK-6366, MINI-LINK-665x, MINI-LINK-669x, MINI-LINK-CN210, MINI-LINK-CN510R1, MINI-LINK-CN510R2, MINI-LINK-CN810R1, MINI-LINK-CN810R2, MINI-LINK-Indoor, MINI-LINK-PT2020, MRF, MRS, MSC-BC-BSP, MSC-BC-IS, MSC-DB, MSC-DB-BSP, MSRBS_V1, MTAS, MTAS-TSP, NeLS, PCC, PCG, RBS, RNC, RVNFM, RadioNode, RadioTNode, Router6274, Router6672, Router6675, Router6x71, Router8800, SAPC, SBG, SBG-IS, SCU, SGSN-MME, SIU02, SSR, Switch-6391, TCU02, UPG, VEPG, VPN-TSP, VTFRadioNode, WMG, cSAPC-TSP, vAFG, vBGF, vBNG, vCSCF, vCUDB, vDSC, vEME, vEPG-OI, vHLR-FE, vHSS-FE, vIP-STP, vIPWorks, vMRF, vMSC, vMSC-HC, vMTAS, vPP, vSAPC, vSBG, vSD, vTIF, vUPG, vWCG, vWMG]', u'Suggested Solution : Provide a value from this list: [5GRadioNode, AFG, BGF, BSC, BSP, CCDM, CCN-TSP, CCPC, CCRC, CCSM, CISCO-ASR900, CISCO-ASR9000, CSCF, CSCF-TSP, CUDB, DSC, DSE, ECI-Optical, EME, EPG, EPG-OI, ERBS, ERS-SupportNode, ESC, EXTREME-EOS, EXTREME-EXOS, FRONTHAUL-6020, FRONTHAUL-6080, Fronthaul-6392, GenericESA, HDS, HLR-FE, HLR-FE-BSP, HLR-FE-IS, HSS-FE, HSS-FE-TSP, IP-STP, IP-STP-BSP, IPWorks, JUNIPER-MX, JUNIPER-PTX, JUNIPER-SRX, JUNIPER-vMX, JUNIPER-vSRX, MGW, MINI-LINK-6351, MINI-LINK-6352, MINI-LINK-6366, MINI-LINK-665x, MINI-LINK-669x, MINI-LINK-CN210, MINI-LINK-CN510R1, MINI-LINK-CN510R2, MINI-LINK-CN810R1, MINI-LINK-CN810R2, MINI-LINK-Indoor, MINI-LINK-PT2020, MRF, MRS, MSC-BC-BSP, MSC-BC-IS, MSC-DB, MSC-DB-BSP, MSRBS_V1, MTAS, MTAS-TSP, NeLS, PCC, PCG, RBS, RNC, RVNFM, RadioNode, RadioTNode, Router6274, Router6672, Router6675, Router6x71, Router8800, SAPC, SBG, SBG-IS, SCU, SGSN-MME, SIU02, SSR, Switch-6391, TCU02, UPG, VEPG, VPN-TSP, VTFRadioNode, WMG, cSAPC-TSP, vAFG, vBGF, vBNG, vCSCF, vCUDB, vDSC, vEME, vEPG-OI, vHLR-FE, vHSS-FE, vIP-STP, vIPWorks, vMRF, vMSC, vMSC-HC, vMTAS, vPP, vSAPC, vSBG, vSD, vTIF, vUPG, vWCG, vWMG]']"},
+    "cmSupervisionStatus": {
+      "exitStatus": null,
+      "commandOutput": null},
+    "fdn": {
+      "exitStatus": null,
+      "commandOutput": null},
+    "snmpV3CredentialsStatus": {
+      "exitStatus": null,
+      "commandOutput": null},
+    "createConnectionInfoMOStatus": {
+      "exitStatus": null,
+      "commandOutput": null},
+    "pmSupervisionStatus": {
+      "exitStatus": null,
+      "commandOutput": null}
+  },
+  "delete_data": {
+    "deleteNodeData": {
+      "exitStatus": null,
+      "commandOutput": null}
+  }
+}

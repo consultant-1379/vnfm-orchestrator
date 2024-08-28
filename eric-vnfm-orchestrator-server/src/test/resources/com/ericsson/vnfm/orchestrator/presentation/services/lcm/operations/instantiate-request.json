@@ -1,0 +1,19 @@
+{
+  "additionalParams": {
+    "namespace": "default",
+    "applicationTimeOut": 300,
+    "host": "localhost-initial",
+    "version": "version-one-initial",
+    "spring": {
+      "data": {
+        "login": "login-value-initial",
+        "password": "password-value-initial"
+      },
+      "logs": "enabled"
+    },
+    "instantiate-parameter": "instantiate-value",
+    "upgrade_failed_parameters": {
+      "instantiate-upgrade-failed-parameter": "instantiate-upgrade-failed-parameter-value"
+    }
+  }
+}

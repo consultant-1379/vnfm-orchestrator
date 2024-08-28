@@ -1,0 +1,2 @@
+ALTER TYPE app_lcm_operation_type ADD VALUE 'UPGRADE' AFTER 'MODIFY_INFO';
+ALTER TYPE app_lcm_operation_type ADD VALUE 'ROLLED_BACK' AFTER 'UPGRADE';

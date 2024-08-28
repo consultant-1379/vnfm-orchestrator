@@ -1,0 +1,31 @@
+{{- $global := fromJson (include "eric-cloud-native-kvdb-rd-operand.global" .) -}}
+{{- if ($global.security.tls.enabled) }}
+apiVersion: siptls.sec.ericsson.com/v1
+kind: InternalCertificate
+metadata:
+  name: {{ printf "%s-metrics-exporter-certificate" (include "eric-cloud-native-kvdb-rd-operand.name" .) | trunc 63 | trimSuffix "-" }}
+  labels:
+    {{- include "eric-cloud-native-kvdb-rd-operand.labels" . | nindent 4 }}
+  annotations:
+    {{- include "eric-cloud-native-kvdb-rd-operand.annotations" . | nindent 4 }}
+spec:
+  kubernetes:
+    generatedSecretName: {{ template "eric-cloud-native-kvdb-rd-operand.metricsExporterSecretName" . }}
+    certificateName: cert.pem
+    privateKeyName: privkey.pem
+  certificate:
+    subject:
+      cn: {{ template "eric-cloud-native-kvdb-rd-operand.name" . }}
+    subjectAlternativeName:
+      populateKubernetesDns: false
+      dns:
+        - certified-scrape-target
+        - localhost
+    {{- if .Values.security.tls.certificateTTL }}
+    validity:
+      overrideTtl: {{ .Values.security.tls.certificateTTL }}
+    {{- end }}
+    extendedKeyUsage:
+      tlsClientAuth: false
+      tlsServerAuth: true
+{{- end }}

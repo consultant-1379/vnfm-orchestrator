@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Nodes>
+  <Node>
+    <nodeFdn>VPP00001</nodeFdn>
+    <certType>OAM</certType>
+    <enrollmentMode>CMPv2_INITIAL</enrollmentMode>
+  </Node>
+</Nodes>

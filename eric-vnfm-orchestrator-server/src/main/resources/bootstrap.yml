@@ -1,0 +1,43 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+# This property must be specified in bootstrap.yaml file, not in application.yaml,
+# otherwise logging configuration will be reset to default on configuration refresh caused by ConfigMap/Secret change
+logging:
+  config: "classpath:logback/logback-${LOG_STREAMINGMETHOD:indirect}.xml"
+
+spring:
+  cloud:
+    kubernetes:
+      secrets:
+        enableApi: true
+        sources:
+          - name: "eric-eo-evnfm-nfvo"
+      config:
+        includeProfileSpecificSources: false
+        sources:
+          - name: eric-eo-evnfm-nfvo-config
+          - name: eric-eo-evnfm-product-info
+          - name: eric-oss-function-orchestration-common-product-info
+          - name: eric-vnfm-orchestrator-service-config
+          - name: eric-vnfm-orchestrator-service-log-config
+          - name: eric-evnfm-rbac-drac-configmap
+          - name: eric-vnfm-orchestrator-service-ci-test
+      reload:
+        enabled: true
+        strategy: refresh
+        monitoring-config-maps: true
+        monitoring-secrets: true

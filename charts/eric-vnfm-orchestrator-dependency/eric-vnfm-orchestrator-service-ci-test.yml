@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "eric-vnfm-orchestrator-service.name" . }}-ci-test
+data:
+  application.yaml: |-
+    ci_test_enabled: true

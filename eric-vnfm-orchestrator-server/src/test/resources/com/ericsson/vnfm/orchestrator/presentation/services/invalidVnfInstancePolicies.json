@@ -1,0 +1,71 @@
+{
+  "allScalingAspects": {
+    "ScalingAspects": {
+      "type": "tosca.policies.nfv.ScalingAspects",
+      "properties": {
+        "aspects": {
+          "Payload": {
+            "name": "Payload",
+            "description": "Scale level 0-29 maps to 1-30 Payload VNFC instances (1 instance per scale step)\n",
+            "max_scale_level": 10,
+            "step_deltas": null
+          },
+          "allInitialDelta": {
+            "Payload_InitialDelta": {
+              "type": "tosca.policies.nfv.VduInitialDelta",
+              "properties": {
+                "initial_delta": {
+                  "number_of_instances": 1
+                }
+              },
+              "targets": [
+                "PL__scaled_vm",
+                "TL_scaled_vm"
+              ]
+            }
+          },
+          "allScalingAspectDelta": {
+            "Payload_ScalingAspectDeltas": {
+              "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+              "properties": {
+                "aspect": "Payload",
+                "deltas": {
+                  "delta_1": {
+                    "number_of_instances": 4
+                  }
+                }
+              },
+              "targets": [
+                "PL__scaled_vm",
+                "CL_scaled_vm"
+              ]
+            }
+          },
+          "allInstantiationLevels": {
+            "InstantiationLevels": {
+              "type": "tosca.policies.nfv.InstantiationLevels",
+              "properties": {
+                "levels": {
+                  "instantiation_level_2": {
+                    "scale_info": {
+                      "Aspect1": {
+                        "scale_level": 3
+                      }
+                    }
+                  },
+                  "description": "eric-pm-bulk-reporter"
+                },
+                "instantiation_level_1": {
+                  "scale_info": {
+                    "Aspect1": {
+                      "scale_level": 0
+                    }
+                  },
+                  "description": "eric-pm-bulk-reporter"
+                }
+              },
+              "default_level": "instantiation_level_1"
+            }
+          }
+        }
+      }

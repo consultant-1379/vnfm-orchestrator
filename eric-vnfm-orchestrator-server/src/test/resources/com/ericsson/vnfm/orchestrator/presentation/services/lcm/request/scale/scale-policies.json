@@ -1,0 +1,142 @@
+{
+  "allScalingAspects": {
+    "ScalingAspects": {
+      "type": "tosca.policies.nfv.ScalingAspects",
+      "properties": {
+        "aspects": {
+          "Payload": {
+            "name": "Payload",
+            "description": "Scale level 0-29 maps to 1-30 Payload VNFC instances (1 instance per scale step)\n",
+            "max_scale_level": 10,
+            "step_deltas": [
+              "delta_1",
+              "delta_2",
+              "delta_3"
+            ],
+            "allScalingAspectDelta": {
+              "Payload_ScalingAspectDeltas": {
+                "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+                "properties": {
+                  "aspect": "Payload",
+                  "deltas": {
+                    "delta_1": {
+                      "number_of_instances": 4
+                    },
+                    "delta_2": {
+                      "number_of_instances": 2
+                    },
+                    "delta_3": {
+                      "number_of_instances": 7
+                    }
+                  }
+                },
+                "targets": [
+                  "PL__scaled_vm",
+                  "CL_scaled_vm"
+                ],
+                "allInitialDelta": {
+                  "Payload_InitialDelta": {
+                    "type": "tosca.policies.nfv.VduInitialDelta",
+                    "properties": {
+                      "initial_delta": {
+                        "number_of_instances": 1
+                      }
+                    },
+                    "targets": [
+                      "PL__scaled_vm",
+                      "TL__scaled_vm"
+                    ]
+                  },
+                  "Payload_InitialDelta1": {
+                    "type": "tosca.policies.nfv.VduInitialDelta",
+                    "properties": {
+                      "initial_delta": {
+                        "number_of_instances": 1
+                      }
+                    },
+                    "targets": [
+                      "CL_scaled_vm"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "allInitialDelta": {
+    "Payload_InitialDelta": {
+      "type": "tosca.policies.nfv.VduInitialDelta",
+      "properties": {
+        "initial_delta": {
+          "number_of_instances": 1
+        }
+      },
+      "targets": [
+        "PL__scaled_vm",
+        "TL_scaled_vm"
+      ]
+    },
+    "Payload_InitialDelta1": {
+      "type": "tosca.policies.nfv.VduInitialDelta",
+      "properties": {
+        "initial_delta": {
+          "number_of_instances": 1
+        }
+      },
+      "targets": [
+        "CL_scaled_vm"
+      ]
+    }
+  },
+  "allScalingAspectDelta": {
+    "Payload_ScalingAspectDeltas": {
+      "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+      "properties": {
+        "aspect": "Payload",
+        "deltas": {
+          "delta_1": {
+            "number_of_instances": 4
+          },
+          "delta_2": {
+            "number_of_instances": 2
+          },
+          "delta_3": {
+            "number_of_instances": 7
+          }
+        }
+      },
+      "targets": [
+        "PL__scaled_vm",
+        "CL_scaled_vm"
+      ],
+      "allInitialDelta": {
+        "Payload_InitialDelta": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 1
+            }
+          },
+          "targets": [
+            "PL__scaled_vm",
+            "TL_scaled_vm"
+          ]
+        },
+        "Payload_InitialDelta1": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 1
+            }
+          },
+          "targets": [
+            "CL_scaled_vm"
+          ]
+        }
+      }
+    }
+  }
+}

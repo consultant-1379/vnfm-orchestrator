@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<enrollmentInfo>
+    <challengePassword>64FezTM2LL6ryNWkAXNu1</challengePassword>
+    <issuerCA>OU=Athlone, O=Ericsson, C=IE, CN=NE_OAM_CA</issuerCA>
+    <keyInfo>RSA_2048</keyInfo>
+    <subjectName>CN=test4-oam,C=IE,O=Ericsson,OU=Athlone</subjectName>
+    <trustedCertificateFingerPrints>
+        <certificateFingerPrint>C1:8A:F4:FC:3E:2D:17:FF:C4:C6:64:38:46:60:76:84:2A:61:CA:43:48:B7:C9:50:3E:63:2B:A3:ED:E2:92:98</certificateFingerPrint>
+        <certificateFingerPrint>92:71:2E:E5:6C:7D:B5:94:89:58:07:A2:2A:54:14:F5:01:09:04:94:57:A7:93:FD:7A:77:73:99:C1:CC:AF:04</certificateFingerPrint>
+        <certificateFingerPrint>1E:4B:05:F0:F3:27:7A:A6:2F:62:EF:F3:E9:2A:DA:A8:4F:31:3C:09:C8:02:EF:B0:B8:73:E2:31:79:09:B9:91</certificateFingerPrint>
+        <certificateFingerPrint>B5:8C:CF:3D:E7:CA:FE:B3:47:F0:AF:8B:FA:2C:61:BB:69:38:69:E8:F8:72:E9:15:C0:8C:A8:F2:B1:5F:0C:D9</certificateFingerPrint>
+    </trustedCertificateFingerPrints>
+    <url>http://131.160.205.49:8091/pkira-cmp/NE_OAM_CA/synch</url>
+</enrollmentInfo>

@@ -1,0 +1,1 @@
+ALTER TABLE app_vnf_instance ADD temp_instance VARCHAR DEFAULT NULL;

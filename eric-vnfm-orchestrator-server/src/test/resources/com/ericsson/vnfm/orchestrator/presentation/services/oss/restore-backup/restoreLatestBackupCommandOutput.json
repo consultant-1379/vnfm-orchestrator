@@ -1,0 +1,10 @@
+{
+  "restore_latest_backup_data": {
+    "restoreBackupStatus": {
+      "exitStatus": 0,
+      "commandOutput": {
+        "return-value": "action-id-ref"
+      }
+    }
+  }
+}

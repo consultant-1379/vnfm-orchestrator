@@ -1,0 +1,1 @@
+ALTER TYPE app_lcm_operation_type ADD VALUE 'SYNC' AFTER 'CHANGE_VNFPKG';

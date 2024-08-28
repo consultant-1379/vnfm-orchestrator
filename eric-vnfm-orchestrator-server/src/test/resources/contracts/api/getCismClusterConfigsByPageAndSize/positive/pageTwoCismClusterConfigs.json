@@ -1,0 +1,55 @@
+{
+  "_links": {
+    "first": {
+      "href": "https://host/vnflcm/v1/cism-cluster-data?page=1&size=2"
+    },
+    "prev": {
+      "href": "https://host/vnflcm/v1/cism-cluster-data?page=1&size=2"
+    },
+    "self": {
+      "href": "https://host/vnflcm/v1/cism-cluster-data?page=2&size=2"
+    },
+    "next": {
+      "href": "https://host/vnflcm/v1/cism-cluster-data?page=3&size=2"
+    },
+    "last": {
+      "href": "https://host/vnflcm/v1/cism-cluster-data?page=5&size=2"
+    }
+  },
+  "page": {
+    "number": 2,
+    "size": 2,
+    "totalPages": 2,
+    "totalElements":3
+  },
+  "items": [
+    {
+      "id": "asds2367-s98b-ra12-6761-h7692ty45ee3c2",
+      "name": "hahn061.config",
+      "status": "NOT_IN_USE",
+      "description": "Cluster hahn061 config file",
+      "crdNamespace": "eric-crd-ns",
+      "clusterData": "{\"kind\":\"Config\",\"apiVersion\":\"v1\",\"preferences\":{},\n\"clusters\":[{\"name\":\"hahn061\",\"cluster\":{\"server\":\"https://gevalia.rnd.gic.ericsson.se/k8s/clusters/c-xz4bt\"}}],\"users\":[{\"name\":\"hahn061\",\"user\":{\"token\":\"kubeconfig-u\"}}],\"contexts\":[{\"name\":\"hahn061\",\"context\":{\"cluster\":\"hahn061\",\"user\":\"hahn061\"}}],\"current-context\":\"hahn061\"}",
+      "isDefault": true
+    },
+    {
+      "id": "352f45ty-qw3s-125a-7646-we692ty45ee2wt",
+      "name":"cluster01.config",
+      "status": "NOT_IN_USE",
+      "description": "Cluster 01 config file",
+      "crdNamespace": "eric-crd-ns",
+      "clusterData": "{\"kind\":\"Config\",\"apiVersion\":\"v2\",\"preferences\":{},\n\"clusters\":[{\"name\":\"cluster01\",\"cluster\":{\"server\":\"https://gevalia.rnd.gic.ericsson.se/k8s/clusters/abc123\"}}],\"users\":[{\"name\":\"cluster01\",\"user\":{\"token\":\"kubeconfig-u\"}}],\"contexts\":[{\"name\":\"cluster01\",\"context\":{\"cluster\":\"cluster01\",\"user\":\"cluster01\"}}],\"current-context\":\"cluster01\"}",
+      "isDefault": false
+    },
+    {
+      "id": "872f434-23qw-we44-6543-rt432ty45345rte",
+      "name":"cluster02.config",
+      "status": "NOT_IN_USE",
+      "description": "Cluster 02 config file",
+      "crdNamespace": "eric-crd-ns",
+      "clusterData": "{\"kind\":\"Config\",\"apiVersion\":\"v2\",\"preferences\":{},\n\"clusters\":[{\"name\":\"cluster02\",\"cluster\":{\"server\":\"https://gevalia.rnd.gic.ericsson.se/k8s/clusters/xyz123\"}}],\"users\":[{\"name\":\"cluster02\",\"user\":{\"token\":\"kubeconfig-u\"}}],\"contexts\":[{\"name\":\"cluster02\",\"context\":{\"cluster\":\"cluster02\",\"user\":\"cluster02\"}}],\"current-context\":\"cluster02\"}",
+      "isDefault": false
+    }
+
+  ]
+}

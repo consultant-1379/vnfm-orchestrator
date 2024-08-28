@@ -1,0 +1,251 @@
+# Default values for eric-cloud-native-kvdb-rd-operand.
+# This is a YAML-formatted file.
+
+# Global parameters shall be defined in the top level values.yaml
+# They are kept here for indicating which are supported and their default values.
+# global:
+#   pullSecret:
+#   registry:
+#     url: selndocker.mo.sw.ericsson.se
+#     imagePullPolicy: IfNotPresent
+#   timezone: UTC
+#   nodeSelector: {}
+#   internalIPFamily:
+#   networkPolicy:
+#     enabled: true
+#   security:
+#     policyBinding:
+#       create: false
+#     policyReferenceMap:
+#       default-restricted-security-policy: default-restricted-security-policy
+#     tls:
+#       enabled: true
+#   hooklauncher:
+#     executor: service
+
+service:
+  endpoints:
+    kvdbClients:
+      tls:
+        enforced: required #require TLS for the KVDB clients or make it optional
+        verifyClientCertificate: required
+    metrics:
+      tls:
+        verifyClientCertificate: required
+
+imageCredentials:
+  pullSecret:
+  node:
+    repoPath:
+    registry:
+      url:
+      imagePullPolicy:
+  metricsExporter:
+    repoPath:
+    registry:
+      url:
+      imagePullPolicy:
+  hooklauncher:
+    repoPath:
+    registry:
+      url:
+      imagePullPolicy:
+
+numberOfMaster: 1
+replicationFactor: 1
+
+networkPolicy:
+  enabled: false
+
+metrics:
+  enabled: false
+
+terminationGracePeriodSeconds: 30
+
+topologySpreadConstraints: [ ]
+
+log:
+  # Supported values ["stdout", "stream"]
+  outputs: ["stdout"]
+  node:
+    level: "info"
+    bufferedLines: 2000
+  server:
+    level: "notice"
+  metricsExporter:
+    bufferedLines: 2000
+
+logTransformerService:
+  # Log Transformer Service host name to connect to. When TLS is enabled it's also used to create a client certificate signed by the Log Transformer CA.
+  host: "eric-log-transformer"
+
+resources:
+  node:
+    limits:
+      cpu: 50m
+      # memory limit should be greater than 2x server.maxMemory
+      memory: 70Mi
+      ephemeral-storage: 2Gi
+    requests:
+      cpu: 30m
+      memory: 30Mi
+      ephemeral-storage: 2Gi
+  metricsExporter:
+    limits:
+      cpu: 20m
+      memory: 50Mi
+      ephemeral-storage: 2Gi
+    requests:
+      cpu: 10m
+      memory: 25Mi
+      ephemeral-storage: 2Gi
+  hooklauncher:
+    limits:
+      cpu: "200m"
+      memory: "100Mi"
+      ephemeral-storage: "100Mi"
+    requests:
+      cpu: "50m"
+      memory: "50Mi"
+      ephemeral-storage: "100Mi"
+
+podPriority:
+  # DEPRECATED. Replaced by new value podPriority.node.
+  # priorityClassName: ""
+  node:
+   priorityClassName: ""
+  hooklauncher:
+   priorityClassName: ""
+
+server:
+  # This is the max memory Redis should use during operation.
+  # If a new replica is added while the node is in use a temporary buffer equal
+  # to the size of the data on the node will be created.
+  # To handle the worst case scenario resources.node.limit.memory should be
+  # slightly more than 2x maxMemory.
+  # value treated as MiB, same as k8s memory
+  maxMemory: 30mb
+  maxClients: 8192
+  # noeviction means Redis will not drop current data to make room for new, but
+  # instead return an error message when trying to write to a full node.
+  maxMemoryPolicy: noeviction
+  clusterRequireFullCoverage: "no"
+  clusterNodeTimeoutMs: 2000
+  dialTimeoutMs: 2000
+  # Redis can notify Pub/Sub clients about events happening in the key space.
+  # By default all notifications are disabled because most users don't need
+  # this feature and the feature has some overhead. Note that if you don't
+  # specify at least one of K or E, no events will be delivered.
+  notifyKeySpaceEvents: ""
+  # Enable TairHash module.
+  modules:
+    tairHash:
+      enabled: false
+
+nameOverride: ""
+
+# Keep initial delay at 0 to ensure probes are run immediately after the
+# startupProbe passes.
+# Do NOT introduce readiness probes for containers that are not contributing
+# to the SERVICE OF DATA. Exporting metrics does for example not help Redis
+# serve GET/SET requests. One container reporting not ready will prevent pods
+# from resolving through the K8s service.
+probes:
+  node:
+    startupProbe:
+      initialDelaySeconds: 0
+      failureThreshold: 60
+      periodSeconds: 1
+      timeoutSeconds: 5
+    livenessProbe:
+      initialDelaySeconds: 0
+      failureThreshold: 3
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+    readinessProbe:
+      initialDelaySeconds: 0
+      failureThreshold: 3
+      periodSeconds: 7
+      successThreshold: 1
+      timeoutSeconds: 5
+  metricsExporter:
+    startupProbe:
+      initialDelaySeconds: 0
+      failureThreshold: 60
+      periodSeconds: 1
+      timeoutSeconds: 5
+    livenessProbe:
+      initialDelaySeconds: 0
+      failureThreshold: 3
+      periodSeconds: 10
+      successThreshold: 1
+      timeoutSeconds: 5
+  logshipper:
+    livenessProbe:
+      initialDelaySeconds: 1
+      failureThreshold: 3
+      periodSeconds: 10
+      timeoutSeconds: 10
+
+nodeSelector: {}
+labels: {}
+annotations: {}
+
+security:
+  acl:
+    enabled: true
+    users:
+      - name: default
+        permissions: ~* &* +@all -@dangerous +client +cluster +config|get +info +latency +slowlog +monitor +keys +flushdb
+      - name: readonly-user
+        permissions: ~* &* -@all +@read
+      - name: bro-user
+        permissions: ~bro-* +@read +@write +@stream +cluster +ping
+      - name: ah-user
+        permissions: ~* &* -@all +@read +@write +@stream +cluster +ping
+      - name: snmp-user
+        permissions: ~* &* -@all +@read +@write +@stream +cluster +ping +readonly +eval
+  tls:
+    # TTL for the certificates, SIP-TLS default value if not provided
+    certificateTTL:
+
+tolerations:
+  # DEPRECATED. Replaced by new value tolerations.node.
+  # - key: node.kubernetes.io/not-ready
+  #   operator: Exists
+  #   effect: NoExecute
+  #   tolerationSeconds: 0
+  # - key: node.kubernetes.io/unreachable
+  #   operator: Exists
+  #   effect: NoExecute
+  #   tolerationSeconds: 0
+  node:
+   - key: node.kubernetes.io/not-ready
+     operator: Exists
+     effect: NoExecute
+     tolerationSeconds: 0
+   - key: node.kubernetes.io/unreachable
+     operator: Exists
+     effect: NoExecute
+     tolerationSeconds: 0
+  hooklauncher: []
+
+# limit Pod Egress bandwidth
+bandwidth:
+  maxEgressRate:
+
+affinity:
+  podAntiAffinity: "soft"
+  topologyKey: "kubernetes.io/hostname"
+
+# Name of the PM Server service. Required to authenticate clients on the IF.PM.METRICS.PULL interface when
+# global.security.tls.enabled=true and service.endpoints.metrics.tls.verifyClientCertificate=required.
+pmServerServiceName: "eric-pm-server"
+kvdbOperatorName: "eric-data-key-value-database-rd"
+
+# The configuration here can be useful for testing and debugging.
+hooklauncher:
+  cleanup: true
+  terminateEarlyOnFailure: true
+  backoffLimit: 6

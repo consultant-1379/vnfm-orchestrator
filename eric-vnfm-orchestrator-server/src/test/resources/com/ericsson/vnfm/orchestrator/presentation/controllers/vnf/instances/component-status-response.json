@@ -1,0 +1,113 @@
+{
+  "podStatusResponses": [
+    {
+      "clusterName": "default",
+      "releaseName": "b-rel4",
+      "pods": [
+        {
+          "uid": "1h563kfj2-f587-40c7-959a-5856hs7f8503g",
+          "name": "eric-am-onboarding-service-85748b467-tg2vf",
+          "status": "Running",
+          "namespace": "default",
+          "hostname": "node-10-23-21",
+          "labels": {
+            "app": "eric-am-onboarding-service",
+            "app.kubernetes.io/instance": "test-instance",
+            "app.kubernetes.io/name": "eric-am-onboarding-service",
+            "app.kubernetes.io/version": "1.0.198_1",
+            "pod-template-hash": "85748b467",
+            "release": "test-instance"
+          },
+          "annotations": {
+            "cni.projectcalico.org/podIP": "192.168.200.217/32",
+            "cni.projectcalico.org/podIPs": "192.168.200.217/32",
+            "prometheus.io/path": "/actuator/prometheus",
+            "prometheus.io/port": "8888",
+            "prometheus.io/scrape": "true"
+          },
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "eric-am-onboarding-service-85748b467",
+              "uid": "d248a073-4e95-474d-8c67-0983e1d987a1"
+            }
+          ]
+        },
+        {
+          "uid": "1b13dec2-f587-40c7-959a-54b4e7f0961f",
+          "name": "eric-lcm-container-registry-registry-0",
+          "status": "Running",
+          "namespace": "default",
+          "hostname": "node-10-23-21",
+          "labels": {
+            "adpbrlabelkey": "ContainerRegistryBRAgent",
+            "app": "eric-lcm-container-registry",
+            "app.kubernetes.io/instance": "test-instance",
+            "app.kubernetes.io/name": "eric-lcm-container-registry",
+            "app.kubernetes.io/version": "2.6.0",
+            "chart": "eric-lcm-container-registry-2.6.0_15",
+            "component": "registry",
+            "controller-revision-hash": "eric-lcm-container-registry-registry-c4c66b5c4",
+            "heritage": "Tiller",
+            "release": "test-instance",
+            "statefulset.kubernetes.io/pod-name": "eric-lcm-container-registry-registry-0"
+          },
+          "annotations": {
+            "cni.projectcalico.org/podIP": "192.168.82.217/32",
+            "cni.projectcalico.org/podIPs": "192.168.82.217/32",
+            "ericsson.com/product-name": "container-registry",
+            "ericsson.com/product-number": "APR 201 10/2",
+            "ericsson.com/product-revision": "R7A"
+          },
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "eric-lcm-container-registry-registry-c4c66b5c4",
+              "uid": "10192219-c256-4648-9386-5fe0eed07c19"
+            }
+          ]
+        },
+        {
+          "uid": "2h76ec2-f758-65j9-957n-54b4e7f7503h",
+          "name": "eric-lcm-helm-chart-registry-75789844cb-6d566",
+          "status": "Running",
+          "namespace": "default",
+          "hostname": "node-10-23-21",
+          "labels": {
+            "adpbrlabelkey": "HelmChartRegistryBrAgent",
+            "app": "eric-lcm-helm-chart-registry",
+            "app.kubernetes.io/instance": "test-instance",
+            "app.kubernetes.io/name": "eric-lcm-helm-chart-registry",
+            "app.kubernetes.io/version": "1.8.0",
+            "pod-template-hash": "75789844cb",
+            "release": "test-instance"
+          },
+          "annotations": {
+            "checksum/secret": "8ac19b6fa97271da84fc7b2dcff0f48c222a703b55ecfd23c5f85f48d9c835f6",
+            "cni.projectcalico.org/podIP": "192.168.4.40/32",
+            "cni.projectcalico.org/podIPs": "192.168.4.40/32",
+            "ericsson.com/product-name": "helm-chart-registry",
+            "ericsson.com/product-number": "CAV 101 69/1",
+            "ericsson.com/product-revision": "R9A"
+          },
+          "ownerReferences": [
+            {
+              "apiVersion": "apps/v1",
+              "blockOwnerDeletion": true,
+              "controller": true,
+              "kind": "ReplicaSet",
+              "name": "eric-lcm-helm-chart-registry-75789844cb",
+              "uid": "a03fd3a0-8a4a-4f4d-b59a-79b7b7651051"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

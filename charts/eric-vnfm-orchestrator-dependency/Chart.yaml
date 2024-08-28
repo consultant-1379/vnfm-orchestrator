@@ -1,0 +1,42 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+apiVersion: v1
+description: A Helm chart for the ADP Application Manager Common for CI flow dependent charts
+name: eric-vnfm-orchestrator-dependency
+version: 0.0.1
+dependencies:
+  - name: eric-eo-evnfm-crypto
+    repository: https://arm.seli.gic.ericsson.se/artifactory/proj-eo-evnfm-helm
+    version: 0.105.0+1
+  - name: eric-cloud-native-kvdb-rd-operand
+    repository: file://redis-operand-chart/eric-cloud-native-kvdb-rd-operand
+    version: 3.6.0+56
+  - name: eric-data-key-value-database-rd
+    repository: https://arm.sero.gic.ericsson.se/artifactory/proj-adp-gs-all-helm
+    version: 3.6.0+56
+  - name: eric-data-document-database-pg
+    repository: https://arm.sero.gic.ericsson.se/artifactory/proj-adp-gs-all-helm/
+    version: 8.7.0+66
+  - name: eric-eo-lm-consumer
+    repository: https://arm.seli.gic.ericsson.se/artifactory/proj-eo-evnfm-helm
+    version: 0.160.0+2
+  - name: eric-si-application-sys-info-handler
+    repository: https://arm.sero.gic.ericsson.se/artifactory/proj-adp-eric-application-sys-info-handler-released-helm
+    version: 2.4.0+13
+  - name: eric-lm-combined-server
+    repository: https://arm.sero.gic.ericsson.se/artifactory/proj-adp-gs-all-helm
+    version: 8.2.0+62

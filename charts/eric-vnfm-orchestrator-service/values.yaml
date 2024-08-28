@@ -1,0 +1,264 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+# Default values for eric-vnfm-orchestrator-service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+nameOverride: "eric-vnfm-orchestrator-service"
+
+replicaCount: 2
+
+podDisruptionBudget:
+  minAvailable: 0
+
+updateStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
+    maxSurge: 0
+
+# DR-D1121-011 supported global parameters shall be left as comments (YAML comment) in the values.yaml
+#global:
+#  registry:
+#    url: armdocker.rnd.ericsson.se
+#    imagePullPolicy: IfNotPresent
+#  timezone: UTC
+#  postgresCredentials:
+#    secret: eric-sec-access-mgmt-creds
+#  nodeSelector: {}
+#  labels: {}
+#  annotations: {}
+#  hosts: {}
+## internalIPFamily: IPv6 or IPv4
+#  db:
+#    connection:
+#      max-lifetime:
+#  # DR-D1123-134
+#  securityPolicy:
+#    rolekind: ""
+
+imageCredentials:
+  orchestratorService:
+    repoPath: # see default value in eric-product-info.yaml file
+  pgInitContainer:
+    repoPath: # see default value in eric-product-info.yaml file
+
+container:
+  ports:
+    http: 8888
+    ssh: 22
+
+service:
+  type: ClusterIP
+  port: 8888
+
+jvm:
+  heap:
+    max: "400m"
+
+resources:
+  orchestrator:
+    requests:
+      memory: "512Mi"
+      cpu: "300m"
+      ephemeral-storage: "500Mi"
+    limits:
+      memory: "1024Mi"
+      cpu: "1000m"
+      ephemeral-storage: "1Gi"
+  orchestratorInit:
+    requests:
+      memory: "100Mi"
+      cpu: "300m"
+      ephemeral-storage: "250Mi"
+    limits:
+      memory: "256Mi"
+      cpu: "300m"
+      ephemeral-storage: "500Mi"
+
+database:
+  schema: "orchestrator"
+  port: "5432"
+  creationTime: "50"
+
+smallstack:
+  application: true
+
+prometheus:
+  path: "/actuator/prometheus"
+  scrape: "true"
+  scrape-role: "endpoints"
+  scrape-interval: "15s"
+
+orchestrator:
+  restrictedMode: true
+  suffixFirstCnfReleaseSchema: false
+
+oss:
+  topology:
+    secretName: null
+    directory: "/tmp"
+    enrollment:
+      additionalCertificate:
+        productNames: [] # List of product names which will have additional certificate to be included during enrollment
+
+kubernetes:
+  master: https://kubernetes.default
+
+retry:
+  maxAttempts: "5"
+  backoff: "1000"
+  scaleRetryAttempts: "2"
+
+txRetry:
+  attempts: "5"
+  delayInSeconds: "10"
+
+notifications:
+  enabled: true
+
+logging:
+  logstash:
+    host: eric-log-transformer
+    port: 5025
+  level:
+    root: INFO
+    orchestrator: INFO
+
+nodeSelector: {}
+labels: {}
+annotations: {}
+
+# DR1120-061 Tolerations to influence scheduling decisions made by Kubernetes scheduler
+tolerations:
+  orchestrator:
+    - key: node.kubernetes.io/not-ready
+      operator: Exists
+      effect: NoExecute
+      tolerationSeconds: 300
+    - key: node.kubernetes.io/unreachable
+      operator: Exists
+      effect: NoExecute
+      tolerationSeconds: 300
+
+probes:
+  orchestrator:
+    livenessProbe:
+      initialDelaySeconds: 200
+      periodSeconds: 10
+      failureThreshold: 6
+      timeoutSeconds: 5
+    readinessProbe:
+      initialDelaySeconds: 20
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 3
+
+podPriority:
+  orchestrator:
+    priorityClassName: ""
+
+terminationGracePeriodSeconds:
+  orchestrator: 30
+
+redis:
+  host: "eric-cloud-native-kvdb-rd-operand"
+  port: 6379
+  tlsPort: 6380
+  acl:
+    enabled: true
+    user: default
+    userKey: "username"
+    passKey: "password"
+
+affinity:
+  podAntiAffinity: "hard"
+  topologyKey: "kubernetes.io/hostname"
+
+highAvailability:
+  serviceMesh:
+    logLevel: info
+    routes:
+      getVnfInstances:
+        retries:
+          maxAttempts: 2
+        timeout: 60s
+      get:
+        retries:
+          maxAttempts: 2
+          perTryTimeout: 5s
+        timeout: 8s
+      post:
+        retries:
+          maxAttempts: 2
+          perTryTimeout: 90s
+        timeout: 180s
+      postNode:
+        retries:
+          maxAttempts: 2
+          perTryTimeout: 225s
+        timeout: 450s
+      delete:
+        retries:
+          maxAttempts: 2
+          perTryTimeout: 90s
+        timeout: 180s
+      putPatch:
+        retries:
+          maxAttempts: 2
+          perTryTimeout: 60s
+        timeout: 120s
+    trafficPolicy:
+      outlierDetection:
+        splitExternalLocalOriginErrors: true
+        consecutiveLocalOriginFailures: 2
+        consecutive5xxErrors: 2
+        interval: 5s
+        baseEjectionTime: 1m
+    envoyFilter:
+      wfs:
+        serviceName: eric-am-common-wfs
+        port: 80
+
+istio:
+  excludeOutboundPorts: "5432,5025,6379,6380"
+
+# DR D1123-127
+appArmorProfile:
+  # The setting applies to all container when the container name is omitted.
+  # { choice='unconfined, runtime/default, localhost, "" ' } [ default="" ]
+  type: ""
+
+# DR D1123-128
+seccompProfile:
+  # The setting applies to all container when the container name is omitted.
+  # { choice='unconfined, runtime/default, localhost, "" ' } [ default="" ]
+  type: ""
+
+lcmOperationConfig:
+  lcmOperationsLimit: 30
+
+crypto:
+  cache:
+    enabled: true
+
+# DR-D1120-090
+topologySpreadConstraints: {}
+
+# DR-D1123-134
+securityPolicy:
+  rolename: ""

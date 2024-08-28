@@ -1,0 +1,21 @@
+{
+  "namespace": "cna-heal-sample-test-vnf",
+  "releaseName": "cna-heal-sample-test-vnf-2",
+  "chartUrl": "http://eric-lcm-helm-chart-registry-ns:8080/onboarded/charts/spider-app-2.208.1.tgz",
+  "additionalParams": {
+    "restore.scope": "DEFAULT",
+    "restore.backupName": "mybackup"
+  },
+  "day0Configuration": {
+    "day0.configuration.secretname": "shh",
+    "day0.configuration.param1.key": "key1",
+    "day0.configuration.param1.value": "value1"
+  },
+  "applicationTimeOut": "3555",
+  "skipVerification": false,
+  "overrideGlobalRegistry": false,
+  "lifecycleOperationId": "b9790269-9876-4d87-a1d0-3e8e5256a1a5",
+  "state": "PROCESSING",
+  "skipJobVerification": false,
+  "chartType": "CNF"
+}

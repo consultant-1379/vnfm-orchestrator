@@ -1,0 +1,32 @@
+{
+  "test-cnf": {
+    "Scaling-Parameter-Name": "vnfc1.test-cnf.replicaCount",
+    "Mciop-Name": "helm_package1"
+  },
+  "test-cnf-vnfc1": {
+    "Scaling-Parameter-Name": "vnfc1.replicaCount",
+    "Auto-Scaling-Enabled": "vnfc1.autoscaling.enabled",
+    "Auto-Scaling-MinReplicas-Name": "vnfc1.minReplicas",
+    "Auto-Scaling-MaxReplicas-Name": "vnfc1.maxReplicas",
+    "Mciop-Name": "helm_package1"
+  },
+  "test-cnf-vnfc3": {
+    "Scaling-Parameter-Name": "vnfc3.replicaCount",
+    "Mciop-Name": "helm_package1"
+  },
+  "test-cnf-vnfc4": {
+    "Scaling-Parameter-Name": "vnfc4.replicaCount",
+    "Mciop-Name": "helm_package1"
+  },
+  "test-cnf-vnfc5": {
+    "Auto-Scaling-MinReplicas-Name": "vnfc5.minReplicas",
+    "Auto-Scaling-MaxReplicas-Name": "vnfc5.maxReplicas",
+    "Scaling-Parameter-Name": "vnfc5.replicaCount",
+    "Auto-Scaling-Enabled": "vnfc5.autoscaling.enabled",
+    "Mciop-Name": "helm_package1"
+  },
+  "eric-pm-bulk-reporter": {
+    "Scaling-Parameter-Name": "eric-pm-bulk-reporter.replicaCount",
+    "Mciop-Name": "helm_package2"
+  }
+}

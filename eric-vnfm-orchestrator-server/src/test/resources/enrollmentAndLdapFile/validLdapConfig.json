@@ -1,0 +1,33 @@
+{
+  "server": [
+    {
+      "name": "primary-server",
+      "tcp": {
+        "address": "127.0.0.1",
+        "ldaps": {
+          "port": 1636
+        }
+      }
+    },
+    {
+      "name": "fallback-server",
+      "tcp": {
+        "address": "127.0.0.2",
+        "ldaps": {
+          "port": 1636
+        }
+      }
+    }
+  ],
+  "security": {
+    "user-base-dn": "dc=server-5,dc=com",
+    "simple-authenticated": {
+      "bind-dn": "cn=ProxyAccount_eaf8b315-96a5-4872-bf62-6a4f988cc72b,ou=proxyagentlockable,ou=com,dc=server-5,dc=com",
+      "bind-password": "test"
+    }
+  },
+  "options": {
+    "enable-referrals": false,
+    "timeout": 5
+  }
+}

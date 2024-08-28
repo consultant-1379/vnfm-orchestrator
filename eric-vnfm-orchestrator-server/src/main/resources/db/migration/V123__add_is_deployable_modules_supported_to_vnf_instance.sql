@@ -1,0 +1,1 @@
+ALTER TABLE app_vnf_instance ADD is_deployable_modules_supported BOOLEAN  default false;

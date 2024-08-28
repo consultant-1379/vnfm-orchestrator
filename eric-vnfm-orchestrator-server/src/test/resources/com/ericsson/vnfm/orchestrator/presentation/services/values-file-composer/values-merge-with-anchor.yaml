@@ -1,0 +1,14 @@
+securityContext:
+  - &appArmorProfile docker-pcc
+
+eric-pm-server:
+  server:
+    ingress:
+      enabled: true
+    persistentVolume:
+      storageClass: network-block
+
+eric-pc-mm-mobility:
+  replicaCount: 2
+  securityContext:
+    appArmorProfile: *appArmorProfile

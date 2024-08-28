@@ -1,0 +1,1065 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+openapi: 3.0.3
+info:
+  version: 1.0.0
+  title: EVNFM Specific APIs
+  description: >
+    APIs used only by E-VNFM for it's own purpose
+
+servers:
+  - url: '{protocol}://{hostname}/{basePath}'
+    variables:
+      protocol:
+        default: https
+      hostname:
+        default: ${INGRESS_HOST_ADDRESS}
+      basePath:
+        default: vnfm/container
+
+tags:
+  - name: Operations
+    description: The vnf operations API
+  - name: Resources
+    description: The vnf resources API
+
+paths:
+  '/resources':
+    get:
+      description: |
+        Fetch resources (vnf instances with their operations), results are paginated, first page is retrieved.
+      tags:
+        - Resources
+      parameters:
+        - name: filter
+          description: >
+            Attribute-based filtering expression.
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: getAllResources
+          description: >
+            Display all resources including ones without lifecycle operations. Defaults to false
+          in: query
+          required: false
+          schema:
+            type: boolean
+            default: false
+        - name: page
+          description: >
+            Requested page number. Should be a positive number starting from 1.
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: size
+          description: >
+            Size of a page. Should be a positive number.
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: sort
+          description: >
+            Sorting definition in form 'field[,direction]' where
+            direction is asc or desc, defaulting to asc. This parameter may be
+            used multiple times. Examples:
+            sort=name
+            sort=status,desc
+            sort=status,desc&sort=name,asc
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - asc
+                - desc
+          required: false
+      operationId: getAllResource
+      responses:
+        '200':
+          description: >
+            200 OK
+            On success, the content of the values is returned. The payload body
+            shall contain a copy of the file representing the latest values associated with the VNF
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedResourcesResponse'
+  '/resources/{resourceId}':
+    get:
+      description: |
+        Fetch the resource (vnf instances with their operations) with the specified resourceId
+      tags:
+        - Resources
+      parameters:
+        - name: resourceId
+          description: Identifier of a vnf instance
+          in: path
+          required: true
+          schema:
+            type: string
+      operationId: getResource
+      responses:
+        '200':
+          description: >
+            200 OK
+            On success, the content of the value is returned. The payload body
+            shall contain the properties of the VNF instance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceResponse'
+  '/resources/{resourceId}/pods':
+    get:
+      description: |
+        Get the status of the pods of the specified VNF resource
+      tags:
+        - Resources
+      parameters:
+        - name: resourceId
+          description: Identifier of a vnf instance
+          in: path
+          required: true
+          schema:
+            type: string
+      operationId: getPodStatus
+      responses:
+        '200':
+          description: >
+            200 OK
+            On success, the content of the value is returned. The payload body
+            shall contain the properties of the VNF instance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ComponentStatusResponse'
+  '/resources/{resourceId}/vnfcScaleInfo':
+    get:
+      description: |
+        Gets the VNFC names, current replica count and expected replica count after scale operation has completed
+      tags:
+        - Resources
+      parameters:
+        - name: resourceId
+          description: Identifier of a vnf instance
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: aspectId
+          description:
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: type
+          description:
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: numberOfSteps
+          description:
+          in: query
+          required: false
+          schema:
+            type: string
+      operationId: getVnfcScaleInfo
+      responses:
+        '200':
+          description: >
+            200 OK
+            On success, the content of the value is returned. The payload body
+            shall contain the properties of the VNF instance
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/VnfcScaleInfo'
+  '/resources/{resourceId}/downgradeInfo':
+    get:
+      description: |
+        Gets the downgrade info
+      tags:
+        - Resources
+      parameters:
+        - name: resourceId
+          description: Identifier of a vnf instance
+          in: path
+          required: true
+          schema:
+            type: string
+      operationId: getDowngradeInfo
+      responses:
+        '200':
+          description: >
+            200 OK
+            On success, the content of the value is returned. The payload body
+            shall contain the properties of the VNF instance
+          content:
+            application/json:
+              schema:
+                type: array
+                $ref: '#/components/schemas/DowngradeInfo'
+  '/resources/{resourceId}/rollbackInfo':
+    get:
+      description: |
+        Gets a rollback info
+      tags:
+        - Resources
+      parameters:
+        - name: resourceId
+          description: Identifier of a vnf instance
+          in: path
+          required: true
+          schema:
+            type: string
+      operationId: getRollbackInfo
+      responses:
+        '200':
+          description: >
+            200 OK
+            On success, the content of the value is returned. The payload body
+            shall contain the properties of the VNF instance
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RollbackInfo'
+  '/operations':
+    get:
+      description: |
+        Fetch all operations, results are paginated, first page is retrieved.
+      tags:
+        - Operations
+      parameters:
+        - name: filter
+          description: |
+            Attribute-based filtering expression.
+            Filter expressions should be in the form of '"<operator>","<attrName>","<value>[,<value>]"'
+            Multiple expressions can be combined by the "AND" operator that is donated by ';'.
+            Filter Attributes:
+            - operationOccurrenceId
+            - operationState
+            - stateEnteredTime
+            - startTime
+            - lifecycleOperationType
+            - vnfProductName
+            - vnfSoftwareVersion
+            - clusterName
+            - namespace
+            - vnfInstanceId
+            - vnfInstanceName
+            - username
+
+            Examples:
+            Single attribute based filtering:
+            filter=(eq,operationState,COMPLETED)
+            filter=(nin,lifecycleOperationType,TERMINATE,INSTANTIATE)
+            Multiple attribute based filtering:
+            filter=(eq,operationState,COMPLETED);(cont,vnfInstanceName,my-release)
+
+            Operator with parameters                    Meaning
+            eq,\<attrName\>,\<value\>:                  Attribute equal to \<value\>
+            neq,\<attrName\>,\<value\>:                 Attribute not equal to \<value\>
+            in,\<attrName\>,\<value\>[,\<value\>]:      Attribute equal to one of the values in the list ("in set" relationship)
+            nin,\<attrName\>,\<value\>[,\<value\>]:     Attribute not equal to any of the values in the list ("not in set" relationship)
+            gt,\<attrName\>,\<value\>:                  Attribute greater than \<value\>
+            gte,\<attrName\>,\<value\>:                 Attribute greater than or equal to \<value\>
+            lt,\<attrName\>,\<value\>:                  Attribute less than \<value\>
+            lte,\<attrName\>,\<value\>:                 Attribute less than or equal to \<value\>
+            cont,\<attrName\>,\<value\>[,\<value\>]:    String attribute contains (at least) one of the values in the list
+            ncont,\<attrName\>,\<value\>[,\<value\>]:   String attribute does not contain any of the values in the list
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: page
+          description: >
+            Requested page number. Should be a positive number starting from 1.
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: size
+          description: >
+            Size of a page. Should be a positive number.
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: sort
+          description: >
+            Sorting definition in form 'field[,direction]' where
+            direction is asc or desc, defaulting to asc. This parameter may be
+            used multiple times. Examples:
+            sort=name
+            sort=status,desc
+            sort=status,desc&sort=name,asc
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - asc
+                - desc
+          required: false
+      operationId: getAllOperations
+      responses:
+        '200':
+          description: >
+            200 OK
+            On success, the content of the values is returned. The payload body
+            shall contain a copy of the file representing the latest values associated with the VNF
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedOperationsResponse'
+
+components:
+  schemas:
+    InstantiatedVnfInfo:
+      description: >
+        Information specific to an instantiated VNF instance. This
+        attribute shall be present if the instantiateState attribute
+        value is INSTANTIATED.
+      type: object
+      required:
+        - flavourId
+        - vnfState
+      properties:
+        flavourId:
+          description: |
+            Identifier of the VNF DF applied to this VNF instance.
+          type: string
+        vnfState:
+          description: |
+            The state of the VNF instance.
+          type: string
+          enum:
+            - STARTED
+            - STOPPED
+        vnfcResourceInfo:
+          description:
+            Information on the virtualized compute and storage resource(s) used by the VNFCs of the VNF instance.
+          type: array
+          items:
+            required:
+              - id
+              - vduId
+              - computeResource
+            type: object
+            title: vnfcResourceInfo
+            properties:
+              id:
+                description: |
+                  Identifier of this VNFC instance.
+                type: string
+              vduId:
+                description: |
+                  Reference to the applicable Vdu information element in the VNFD
+                type: string
+              computeResource:
+                title: computeResource
+                description: |
+                  Reference to the VirtualCompute resource. Detailed information is (for new and modified resources) or has been (for removed resources) available from the VIM
+                type: object
+                required:
+                  - vimConnectionId
+                  - resourceProviderId
+                  - resourceId
+                  - vimLevelResourceType
+                  - vimLevelAdditionalResourceInfo
+                properties:
+                  vimConnectionId:
+                    description: |
+                      To be completed id
+                    type: string
+                  resourceProviderId:
+                    description: |
+                      To be completed resourceProviderId
+                    type: string
+                  resourceId:
+                    description: |
+                      To be completed resourceId
+                    type: string
+                  vimLevelResourceType:
+                    description: |
+                      To be completed vimLevelResourceType
+                    type: string
+                  vimLevelAdditionalResourceInfo:
+                    type: object
+                    description: |
+                      Additional resource information which is specific to the VIM type.
+                      This field can hold two values:
+                      
+                      1) VimLevelAdditionalResourceInfo - Additional resource information which is specific to the VIM type. Used for rel4
+                      CSARs: SOL003 compliant packages. Schema of this object:
+                      - **hostname: string [OPTIONAL]** -> Name of the host where the resource is allocated. It shall be present for compute resources 
+                                                      in the scope of the CISM and shall be absent otherwise.
+                      - **uid: string [REQUIRED]** -> UID of the Kubernetes pod.
+                      - **name: string [REQUIRED]** -> Name of the Kubernetes pod.
+                      - **status: string [REQUIRED]** -> Status of the Kubernetes pod. Indicates where the pod is in its life cycle.
+                      - **namespace: string [REQUIRED]** -> Namespace of the Kubernetes pod it is in.
+                      - **labels: {[any-key]: string} [REQUIRED]** -> Labels that are attached to the Kubernetes pod.
+                      - **annotations: {[any-key]: string} [REQUIRED]** -> Annotations that are attached to the Kubernetes pod.
+                      - **ownerReference: [{** -> References to the owner sets of the Kubernetes pod
+                          - **apiVersion: string [REQUIRED]** -> Version of the Kubernetes API that was used for the installation
+                          - **kind: string [REQUIRED]** -> Resource type of the configuration.
+                          - **name: string [REQUIRED]** -> Name of the owner set.
+                          - **uid: string [REQUIRED]** -> UID of the owner set.
+                      **}] [REQUIRED]** 
+                      
+                      2) VimLevelAdditionalResourceInfoRel4 - Additional resource information which is specific to the VIM type. Used for pre-rel4 
+                      CSARs: packages non-compliant with SOL003. Schema of this object:
+                      - **hostname: string [OPTIONAL]** -> Name of the host where the resource is allocated. It shall be present for compute resources 
+                                                      in the scope of the CISM and shall be absent otherwise.
+                      - **persistentVolume: string [OPTIONAL]** -> Name of the persistent volume to which the persistent volume claim representing 
+                                                              the storage resource is bound. It may be present for storage resources 
+                                                              in the scope of the CISM and shall be absent otherwise.
+                      - **additionalInfo: {** -> Information related to other properties directly owned by the resource and available from the VIM or 
+                                            CISM or the resource provider.
+                      - **uid: string [REQUIRED]** -> UID of the Kubernetes pod.
+                      - **name: string [REQUIRED]** -> Name of the Kubernetes pod.
+                      - **status: string [REQUIRED]** -> Status of the Kubernetes pod. Indicates where the pod is in its life cycle.
+                      - **namespace: string [REQUIRED]** -> Namespace of the Kubernetes pod it is in.
+                      - **labels: {[any-key]: string} [REQUIRED]** -> Labels that are attached to the Kubernetes pod.
+                      - **annotations: {[any-key]: string} [REQUIRED]** -> Annotations that are attached to the Kubernetes pod.
+                      - **ownerReference: [{** -> References to the owner sets of the Kubernetes pod
+                         - **apiVersion: string [REQUIRED]** -> Version of the Kubernetes API that was used for the installation
+                         - **kind: string [REQUIRED]** -> Resource type of the configuration.
+                         - **name: string [REQUIRED]** -> Name of the owner set.
+                         - **uid: string [REQUIRED]** -> UID of the owner set.
+                       **}] [REQUIRED]** 
+                      **} [OPTIONAL]**
+#          TODO: For now there is no backward compatible solution that can fix problem with deserialization of the interfaces that are now generated
+#                with oneOf annotation. This problem better described in this ticket https://github.com/OpenAPITools/openapi-generator/issues/15082
+#                When it will be fixed, please rewrite annotation and return oneOf annotation.
+#          oneOf:
+#            - $ref: '#/components/schemas/VimLevelAdditionalResourceInfo'
+#            - $ref: '#/components/schemas/VimLevelAdditionalResourceInfoRel4'
+              storageResourceIds:
+                description: |
+                  Reference(s) to the VirtualStorage resource(s). Information about the resource(s) is available from the VIM.
+                type: string
+              reservationId:
+                description: |
+                  The reservation identifier applicable to the resource. It shall be present when an applicable reservation exists.
+                type: string
+              metadata:
+                description: |
+                  Metadata about this resource.
+                type: object
+                additionalProperties:
+                  type: string
+        scaleStatus:
+          description: >
+            Scale status of the VNF, one entry per aspect.
+            Represents for every scaling aspect how "big" the VNF
+            has been scaled w.r.t. that aspect.
+          type: array
+          items:
+            required:
+              - aspectId
+              - scaleLevel
+            type: object
+            title: scaleInfo
+            properties:
+              aspectId:
+                description: >
+                  An identifier that is unique within a VNF
+                  descriptor.
+                type: string
+              vnfdId:
+                description: >
+                  Identifier of the VNFD.
+                  Shall be present in case the value differs from the vnfdId attribute of the VnfInstance
+                  (e.g. during a "Change current VNF package" operation or due to its final failure).
+                type: string
+              scaleLevel:
+                description: >
+                  Indicates the scale level. The minimum value shall
+                  be 0 and the maximum value shall be <=
+                  maxScaleLevel as described in the VNFD.
+                type: integer
+        mcioInfo:
+          description: >
+            Information on the MCIO(s) representing VNFC instance(s) realized by one or a set of OS containers and created from the same VDU for the
+            VNF instance.
+          type: array
+          items:
+            $ref: '#/components/schemas/McioInfo'
+    VnfResourceOperationDetail:
+      description: OperationDetail for a VNF resource
+      type: object
+      properties:
+        operationName:
+          description: operationName
+          type: string
+        supported:
+          description: supported
+          type: boolean
+        error:
+          description: error
+          type: string
+    ResourceResponse:
+      description: Response payload for a VNF resource(with its operations)
+      type: object
+      required:
+        - id
+        - name
+        - description
+      properties:
+        instanceId:
+          description: Resource ID
+          type: string
+        vnfInstanceName:
+          description: Resource(VNF instance) name
+          type: string
+        vnfInstanceDescription:
+          description: Resource(VNF instance) description
+          type: string
+        vnfdId:
+          description: VNFD ID
+          type: string
+        vnfProvider:
+          description: VNF Provider
+          type: string
+        vnfProductName:
+          description: VNF product name
+          type: string
+        vnfSoftwareVersion:
+          description: VNF software version
+          type: string
+        vnfdVersion:
+          description: VNF product name
+          type: string
+        vnfPkgId:
+          description: VNF product name
+          type: string
+        clusterName:
+          description: cluster name which is VNF instance is on
+          type: string
+        namespace:
+          description: name space which is VNF instance is on
+          type: string
+        instantiationState:
+          description: VNF instance's instantiation state
+          type: string
+        addedToOss:
+          description: added to OSS flag
+          type: boolean
+        instantiateOssTopology:
+          description: instantiate Oss topology
+          type: object
+        scalingInfo:
+          description: scaling info
+          type: object
+        extensions:
+          description: |
+            This type represents a list of key-value pairs.
+            The order of the pairs in the list is not significant.
+            In JSON, a set of keyvalue pairs is represented as an object.
+            It shall comply with the provisions defined in clause 4 of IETF RFC 8259.
+          type: object
+        instantiatedVnfInfo:
+          $ref: '#/components/schemas/InstantiatedVnfInfo'
+        lastLifecycleOperation:
+          $ref: '#/components/schemas/VnfResourceLifecycleOperation'
+        lcmOperationDetails:
+          description: Array of registered cluster configurations
+          type: array
+          items:
+            $ref: '#/components/schemas/VnfResourceLifecycleOperation'
+        supportedOperations:
+          description: Array of all supported operations
+          type: array
+          items:
+            $ref: '#/components/schemas/VnfResourceOperationDetail'
+        downgradeSupported:
+          description: is CHANGE_VNFPKG rollback downgrade mode supported on this resource
+          type: boolean
+        healSupported:
+          description: is HEAL operation supported on this resource
+          type: boolean
+        instantiationLevelId:
+          description: An identifier that is unique within a VNF descriptor.
+          type: string
+        lastStateChanged:
+          description: timestamp of last operation state change
+          type: string
+    VnfResourceLifecycleOperation:
+      description: VNF life cycle operation details
+      type: object
+      required:
+        - currentLifecycleOperation
+        - operationOccurrenceId
+        - operationState
+        - stateEnteredTime
+        - startTime
+        - grantId
+        - lifecycleOperationType
+        - automaticInvocation
+        - operationParams
+        - cancelPending
+        - cancelMode
+        - ProblemDetails error
+        - vnfProductName
+        - vnfSoftwareVersion
+        - vnfInstanceId
+        - vnfInstanceName
+        - clusterName
+        - namespace
+      properties:
+        currentLifecycleOperation:
+          description: is current life cycle operation
+          type: boolean
+        operationOccurrenceId:
+          description: operation occurrence Id
+          type: string
+        operationState:
+          description: operation state
+          type: string
+        stateEnteredTime:
+          description: state entered time
+          type: string
+        startTime:
+          description: start time of life cycle operation
+          type: string
+        grantId:
+          description: grant Id
+          type: string
+        lifecycleOperationType:
+          description: life cycle operation type
+          type: string
+        automaticInvocation:
+          description: automatic invocation
+          type: boolean
+        operationParams:
+          description: operation parameters
+          type: string
+        cancelPending:
+          description: automatic invocation
+          type: boolean
+        cancelMode:
+          description: operation parameters
+          type: string
+        error:
+          $ref: '#/components/schemas/ProblemDetails'
+        vnfProductName:
+          description: operation parameters
+          type: string
+        vnfSoftwareVersion:
+          description: operation parameters
+          type: string
+        clusterName:
+          description: cluster name which is VNF instance is on
+          type: string
+        namespace:
+          description: name space which is VNF instance is on
+          type: string
+        vnfInstanceId:
+          description: Resource ID
+          type: string
+        vnfInstanceName:
+          description: Resource(VNF instance) name
+          type: string
+        username:
+          description: The name of the user who is currently performing the operation
+          type: string
+    PagedResourcesResponse:
+      description: Paged response payload for resources
+      type: object
+      required:
+        - _links
+        - page
+        - items
+      properties:
+        _links:
+          $ref: '#/components/schemas/PaginationLinks'
+        page:
+          $ref: '#/components/schemas/PaginationInfo'
+        items:
+          description: Array of Resources
+          type: array
+          items:
+            $ref: '#/components/schemas/ResourceResponse'
+    PagedOperationsResponse:
+      description: Paged response payload for operations
+      type: object
+      required:
+        - _links
+        - page
+        - items
+      properties:
+        _links:
+          $ref: '#/components/schemas/PaginationLinks'
+        page:
+          $ref: '#/components/schemas/PaginationInfo'
+        items:
+          description: Array of Operations
+          type: array
+          items:
+            $ref: '#/components/schemas/VnfResourceLifecycleOperation'
+    VnfcScaleInfo:
+      description: VNFC Scale Info
+      type: object
+      required:
+        - vnfcName
+        - currentReplicaCount
+        - expectedReplicaCount
+      properties:
+        vnfcName:
+          description: VNFC name
+          type: string
+        currentReplicaCount:
+          description: current replica count of the VNF resource
+          type: integer
+        expectedReplicaCount:
+          description: expected replica count of the VNF resource
+          type: integer
+    DowngradePackageInfo:
+      description: An object to capture the relevant details of a downgrade package
+      type: object
+      required:
+        - packageId
+        - packageVersion
+        - vnfdId
+      properties:
+        packageId:
+          description: Package identifier
+          type: string
+        packageVersion:
+          description: Package version
+          type: string
+        vnfdId:
+          description: VNFD Identifier
+          type: string
+    DowngradeInfo:
+      description: Downgrade Info
+      type: object
+      required:
+        - sourceDowngradePackageInfo
+        - targetDowngradePackageInfo
+        - additionalParameters
+      properties:
+        sourceDowngradePackageInfo:
+          $ref: '#/components/schemas/DowngradePackageInfo'
+        targetDowngradePackageInfo:
+          $ref: '#/components/schemas/DowngradePackageInfo'
+        additionalParameters:
+          description: Additional Parameters specified in VNF descriptor for downgrade path
+          type: object
+    RollbackInfo:
+      description: Rollback information
+      type: object
+      required:
+        - sourcePackageVersion
+        - destinationPackageVersion
+      properties:
+        sourcePackageVersion:
+          description: Source package version
+          type: string
+        destinationPackageVersion:
+          description: Target package version
+          type: string
+    HelmVersionsResponse:
+      description: List of available helm versions
+      type: object
+      required:
+        - helmVersions
+      properties:
+        helmVersions:
+          type: array
+          items:
+            type: string
+    ComponentStatusResponse:
+      description: Information about pods of a resource
+      type: object
+      required:
+        - pods
+      properties:
+        clusterName:
+          type: string
+        releaseName:
+          type: string
+        vnfInstanceId:
+          type: string
+        pods:
+          type: array
+          items:
+            $ref: "#/components/schemas/VimLevelAdditionalResourceInfo"
+        statefulSets:
+          type: array
+          items:
+            $ref: "#/components/schemas/VimLevelAdditionalResourceInfoDeploymentStatefulSet"
+        deployments:
+          type: array
+          items:
+            $ref: "#/components/schemas/VimLevelAdditionalResourceInfoDeploymentStatefulSet"
+    VimLevelAdditionalResourceInfoBase:
+#     In case you are updating this object, please consider also updating description of InstantiatedVnfInfo.vimLevelAdditionalResourceInfo as
+#     there no dynamic connection between.
+      description: |
+        To be completed VimLevelAdditionalResourceInfoBase
+      type: object
+      required:
+        - uid
+        - name
+        - status
+        - namespace
+        - labels
+        - annotations
+        - ownerReferences
+      properties:
+        uid:
+          description: |
+            To be completed uid
+          type: string
+        name:
+          description: |
+            To be completed name
+          type: string
+        status:
+          description: |
+            To be completed status
+          type: string
+        namespace:
+          description: |
+            To be completed namespace
+          type: string
+        labels:
+          type: object
+          description: |
+            To be completed labels
+          additionalProperties:
+            type: string
+        annotations:
+          description: |
+            To be completed annotations
+          type: object
+          additionalProperties:
+            type: string
+        ownerReferences:
+          title: ownerReferences
+          description: |
+            Contains details of the pod parent
+          type: array
+          items:
+            required:
+              - apiVersion
+              - kind
+              - name
+              - uid
+            type: object
+            title: ownerReference
+            properties:
+              apiVersion:
+                description: |
+                  App Version
+                type: string
+              kind:
+                description: |
+                  pod kind
+                type: string
+              name:
+                description: |
+                  parent pod name
+                type: string
+              uid:
+                description:
+                  parent pod UID
+                type: string
+    VimLevelAdditionalResourceInfo:
+#     In case you are updating this object, please consider also updating description of InstantiatedVnfInfo.vimLevelAdditionalResourceInfo as
+#     there no dynamic connection between.
+      description: |
+        Additional resource information which is specific to the VIM type. Used for rel4 CSARs: SOL003 compliant packages.
+      allOf:
+        - $ref: '#/components/schemas/VimLevelAdditionalResourceInfoBase'
+        - type: object
+          properties:
+            hostname:
+              description: |
+                Name of the host where the resource is allocated.
+                It shall be present for compute resources in the scope of the CISM and shall be absent otherwise.
+              type: string
+    VimLevelAdditionalResourceInfoDeploymentStatefulSet:
+      description: |
+        To be completed VimLevelAdditionalResourceInfoDeploymentStatefulSet
+      allOf:
+        - $ref: '#/components/schemas/VimLevelAdditionalResourceInfoBase'
+        - type: object
+          properties:
+            replicas:
+              description: |
+                To be completed replicas
+              type: integer
+            availableReplicas:
+              description: |
+                To be completed availableReplicas
+              type: integer
+            kind:
+              description: |
+                To be completed kind
+              type: string
+    McioInfo:
+      description: |
+        To be completed McioInfo
+      type: object
+      properties:
+        mcioId:
+          description: |
+            To be completed mcioId
+          type: string
+        mcioName:
+          description: |
+            To be completed mcioName
+          type: string
+        mcioNamespace:
+          description: |
+            To be completed mcioNamespace
+          type: string
+        vduId:
+          description: |
+            To be completed vduId
+          type: string
+        cismId:
+          description: |
+            To be completed cismId
+          type: string
+        mcioType:
+          description: |
+            To be completed mcioType
+          type: string
+          enum:
+            - Deployment
+            - Statefulset
+        desiredInstances:
+          description: |
+            To be completed desiredInstances
+          type: integer
+        availableInstances:
+          description: |
+            To be completed availableInstances
+          type: integer
+        additionalInfo:
+          description: |
+            To be completed desiredInstances
+          type: object
+    ProblemDetails:
+      description: >
+        The "status" and "detail" attributes are mandated to be included by the present
+        document, to ensure that the response contains additional textual
+        information about an error. It is possible that
+        particular APIs in the present document, or particular
+        implementations, define extensions to define additional attributes
+        that provide more information about the error. The description
+        column only provides some explanation of the meaning to Facilitate
+        understanding of the design.
+      type: object
+      required:
+        - status
+        - detail
+      properties:
+        type:
+          description: >
+            A URI reference that identifies the problem type.
+            It is encouraged that the URI provides human-readable documentation
+            for the problem (e.g. using HTML) when de-referenced. 
+            When this member is not present, its value is assumed to be "about:blank".
+          type: string
+          format: URI
+        title:
+          description: >
+            A short, human-readable summary of the problem type. It should
+            not change from occurrence to occurrence of the problem,
+            except for purposes of localization. If type is given and
+            other than "about:blank", this attribute shall also be
+            provided. A short, human-readable summary of the problem
+            type.
+          type: string
+        status:
+          description: >
+            The HTTP status code for this occurrence of the problem. The
+            HTTP status code generated by the origin server for this 
+            occurrence of the problem.
+          type: integer
+        detail:
+          description: >
+            A human-readable explanation specific to this occurrence of
+            the problem.
+          type: string
+        instance:
+          description: >
+            A URI reference that identifies the specific occurrence of the
+            problem. It may yield further information if de-referenced.
+          type: string
+          format: URI
+    PaginationLinks:
+      description: Links to first, previous, self, next, last pages of paginated results
+      type: object
+      required:
+        - self
+      properties:
+        first:
+          $ref: '#/components/schemas/URILink'
+        prev:
+          $ref: '#/components/schemas/URILink'
+        self:
+          $ref: '#/components/schemas/URILink'
+        next:
+          $ref: '#/components/schemas/URILink'
+        last:
+          $ref: '#/components/schemas/URILink'
+    URILink:
+      description: |
+        This type represents a link to a resource.
+        type: object
+      required:
+        - href
+      properties:
+        href:
+          description: |
+            URI of the referenced resource.
+          type: string
+          format: url
+    PaginationInfo:
+      description: Page information of result set.
+      type: object
+      required:
+        - number
+        - size
+        - totalPages
+        - totalElements
+      properties:
+        number:
+          description: Number of the current page
+          type: integer
+        size:
+          description: Number of results per page
+          type: integer
+        totalPages:
+          description: Total number of pages
+          type: integer
+        totalElements:
+          description: Total number of results
+          type: integer

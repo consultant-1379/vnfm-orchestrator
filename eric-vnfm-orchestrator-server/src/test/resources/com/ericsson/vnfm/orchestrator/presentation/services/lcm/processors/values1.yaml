@@ -1,0 +1,10 @@
+vnfc1:
+  replicaCount: 111
+vnfc2:
+  replicaCount: 112
+vnfc3:
+  replicaCount: 113
+vnfc5:
+  replicaCount: 115
+eric-pm-bulk-reporter:
+  replicaCount: 116

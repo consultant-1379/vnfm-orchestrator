@@ -1,0 +1,28 @@
+[
+  {
+    "resourceInstanceName": "testInstance1",
+    "resourceID": "1234",
+    "operation": "INSTANTIATE",
+    "event": "COMPLETED",
+    "vnfProductName": "vEPG",
+    "vnfSoftwareVersion": "1.13.2",
+    "timestamp": "2012-09-20T18:47:52.690+0000",
+    "error": null
+  },
+  {
+    "resourceInstanceName": "testInstance2",
+    "resourceID": "11111",
+    "operation": "CHANGE_VNFPKG",
+    "event": "FAILED",
+    "vnfProductName": "vEPG",
+    "vnfSoftwareVersion": "1.13.2",
+    "timestamp": "2012-09-18T18:47:52.690+0000",
+    "error": {
+      "type": "about:blank",
+      "title": "someTitle",
+      "status": 404,
+      "detail": "some error happened",
+      "instance": "about:blank"
+    }
+  }
+]

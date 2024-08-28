@@ -1,0 +1,12 @@
+[
+  {
+    "operationName":"instantiate",
+    "supported":true,
+    "error":null
+  },
+  {
+    "operationName":"terminate",
+    "supported":true,
+    "error":null
+  }
+]

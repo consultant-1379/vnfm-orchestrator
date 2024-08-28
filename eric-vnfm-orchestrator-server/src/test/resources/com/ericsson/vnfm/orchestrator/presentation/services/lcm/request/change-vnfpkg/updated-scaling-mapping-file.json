@@ -1,0 +1,29 @@
+{
+  "PL__scaled_vm": {
+    "containers": {},
+    "Scaling-Parameter-Name": "PL__scaled_vm.replicaCount",
+    "Mciop-Name": "helm_package_2",
+    "Auto-Scaling-MinReplicas-Name": "PL__scaled_vm.autoscaling.minReplicas",
+    "Auto-Scaling-MaxReplicas-Name": "PL__scaled_vm.autoscaling.maxReplicas",
+    "Auto-Scaling-Enabled": "PL__scaled_vm.autoscaling.engine.enabled",
+    "Storage": {}
+  },
+  "CL_scaled_vm": {
+    "containers": {},
+    "Scaling-Parameter-Name": "CL_scaled_vm.replicaCount",
+    "Mciop-Name": "helm_package",
+    "Auto-Scaling-MinReplicas-Name": "CL_scaled_vm.autoscaling.minReplicas",
+    "Auto-Scaling-MaxReplicas-Name": "CL_scaled_vm.autoscaling.maxReplicas",
+    "Auto-Scaling-Enabled": "CL_scaled_vm.autoscaling.engine.enabled",
+    "Storage": {}
+  },
+  "TL_scaled_vm": {
+    "containers": {},
+    "Scaling-Parameter-Name": "TL_scaled_vm.replicaCount",
+    "Mciop-Name": "helm_package_2",
+    "Auto-Scaling-MinReplicas-Name": "TL_scaled_vm.autoscaling.minReplicas",
+    "Auto-Scaling-MaxReplicas-Name": "TL_scaled_vm.autoscaling.maxReplicas",
+    "Auto-Scaling-Enabled": "TL_scaled_vm.autoscaling.engine.enabled",
+    "Storage": {}
+  }
+}

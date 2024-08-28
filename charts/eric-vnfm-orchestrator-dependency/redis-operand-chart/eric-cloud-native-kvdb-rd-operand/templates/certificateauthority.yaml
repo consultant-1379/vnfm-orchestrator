@@ -1,0 +1,18 @@
+{{- $g := fromJson (include "eric-cloud-native-kvdb-rd-operand.global" .) -}}
+{{- if $g.security.tls.enabled }}
+apiVersion: siptls.sec.ericsson.com/v1
+kind: InternalUserCA
+metadata:
+  name: {{ template "eric-cloud-native-kvdb-rd-operand.name" . }}-client-ca
+  annotations:
+    {{- include "eric-cloud-native-kvdb-rd-operand.annotations" . | nindent 4 }}
+  labels:
+    {{- include "eric-cloud-native-kvdb-rd-operand.labels" . | nindent 4 }}
+spec:
+  kubernetes:
+    generatedSecretName: {{ template "eric-cloud-native-kvdb-rd-operand.name" . }}-client-ca
+    certificateName: cacertbundle.pem
+  certificate:
+    subject:
+      cn: {{ template "eric-cloud-native-kvdb-rd-operand.name" . }}-client-ca
+{{- end }}

@@ -1,0 +1,45 @@
+INSERT INTO app_lifecycle_operations (operation_occurrence_id, vnf_instance_id, operation_state, state_entered_time,
+                                      start_time, grant_id, lifecycle_operation_type, automatic_invocation, operation_params, cancel_pending,
+                                      cancel_mode, error, values_file_params, vnf_software_version, vnf_product_name, expired_application_time,
+                                      combined_additional_params, combined_values_file, source_vnfd_id, target_vnfd_id, resource_details,
+                                      scale_info_entities, delete_node_failed, delete_node_error_message, delete_node_finished,
+                                      set_alarm_supervision_error_message, application_timeout, downsize_allowed, is_auto_rollback_allowed,
+                                      rollback_failure_pattern, instantiation_level, vnf_info_modifiable_attributes_extensions, rollback_pattern, username)
+VALUES
+
+--COMPLETED INSTANTIATE OPERATION FOR INSTANCE g3def1ce-4cf4-477c-aab3-21c454e6a396
+('d1ade503-0b9c-4934-bb98-f113a3578fcd', 'g3def1ce-4cf4-477c-aab3-21c454e6a396', 'COMPLETED', '2022-10-12 11:37:54.187494',
+ '2022-10-12 14:37:39.276360', null, 'INSTANTIATE', false,
+ '{"additionalParams": {"applicationTimeOut":360,"skipVerification":false}}',
+ false, null, null, '{"vnfc5":{"replicaCount":115},"vnfc3":{"replicaCount":113},"eric-pm-bulk-reporter":{"replicaCount":116},"vnfc1":{"replicaCount":111},"vnfc2":{"replicaCount":112}}',
+ '1.0.2s', 'basic-app-a', '2022-10-12 15:39:39.407496', '{"helmNoHooks":false,"manoControlledScaling":false,"disableOpenapiValidation":true}',
+ '{"vnfc5":{"replicaCount":115},"vnfc3":{"replicaCount":113},"eric-pm-bulk-reporter":{"replicaCount":116},"vnfc1":{"replicaCount":111},"vnfc2":{"replicaCount":112},"applicationTimeOut":360,"skipVerification":false}',
+ 'single-chart-527c-arel4-5fcb086597zs', 'single-chart-527c-arel4-5fcb086597zs', '{"busybox":1}', '[{"scaleInfoId":"4579edf9-8f98-45c9-b5ce-a5d90e00f0df","aspectId":"Aspect1","scaleLevel":0}]',
+ false, null, false, null, '360', false, false, null, null, '{}', null, 'vnfm'),
+--COMPLETED INSTANTIATE OPERATION FOR INSTANCE g3def1ce-4cf4-477c-aab3-21c454e6a397
+('14a17229-1bd1-4788-939e-697a57014d1b', 'g3def1ce-4cf4-477c-aab3-21c454e6a397', 'COMPLETED', '2022-10-12 11:37:54.187494',
+ '2022-10-12 14:37:39.276360', null, 'INSTANTIATE', false,
+ '{"additionalParams": {"applicationTimeOut":360,"skipVerification":false}}',
+ false, null, null, '{"vnfc5":{"replicaCount":115},"vnfc3":{"replicaCount":113},"eric-pm-bulk-reporter":{"replicaCount":116},"vnfc1":{"replicaCount":111},"vnfc2":{"replicaCount":112}}',
+ '1.0.2s', 'basic-app-a', '2022-10-12 15:39:39.407496', '{"helmNoHooks":false,"manoControlledScaling":false,"disableOpenapiValidation":true}',
+ '{"vnfc5":{"replicaCount":115},"vnfc3":{"replicaCount":113},"eric-pm-bulk-reporter":{"replicaCount":116},"vnfc1":{"replicaCount":111},"vnfc2":{"replicaCount":112},"applicationTimeOut":360,"skipVerification":false}',
+ 'single-chart-527c-arel4-5fcb086597zs', 'single-chart-527c-arel4-5fcb086597zs', '{"busybox":1}', '[{"scaleInfoId":"4579edf9-8f98-45c9-b5ce-a5d90e00f0df","aspectId":"Aspect1","scaleLevel":0}]',
+ false, null, false, null, '360', false, false, null, null, '{}', null, 'vnfm'),
+-- COMPLETED INSTANTIATE OPERATION FOR INSTANCE g3def1ce-4cf4-477c-aab3-21c454e6a398
+('138ea1dc-719d-430c-aa87-634671891cde', 'g3def1ce-4cf4-477c-aab3-21c454e6a398', 'COMPLETED', '2022-10-12 11:37:54.187494',
+ '2022-10-12 14:37:39.276360', null, 'INSTANTIATE', false,
+ '{"additionalParams": {"applicationTimeOut":360,"skipVerification":false}}',
+ false, null, null, '{"vnfc5":{"replicaCount":115},"vnfc3":{"replicaCount":113},"eric-pm-bulk-reporter":{"replicaCount":116},"vnfc1":{"replicaCount":111},"vnfc2":{"replicaCount":112}}',
+ '1.0.2s', 'basic-app-a', '2022-10-12 15:39:39.407496', '{"helmNoHooks":false,"manoControlledScaling":false,"disableOpenapiValidation":true}',
+ '{"vnfc5":{"replicaCount":115},"vnfc3":{"replicaCount":113},"eric-pm-bulk-reporter":{"replicaCount":116},"vnfc1":{"replicaCount":111},"vnfc2":{"replicaCount":112},"applicationTimeOut":360,"skipVerification":false}',
+ 'single-chart-527c-arel4-5fcb086597zs', 'single-chart-527c-arel4-5fcb086597zs', '{"busybox":1}', '[{"scaleInfoId":"4579edf9-8f98-45c9-b5ce-a5d90e00f0df","aspectId":"Aspect1","scaleLevel":0}]',
+ false, null, false, null, '360', false, false, null, null, '{}', null, 'vnfm'),
+-- COMPLETED INSTANTIATE OPERATION FOR INSTANCE g3def1ce-4cf4-477c-aab3-21c454e6a400
+('52fa0d81-b577-4f85-8d26-d3487c102bd9', 'g3def1ce-4cf4-477c-aab3-21c454e6a400', 'COMPLETED', '2022-10-12 11:37:54.187494',
+ '2022-10-12 14:37:39.276360', null, 'INSTANTIATE', false,
+ '{"additionalParams": {"applicationTimeOut":360,"skipVerification":false}}',
+ false, null, null, '{"vnfc5":{"replicaCount":115},"vnfc3":{"replicaCount":113},"eric-pm-bulk-reporter":{"replicaCount":116},"vnfc1":{"replicaCount":111},"vnfc2":{"replicaCount":112}}',
+ '1.0.2s', 'basic-app-a', '2022-10-12 15:39:39.407496', '{"helmNoHooks":false,"manoControlledScaling":false,"disableOpenapiValidation":true}',
+ '{"vnfc5":{"replicaCount":115},"vnfc3":{"replicaCount":113},"eric-pm-bulk-reporter":{"replicaCount":116},"vnfc1":{"replicaCount":111},"vnfc2":{"replicaCount":112},"applicationTimeOut":360,"skipVerification":false}',
+ 'multi-chart-477c-aab3-2b04e6a363', 'multi-chart-477c-aab3-2b04e6a363', '{"busybox":1}', '[{"scaleInfoId":"scale-4cf4-477c-aab3-21c454e6a400","aspectId":"Aspect1","scaleLevel":2}]',
+ false, null, false, null, '360', false, false, null, null, '{}', null, 'vnfm');

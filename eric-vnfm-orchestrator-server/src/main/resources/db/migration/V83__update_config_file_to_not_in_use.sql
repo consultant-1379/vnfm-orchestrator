@@ -1,0 +1,1 @@
+update app_cluster_config_file set config_file_status='NOT_IN_USE' where config_file_name='default.config';

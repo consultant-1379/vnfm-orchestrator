@@ -1,0 +1,53 @@
+{
+  "vnfInstanceId": "%1$s",
+  "vnfLcmOpOccId": "${json-unit.any-string}",
+  "vnfdId": "%2$s",
+  "operation": "CHANGE_VNFPKG",
+  "addResources": [
+    {
+      "id": "${json-unit.any-string}",
+      "type": "OSCONTAINER",
+      "vduId": "eric-pm-bulk-reporter1",
+      "resourceTemplateId": [
+        "bulk_reporter_container1_1",
+        "bulk_reporter_container1_2"
+      ]
+    },
+    {
+      "id": "${json-unit.any-string}",
+      "type": "STORAGE",
+      "vduId": "eric-pm-bulk-reporter1",
+      "resourceTemplateId": [
+        "bulk_reporter_storage1_1"
+      ]
+    }
+  ],
+  "removeResources": [
+    {
+      "id": "${json-unit.any-string}",
+      "type": "OSCONTAINER",
+      "vduId": "eric-pm-bulk-reporter3",
+      "resourceTemplateId": [
+        "bulk_reporter_container3_1",
+        "bulk_reporter_container3_2"
+      ]
+    },
+    {
+      "id": "${json-unit.any-string}",
+      "type": "STORAGE",
+      "vduId": "eric-pm-bulk-reporter3",
+      "resourceTemplateId": [
+        "bulk_reporter_storage3_1"
+      ]
+    }
+  ],
+  "isAutomaticInvocation": false,
+  "_links": {
+    "vnfLcmOpOcc": {
+      "href": "${json-unit.any-string}"
+    },
+    "vnfInstance": {
+      "href": "https://localhost/vnflcm/v1/vnf_instances/%1$s"
+    }
+  }
+}

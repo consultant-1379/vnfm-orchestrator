@@ -1,0 +1,97 @@
+{
+  "_links": {
+    "first": {
+      "href": "http://localhost/vnflcm/v1/clusterconfigs?page=1"
+    },
+    "prev": {
+      "href": "http://localhost/vnflcm/v1/clusterconfigs?page=1"
+    },
+    "self": {
+      "href": "http://localhost/vnflcm/v1/clusterconfigs?page=2"
+    },
+    "next": null,
+    "last": {
+      "href": "http://localhost/vnflcm/v1/clusterconfigs?page=2"
+    }
+  },
+  "page": {
+    "number": 2,
+    "size": 15,
+    "totalPages": 2,
+    "totalElements": 24
+  },
+  "items": [
+    {
+      "id": 15,
+      "name": "cluster15.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 15",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 16,
+      "name": "cluster16.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 16",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 17,
+      "name": "cluster17.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 17",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 18,
+      "name": "cluster18.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 18",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 19,
+      "name": "cluster19.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 19",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 20,
+      "name": "cluster20.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 20",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 21,
+      "name": "cluster21.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 21",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": 22,
+      "name": "cluster22.config",
+      "status": "NOT_IN_USE",
+      "description": "Description for config file 22",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": "cbb3a411-d98b-4a41-876a-b0642fe923cf",
+      "name": "cluster002.config",
+      "status": "NOT_IN_USE",
+      "description": "Cluster 002 config file",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    }
+  ]
+}

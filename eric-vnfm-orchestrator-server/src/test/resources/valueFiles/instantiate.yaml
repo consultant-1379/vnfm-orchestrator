@@ -1,0 +1,23 @@
+influxdb:
+  ext:
+    apiAccessHostname: influxdb-service2.rontgen010.seli.gic.ericsson.se
+pm-testapp:
+  ingress:
+    domain: rontgen010.seli.gic.ericsson.se
+tags:
+  all: false
+  pm: true
+eric-adp-gs-testapp:
+  ingress:
+    enabled: false
+eric-pm-server:
+  server:
+    persistentVolume:
+      storageClass: erikube-rbd
+applicationTimeOut: 300
+commandTimeOut: 300
+extras:
+  instantiate: "during instantiation"
+
+
+

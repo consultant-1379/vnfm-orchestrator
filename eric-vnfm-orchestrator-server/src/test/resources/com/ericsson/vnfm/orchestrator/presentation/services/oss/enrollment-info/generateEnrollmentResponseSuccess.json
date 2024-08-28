@@ -1,0 +1,20 @@
+{
+  "generateEnrollmentInfoStatus": {
+    "exitStatus": 0,
+    "commandOutput": "[u'Enrollment information file generated successfully.']"
+  },
+  "getLdapInfoStatus": {
+    "exitStatus": 0,
+    "commandOutput": {
+      "fallbackLdapIpv6Address": "2001:1b70:6207:0029:0000:0878:1010:002b",
+      "ldapIpv6Address": "2001:1b70:6207:0029:0000:0878:1010:0029",
+      "bindPassword": "yni16wno",
+      "bindDn": "cn=ProxyAccount_3,ou=proxyagent,ou=com,dc=ieatenmc4a10-39,dc=com",
+      "tlsPort": "1389",
+      "ldapsPort": "1636",
+      "baseDn": "dc=ieatenmc4a10-39,dc=com",
+      "ldapIpv4Address": "131.160.205.18",
+      "fallbackLdapIpv4Address": "131.160.205.19"
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "additionalParams": {
+    "scope": "evnfm",
+    "backupName": "default_enm-01_20210205",
+    "remote": {
+      "host": "sftp://user@external.server",
+      "password": "admin123"
+    }
+  }
+}

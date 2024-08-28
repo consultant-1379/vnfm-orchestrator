@@ -1,0 +1,74 @@
+{file.xml=<config xmlns="http://tail-f.com/ns/config/1.0">
+              <epg xmlns="urn:rdns:com:ericsson:oammodel:ericsson-epg">
+                <sgw>
+                  <node>p4-pcc-2-sgw</node>
+                  <interface>
+                    <s4s11-c>
+                      <logical-interface>s4s11-c-if</logical-interface>
+                      <no-path-management/>
+                      <no-peer-restart/>
+                      <no-path-failure></no-path-failure>
+                    </s4s11-c>
+                    <s5s8-c>
+                      <logical-interface>sgw-s5s8-c-if</logical-interface>
+                      <no-path-management/>
+                      <no-peer-restart/>
+                      <no-path-failure></no-path-failure>
+                    </s5s8-c>
+                    <sx>
+                      <logical-interface>sx-a-if</logical-interface>
+                    </sx>
+                  </interface>
+                  <user-plane>
+                    <node-name>
+                      <name>p4-pcg-1</name>
+                      <pfcp-address>10.81.41.168</pfcp-address>
+                      <s1s4s11s12-u>
+                        <network-instance>access</network-instance>
+                      </s1s4s11s12-u>
+                      <s5s8-u>
+                        <network-instance>core</network-instance>
+                      </s5s8-u>
+                    </node-name>
+                  </user-plane>
+                  <user-plane-pool>
+                    <pool>
+                      <name>sgw-upf-pool</name>
+                      <node-name>
+                        <name>p4-pcg-1</name>
+                      </node-name>
+                    </pool>
+                  </user-plane-pool>
+                  <user-plane-selection>
+                    <default-pool>sgw-upf-pool</default-pool>
+                  </user-plane-selection>
+            </config> </config> <\/config> <\/config>, file.script=!/bin/sh -f
+
+set -x
+
+gsh modify_ne -ni p4-pcc-1 -mgi 1 -mc 4 -ari 1 -asi 4 -ap 1
+
+gsh modify_date_and_time -tz CET
+gsh create_ntp_server -ip 10.35.216.171
+gsh create_ntp_server -ip 10.35.216.172
+
+/tmp/DPE_SC/LoadUnits/ttx/int/bin/set_sysprop pcf_available false
+
+# Static GW selection
+gsh modify_node_function -name static_gw_selection -state on
+gsh create_ga -gan GA1
+gsh create_ga_ta_range -gan GA1 -tan GA1_TA2 -mcc 240 -mnc 80 -first 0 -last 65535
+gsh create_gw_selection_sgw -sgw p4-pcc-1-sgw -sgwv4 10.81.41.139 -sgwv6 NULL -gcap 100 -gan GA1
+gsh create_apn_pgw -ai 1 -pgw p4-pcc-1-pgw
+gsh create_gw_selection_pgw -pgw p4-pcc-1-pgw -pgwv4 10.81.41.134 -pgwv6 NULL -gcap 100 -gwt SGW_COMBINED -pt GTPV2 -sgw p4-pcc-1-sgw
+gsh create_gw_selection_apn -ai 1 -an internet -ao mnc080.mcc240.gprs
+
+gsh modify_subscriber_authentication -mavp off -savp off
+
+gsh modify_feature_state -fsi mme_pool -fs ACTIVATED
+
+gsh modify_node_function -name dns_prior_to_static_gw_selection -state on
+
+gsh create_dns -dn epc.mnc080.mcc240.3gppnetwork.org. -qt recursive -ct 604800 -lct 300 -dcm central
+gsh create_dns_server -dn epc.mnc080.mcc240.3gppnetwork.org. -ns dallas.ericsson.se.
+gsh create_dns_server_address -dn epc.mnc080.mcc240.3gppnetwork.org. -ns dallas.ericsson.se. -ip 10.81.112.49, eric-pm-bulk-reporter.service.annotations.metallb\.universe\.tf/allow-shared-ip=fm-pm, file.json={"ipconfig-instantiate": "192.168.1.10/16","params-instantiate": {"test-instantiate": "config-instantiate"},"array-instantiate": [{"traceNumber-instantiate": 12}]}}

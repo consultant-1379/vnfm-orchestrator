@@ -1,0 +1,1 @@
+TRUNCATE TABLE app_vnf_instance CASCADE;

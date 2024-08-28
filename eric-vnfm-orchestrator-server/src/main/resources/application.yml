@@ -1,0 +1,340 @@
+#
+# COPYRIGHT Ericsson 2024
+#
+#
+#
+# The copyright to the computer program(s) herein is the property of
+#
+# Ericsson Inc. The programs may be used and/or copied only with written
+#
+# permission from Ericsson Inc. or in accordance with the terms and
+#
+# conditions stipulated in the agreement/contract under which the
+#
+# program(s) have been supplied.
+#
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  profiles.active: test
+  main.banner-mode: "off"
+  application:
+    name: eric-vnfm-orchestrator-service
+  flyway:
+    baseline-on-migrate: true
+  servlet.multipart:
+    max-request-size: 1000MB
+    max-file-size: 1000MB
+  cloud:
+    kubernetes:
+      discovery:
+        enabled: false
+    config:
+      failFast: true
+      retry:
+        maxAttempts: 5
+  datasource:
+    hikari:
+      maximum-pool-size: 50
+  jpa:
+    open-in-view: false
+  data:
+    redis:
+      host: "eric-cloud-native-kvdb-rd-operand"
+      port: 6379
+      username: default
+      password: default
+      repositories:
+        enabled: false
+  lifecycle:
+    timeout-per-shutdown-phase: "10s"
+
+logging:
+  skip-null-token-endpoints:
+    - /actuator/health/liveness
+    - /actuator/health/readiness
+    - /actuator/prometheus
+  level:
+    root: INFO
+    com.ericsson.vnfm.orchestrator: INFO
+    org.springframework.cloud.kubernetes.fabric8.config: WARN
+
+  pattern:
+    #    See more details about pattern layout: http://logback.qos.ch/manual/layouts.html
+    #    See more details about logging.pattern.level : https://docs.spring.io/spring-boot/docs/2.1.6.RELEASE/reference/html/boot-features-logging.html#boot-features-custom-log-configuration
+    level: "%5p [%X{traceId:-}][%X{userName}]"
+    endpoints:
+      exclude: /actuator/prometheus, /actuator/health
+
+server:
+  port: 8888
+  socket: localhost
+  shutdown: graceful
+
+evnfm:
+  namespace: evnfm
+
+management:
+  tracing:
+    propagation:
+      consume: [b3, w3c]
+      produce: [b3, w3c]
+    baggage:
+      remote-fields:
+        - Authorization
+    sampling:
+      probability: 1.0
+  health:
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+        exclude: "heapdump,threaddump,env"
+  endpoint:
+    shutdown:
+      enabled: true
+    env:
+      enabled: false
+    heapdump:
+      enabled: false
+    threaddump:
+      enabled: false
+    health:
+      show-details: "ALWAYS"
+      diskspace:
+        enabled: true
+        path: /tmp
+        threshold: 100MB
+      probes:
+        enabled: true
+      group:
+        readiness:
+          include: db, ping, pvcCheck, diskSpace, cryptoService
+        liveness:
+          include: diskSpace, ping, discoveryComposite
+    prometheus:
+      enabled: true
+    metrics:
+      enabled: true
+    refresh:
+      enabled: true
+  metrics:
+    distribution:
+      sla:
+        http:
+          server:
+            requests: 100ms,300ms,500ms
+    export:
+      prometheus:
+        enabled: true
+
+healthCheckEnv:
+  mountPaths:
+    readWrite: /tmp
+
+#Build Info
+info:
+  app:
+    name: @project.name@
+    version: @project.version@
+    description: An application to orchestrate the life-cycle management of Virtual Network Functions
+
+workflow:
+  host: localhost:10103
+  command:
+    execute:
+      defaultTimeOut: 3600
+onboarding:
+  host: http://localhost:10102
+  path: "/api/vnfpkgm/v1/vnf_packages"
+  queryValue: "(eq,vnfdId,%s)"
+
+smallstack:
+  application: true
+
+oss:
+  topology:
+    directory: ${java.io.tmpdir}
+    enrollment:
+      additionalCertificate:
+        path: "certificates/vdu-vc-certificate.pem"
+        productNames: ${ENROLLMENT_ADDITIONAL_CERT_PRODUCT_NAMES:EXILIS-VDU}
+  polling:
+    delay: 300
+
+enm:
+  scripting:
+    cluster:
+      host: ${ENM_CLUSTER_HOST}
+      username: ${ENM_CLUSTER_USERNAME}
+      password: ${ENM_CLUSTER_PASSWORD}
+      port: ${ENM_CLUSTER_PORT:22}
+      ssh:
+        key:
+        connection:
+          timeout: ${ENM_CLUSTER_TIMEOUT:20000}
+          retry: 3
+          delay: 3000
+
+# NFVO default values
+nfvo:
+  enabled: false
+  username:
+  password:
+  tenantId:
+
+# Default Values for keystore
+truststore:
+  path: /var/lib/ca-certificates/java-cacerts
+  pass: changeit
+
+retry:
+  scaleRetryAttempts: "2"
+  connectTimeout: 500
+  crypto:
+    requestTimeout: 2000
+    maxAttempts: 5
+    backoff: 2000
+  nfvo:
+    maxAttempts: 5
+    backoff: 2000
+txRetry:
+  attempts: ${TX_RETRY_ATTEMPTS:5}
+  delayInSeconds: ${TX_RETRY_DELAY_IN_SECONDS:10}
+
+crypto:
+  host: http://localhost:10104
+
+license:
+  host: http://eric-eo-lm-consumer:80
+
+orchestrator:
+  restrictedMode: true
+  suffixFirstCnfReleaseSchema: true
+
+discovery:
+  services:
+    packages: eric-am-onboarding-service
+
+common-products:
+  name:
+  version:
+  dependencies:
+
+product:
+  name: EVNFM
+  version:
+  dependencies:
+
+toscao:
+  host: localhost
+  port: 7001
+  api:
+    version: v2.7
+
+helm:
+  registry:
+    host:
+
+clusterVerificationUidUpdater:
+  enable: true
+
+wfsRetryTemplate:
+  backOffPeriod: 30000
+  maxAttempts: 10
+
+redis:
+  listener:
+    enabled: true
+  cluster:
+    enabled: true
+  acl:
+    enabled: true
+  consumer:
+    name: ${HOSTNAME}
+
+instance: ${HOSTNAME:hostname}
+
+notifications:
+  enabled: false
+
+vnfm:
+  host:
+
+# DRAC default values
+drac:
+  enabled: false
+  config.json:
+
+recovery:
+  operationStage:
+    validTimeMinutes: 5
+  workingQueue:
+    validTimeMinutes: 3
+
+idempotency:
+  requestDetailsExpirationSeconds: 300
+  fixedDelay: 5000
+  eventsDedupExpirationSeconds: 300
+
+  retryAfter:
+    - endpoint: \/vnflcm\/v1\/vnf_instances\/?
+      method: POST
+      latency: 5
+    - endpoint: \/vnflcm\/v1\/vnf_instances\/[^\/]+
+      method: DELETE
+      latency: 3
+    - endpoint: \/vnflcm\/v1\/vnf_instances\/[^\/]+\/addNode\/?
+      method: POST
+      latency: 120
+    - endpoint: \/vnflcm\/v1\/vnf_instances\/[^\/]+\/deleteNode\/?
+      method: POST
+      latency: 120
+    - endpoint: \/vnflcm\/v1\/vnf_instances\/[^\/]+\/backups\/?
+      method: POST
+      latency: 3
+    - endpoint: \/vnflcm\/v1\/vnf_instances\/[^\/]+\/backups\/[^\/]+\/[^\/]+
+      method: POST
+      latency: 3
+    - endpoint: \/vnflcm\/v1\/vnf_instances\/[^\/]+\/instantiate\/?
+      method: POST
+      latency: 3
+    - endpoint: \/vnflcm\/v1\/vnf_instances\/[^\/]+\/scale\/?
+      method: POST
+      latency: 3
+    - endpoint: \/vnflcm\/v1\/vnf_instances\/[^\/]+\/sync\/?
+      method: POST
+      latency: 3
+    - endpoint: \/vnflcm\/v1\/vnf_instances\/[^\/]+\/terminate\/?
+      method: POST
+      latency: 3
+    - endpoint: \/vnflcm\/v1\/vnf_instances\/[^\/]+\/change_package_info\/?
+      method: POST
+      latency: 15
+    - endpoint: \/vnflcm\/v1\/vnf_instances\/[^\/]+\/change_vnfpkg\/?
+      method: POST
+      latency: 15
+    - endpoint: \/vnflcm\/v1\/vnf_instances\/[^\/]+\/heal\/?
+      method: POST
+      latency: 3
+    - endpoint: \/vnflcm\/v1\/vnf_instances\/[^\/]+\/cleanup\/?
+      method: POST
+      latency: 3
+    - endpoint: \/vnflcm\/v1\/vnf_lcm_op_occs\/[^\/]+\/rollback\/?
+      method: POST
+      latency: 3
+    - endpoint: \/vnflcm\/v1\/vnf_lcm_op_occs\/[^\/]+\/fail\/?
+      method: POST
+      latency: 3
+    - endpoint: \/vnflcm\/v1\/clusterconfigs\/?
+      method: POST
+      latency: 3
+    - endpoint: \/vnflcm\/v1\/clusterconfigs\/[^\/]+
+      method: DELETE
+      latency: 3

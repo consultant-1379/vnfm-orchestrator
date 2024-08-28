@@ -1,0 +1,1 @@
+ALTER TABLE app_lifecycle_operations ADD is_auto_rollback_allowed BOOLEAN DEFAULT true;

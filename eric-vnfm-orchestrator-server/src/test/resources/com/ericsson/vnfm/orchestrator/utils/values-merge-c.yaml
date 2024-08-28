@@ -1,0 +1,6 @@
+eric-pm-server:
+  server:
+    ingress:
+      enabled: false
+testKey: valueC
+anotherTestKey: secondValueC

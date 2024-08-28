@@ -1,0 +1,43 @@
+{
+  "_links": {
+    "first": {
+      "href": "https://host/vnflcm/v1/clusterconfigs?page=1&size=2&sort=name,desc"
+    },
+    "prev": {
+      "href": "https://host/vnflcm/v1/clusterconfigs?page=1&size=2&sort=name,desc"
+    },
+    "self": {
+      "href": "https://host/vnflcm/v1/clusterconfigs?page=2&size=2&sort=name,desc"
+    },
+    "next": {
+      "href": "https://host/vnflcm/v1/clusterconfigs?page=3&size=2&sort=name,desc"
+    },
+    "last": {
+      "href": "https://host/vnflcm/v1/clusterconfigs?page=5&size=2&sort=name,desc"
+    }
+  },
+  "page": {
+    "number": 2,
+    "size": 2,
+    "totalPages": 5,
+    "totalElements": 9
+  },
+  "items": [
+    {
+      "id": "dee3a711-d98b-4a41-123a-b0642fe923kg",
+      "name": "cluster003.config",
+      "status": "NOT_IN_USE",
+      "description": "Cluster 003 config file",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": false
+    },
+    {
+      "id": "cbb3a411-d98b-4a41-876a-b0642fe923cf",
+      "name": "cluster002.config",
+      "status": "NOT_IN_USE",
+      "description": "Cluster 002 config file",
+      "crdNamespace": "eric-crd-ns",
+      "isDefault": true
+    }
+  ]
+}

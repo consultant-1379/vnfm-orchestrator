@@ -1,0 +1,398 @@
+{
+  "node_types": {
+    "Ericsson.SAMPLE-VNF.1_25_CXS101289_R81E08.cxp9025898_4r81e08": {
+      "derived_from": "tosca.nodes.nfv.VNF",
+      "interfaces": {
+        "Vnflcm": {
+          "change_package": {},
+          "terminate": {},
+          "type": "tosca.interfaces.nfv.Vnflcm",
+          "instantiate": {
+            "inputs": {
+              "additional_parameters": {
+                "type": "ericsson.datatypes.nfv.InstantiateVnfOperationAdditionalParameters"
+              }
+            }
+          }
+        },
+        "MyCompanyChangeCurrentVnfPackage": {
+          "type": "MyCompany.interfaces.nfv.ChangeCurrentVnfPackage"
+        }
+      },
+      "properties": {
+        "descriptor_id": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "def1ce-4cf4-477c-aab3-2b04e6a382"
+              ]
+            }
+          ],
+          "default": "def1ce-4cf4-477c-aab3-2b04e6a382"
+        },
+        "provider": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "Ericsson"
+              ]
+            }
+          ],
+          "default": "Ericsson"
+        },
+        "descriptor_version": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "cxp9025898_4r81e08"
+              ]
+            }
+          ],
+          "default": "cxp9025898_4r81e08"
+        },
+        "vnfm_info": {
+          "type": "list",
+          "entry_schema": {
+            "type": "string",
+            "constraints": [
+              {
+                "valid_values": [
+                  "3881:E-VNFM"
+                ]
+              }
+            ]
+          },
+          "default": [
+            "3881:E-VNFM"
+          ]
+        },
+        "flavour_id": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "default"
+              ]
+            }
+          ],
+          "default": "default"
+        },
+        "software_version": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "1.25 (CXS101289_R81E08)"
+              ]
+            }
+          ],
+          "default": "1.25 (CXS101289_R81E08)"
+        },
+        "flavour_description": {
+          "type": "string",
+          "default": ""
+        },
+        "product_name": {
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "SAMPLE-VNF"
+              ]
+            }
+          ],
+          "default": "SAMPLE-VNF"
+        }
+      },
+      "artifacts": {
+        "helm_package": {
+          "type": "tosca.artifacts.File",
+          "description": "Helm package associated with this descriptor",
+          "file": "Definitions/OtherTemplates/sample-vnf-0.1.2.tgz"
+        },
+        "software_images": {
+          "type": "tosca.artifacts.nfv.SwImage",
+          "description": "Location of the software images being used in this package",
+          "file": "Files/images/docker.tar"
+        }
+      }
+    }
+  },
+  "topology_template": {
+    "policies": [
+      {
+        "ScalingAspects": {
+          "type": "tosca.policies.nfv.ScalingAspects",
+          "properties": {
+            "aspects": {
+              "Payload": {
+                "name": "Payload",
+                "description": "Scale level 0-29 maps to 1-30 Payload VNFC instances (1 instance per scale step)\n",
+                "step_deltas": [
+                  "delta_1"
+                ],
+                "max_scale_level": 10
+              },
+              "Payload_2": {
+                "name": "Payload_2",
+                "description": "Scale level 0-29 maps to 1-30 Payload VNFC instances (1 instance per scale step)\n",
+                "step_deltas": [
+                  "delta_2"
+                ],
+                "max_scale_level": 5
+              }
+            }
+          }
+        }
+      },
+      {
+        "Payload_InitialDelta1": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "targets": [
+            "CL_scaled_vm",
+            "TL_scaled_vm"
+          ],
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 3
+            }
+          }
+        }
+      },
+      {
+        "Payload_InitialDelta2": {
+          "type": "tosca.policies.nfv.VduInitialDelta",
+          "targets": [
+            "PL__scaled_vm"
+          ],
+          "properties": {
+            "initial_delta": {
+              "number_of_instances": 1
+            }
+          }
+        }
+      },
+      {
+        "Payload_ScalingAspectDeltas": {
+          "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+          "targets": [
+            "PL__scaled_vm",
+            "CL_scaled_vm"
+          ],
+          "properties": {
+            "deltas": {
+              "delta_1": {
+                "number_of_instances": 4
+              }
+            },
+            "aspect": "Payload"
+          }
+        }
+      },
+      {
+        "Payload_2_ScalingAspectDeltas": {
+          "type": "tosca.policies.nfv.VduScalingAspectDeltas",
+          "targets": [
+            "PL__scaled_vm",
+            "TL_scaled_vm"
+          ],
+          "properties": {
+            "deltas": {
+              "delta_2": {
+                "number_of_instances": 3
+              }
+            },
+            "aspect": "Payload_2"
+          }
+        }
+      },
+      {
+        "change_to_version_1": {
+          "type": "tosca.policies.nfv.VnfPackageChange",
+          "triggers": [
+            {
+              "change_to_version_1": {
+                "event": "tosca.interfaces.nfv.Vnflcm.change_current_package_notification",
+                "action": "tosca.interfaces.nfv.MyCompanyChangeCurrentVnfPackage.change_to_version_1"
+              }
+            }
+          ],
+          "properties": {
+            "additional_modification_description": "..",
+            "selector": {
+              "source_descriptor_id": "any-source-descriptor-id",
+              "destination_descriptor_id": "any-destination-descriptor-id",
+              "source_flavour_id": "default"
+            },
+            "modification_qualifier": "down",
+            "destination_flavour_id": "simple",
+            "component_mappings": [
+              {
+                "component_type": "vdu",
+                "description": "..",
+                "source_id": "server",
+                "destination_id": "dbBackend"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "node_templates": {
+      "SAMPLE-VNF": {
+        "type": "Ericsson.SAMPLE-VNF.1_25_CXS101289_R81E08.cxp9025898_4r81e08"
+      }
+    }
+  },
+  "imports": [
+    "etsi_nfv_sol001_vnfd_2_5_1_types.yaml"
+  ],
+  "tosca_definitions_version": "tosca_simple_yaml_1_2",
+  "description": "VNF Descriptor for Ericsson SGSN-MME",
+  "interface_types": {
+    "MyCompany.interfaces.nfv.ChangeCurrentVnfPackage": {
+      "derived_from": "tosca.interfaces.nfv.ChangeCurrentVnfPackage",
+      "operations": {
+        "change_to_version_1": {
+          "description": "operation for change from version 2 to 1",
+          "inputs": {
+            "additional_parameters": {
+              "type": "MyCompany.datatypes.nfv.VnfChangeToVersion1AdditionalParameters"
+            }
+          }
+        }
+      }
+    }
+  },
+  "data_types": {
+    "MyCompany.datatypes.nfv.VnfChangeToVersion1AdditionalParameters": {
+      "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters",
+      "properties": {
+        "date": {
+          "description": "Sample date example",
+          "metadata": {
+            "chart_param": "server.service.date"
+          },
+          "type": "timestamp",
+          "required": false
+        },
+        "day0.configuration.param2.value": {
+          "type": "string",
+          "description": "Value for external storage (SFTP)password",
+          "required": false
+        },
+        "router.enabled": {
+          "type": "boolean",
+          "description": "Enable router function",
+          "required": false
+        },
+        "system.protocol": {
+          "default": "MD5",
+          "type": "string",
+          "constraints": [
+            {
+              "valid_values": [
+                "SHA1",
+                "MD5"
+              ]
+            }
+          ],
+          "required": false
+        },
+        "restore.scope": {
+          "type": "string",
+          "required": true,
+          "default": "Rollback"
+        },
+        "mapType": {
+          "description": "map of strings with default values not required",
+          "type": "map",
+          "entry_schema": {
+            "type": "string"
+          },
+          "required": false
+        },
+        "day0.configuration.param1.key": {
+          "description": "Key for URI of external storage(SFTP) for backup import",
+          "default": "restore.externalStorageURI",
+          "type": "string",
+          "required": false
+        },
+        "listType": {
+          "description": "list of strings with default values not required",
+          "type": "list",
+          "entry_schema": {
+            "type": "string"
+          },
+          "required": false
+        },
+        "day0.configuration.param1.value": {
+          "type": "string",
+          "description": "Value for URI of external storage(SFTP) for backup import",
+          "required": false
+        },
+        "file.configMap": {
+          "description": "Sample file type for configMap",
+          "metadata": {
+            "chart_param": "script.config"
+          },
+          "type": "file",
+          "required": false
+        },
+        "day0.configuration.param2.key": {
+          "description": "Key for external storage (SFTP)password",
+          "default": "restore.externalStorageCredentials",
+          "type": "string",
+          "required": false
+        },
+        "day0.configuration.secretname": {
+          "description": "The name of the secret",
+          "default": "restore-external-storage-secret",
+          "type": "string",
+          "required": false
+        },
+        "component.replicaCount": {
+          "type": "integer",
+          "default": 3,
+          "required": true
+        },
+        "restore.backupName": {
+          "type": "string",
+          "required": true
+        }
+      }
+    },
+    "ericsson.datatypes.nfv.InstantiateVnfOperationAdditionalParameters": {
+      "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters",
+      "properties": {
+        "clusterIp": {
+          "description": "sample description for clusterIp",
+          "metadata": {
+            "chart_param": "server.service.clusterIP"
+          },
+          "type": "string",
+          "constraints": [
+            {
+              "pattern": "[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+"
+            }
+          ],
+          "required": true
+        }
+      }
+    },
+    "ericsson.datatypes.nfv.ChangePackageVnfOperationAdditionalParameters": {
+      "derived_from": "tosca.datatypes.nfv.VnfOperationAdditionalParameters",
+      "properties": {
+        "upgrade.downsize.allowed": {
+          "description": "It will enable efficient use of compute and memory resources but certainly result in downtime during upgrade.",
+          "default": false,
+          "type": "boolean",
+          "required": false
+        }
+      }
+    }
+  }
+}

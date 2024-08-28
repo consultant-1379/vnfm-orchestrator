@@ -1,0 +1,26 @@
+{
+  "PL__scaled_vm": {
+    "currentReplicaCount": 3,
+    "scalingParameterName": "PL__scaled_vm.replicaCount",
+    "autoScalingEnabledParameterName": "PL__scaled_vm.autoScalingEnabled",
+    "autoScalingEnabledValue": true,
+    "minReplicasParameterName": "PL__scaled_vm.maxReplicas",
+    "minReplicasCount": 1,
+    "maxReplicasParameterName": "PL__scaled_vm.minReplicas",
+    "maxReplicasCount": 3
+  },
+  "TL__scaled_vm": {
+    "currentReplicaCount": 3,
+    "scalingParameterName": "TL_scaled_vm.replicaCount"
+  },
+  "CL_scaled_vm": {
+    "currentReplicaCount": 3,
+    "scalingParameterName": "CL__scaled_vm.replicaCount",
+    "autoScalingEnabledParameterName": "CL__scaled_vm.autoScalingEnabled",
+    "autoScalingEnabledValue": false,
+    "minReplicasParameterName": "CL__scaled_vm.maxReplicas",
+    "minReplicasCount": 1,
+    "maxReplicasParameterName": "CL__scaled_vm.minReplicas",
+    "maxReplicasCount": 3
+  }
+}

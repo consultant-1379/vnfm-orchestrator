@@ -1,0 +1,18 @@
+{
+  "host": "localhost",
+  "version": "version-one",
+  "spring": {
+    "data": {
+      "login": "login-value",
+      "password": "password-value"
+    }
+  },
+  "upgrade_failed_parameters": {
+    "version": "upgrade-failed-version",
+    "spring": {
+      "logs": "disabled"
+    },
+    "username": "upgrade-failed-username",
+    "upgrade-failed-param": "upgrade-failed-value"
+  }
+}

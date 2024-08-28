@@ -1,0 +1,1 @@
+ALTER TABLE app_vnf_instance ADD resource_details VARCHAR default NULL;

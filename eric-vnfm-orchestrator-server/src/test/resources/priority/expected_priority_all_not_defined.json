@@ -1,0 +1,138 @@
+[
+  {
+    "helmChartName": "helm_package1",
+    "priorities": [
+      {
+        "priority": 5,
+        "lcmType": "INSTANTIATE"
+      },
+      {
+        "priority": 5,
+        "lcmType": "CHANGE_VNFPKG"
+      },
+      {
+        "priority": 5,
+        "lcmType": "SCALE"
+      },
+      {
+        "priority": 4,
+        "lcmType": "TERMINATE"
+      }
+    ]
+  },
+  {
+    "helmChartName": "helm_package2",
+    "priorities": [
+      {
+        "priority": 6,
+        "lcmType": "INSTANTIATE"
+      },
+      {
+        "priority": 6,
+        "lcmType": "CHANGE_VNFPKG"
+      },
+      {
+        "priority": 6,
+        "lcmType": "SCALE"
+      },
+      {
+        "priority": 3,
+        "lcmType": "TERMINATE"
+      }
+    ]
+  },
+  {
+    "helmChartName": "helm_package3",
+    "priorities": [
+      {
+        "priority": 7,
+        "lcmType": "INSTANTIATE"
+      },
+      {
+        "priority": 7,
+        "lcmType": "CHANGE_VNFPKG"
+      },
+      {
+        "priority": 7,
+        "lcmType": "SCALE"
+      },
+      {
+        "priority": 2,
+        "lcmType": "TERMINATE"
+      }
+    ]
+  },
+  {
+    "helmChartName": "helm_package4",
+    "priorities": [
+      {
+        "priority": 8,
+        "lcmType": "INSTANTIATE"
+      },
+      {
+        "priority": 8,
+        "lcmType": "CHANGE_VNFPKG"
+      },
+      {
+        "priority": 8,
+        "lcmType": "SCALE"
+      },
+      {
+        "priority": 1,
+        "lcmType": "TERMINATE"
+      }
+    ]
+  },
+  {
+    "helmChartName": "crd_package4",
+    "priorities": [
+      {
+        "priority": 4,
+        "lcmType": "INSTANTIATE"
+      },
+      {
+        "priority": 4,
+        "lcmType": "CHANGE_VNFPKG"
+      }
+    ]
+  },
+  {
+    "helmChartName": "crd_package3",
+    "priorities": [
+      {
+        "priority": 3,
+        "lcmType": "INSTANTIATE"
+      },
+      {
+        "priority": 3,
+        "lcmType": "CHANGE_VNFPKG"
+      }
+    ]
+  },
+  {
+    "helmChartName": "crd_package2",
+    "priorities": [
+      {
+        "priority": 2,
+        "lcmType": "INSTANTIATE"
+      },
+      {
+        "priority": 2,
+        "lcmType": "CHANGE_VNFPKG"
+      }
+    ]
+  },
+  {
+    "helmChartName": "crd_package1",
+    "priorities": [
+      {
+        "priority": 1,
+        "lcmType": "INSTANTIATE"
+      },
+      {
+        "priority": 1,
+        "lcmType": "CHANGE_VNFPKG"
+      }
+    ]
+  }
+]
